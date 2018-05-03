@@ -1,0 +1,175 @@
+.login-Navbar{
+    background: $menuLoginColor;
+    border-bottom: $borderMenulogin;
+    a {
+        transition: .3s all;
+        &.loginsite-active{
+            letter-spacing: 1px;
+            color:$LoginMenuActiveColor;
+            opacity: 1;
+            font-weight: 800;
+            transform: scale(1.4);
+        }   
+        &.loginsite-Notactive{
+            color: $LoginMenuNotActiveColor;
+            opacity: 0.5;
+            font-weight: 400;
+        }
+        &:hover, &:focus {
+            color: white;
+        }
+    }
+ .navbar-logo {
+    font-weight: 800;
+    font-size: 1.1em;
+  }
+}
+#login{
+    display: block;
+}
+
+
+
+#register,#passwordresset,#regulation{
+    display: none;
+}
+
+.loginActions{
+    margin-top: 10px;
+    text-align: center;
+    .login{
+        &:hover{
+            background: rgba(0, 128, 0, 0.76);
+        }
+    }
+    .register,.passwordrest{
+        margin-left: -10px;
+    }
+}
+.login-errors{
+    text-align: left;
+    ul{
+        list-style: none;
+    }
+}
+.ContentDivLogin{
+    background-color: #96cef2;
+    border-radius: 5%;
+    box-shadow: 0 2px 8px black;
+    padding: 10px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .login-section-name{
+        text-align: center;
+        font-size:1.5em;
+        font-family: serif;
+        letter-spacing: 10px;
+        color: white;
+    }
+    .login-section-forms{
+
+    }
+
+}
+.form-input-normal{
+    position: relative;
+    input{
+        background: rgba(233, 239, 242, 0.8);
+        padding: 10px;
+        outline: none;
+        min-width: inherit;
+        border: none;
+        width: 80%;
+        margin-top: 10px;
+        opacity: 0.7;
+        transition: $transition_default;
+        &:hover,&:focus{
+            background: rgb(233, 239, 242);
+            opacity: 1;
+            border-bottom: 2px solid gold;
+        }
+        &.inputError{
+            background: $color_danger;
+            &:hover,&:focus{
+                background: $color_danger;
+            }
+        }
+        &.inputSucces{
+            background: $color_success_light;
+            &:hover,&:focus{
+                background: $color_success_light;
+            }    
+        }
+        &.Password-bad{
+            background: $passwardBad;
+        }
+        &.Password-week{
+            background: $Passwordweek;
+        }
+        &.Password-good{
+            background: $PasswordGod;
+        }
+        &.Password-strong{
+            background: $PasswordStrong;
+        }
+        &.PasswaordJoin{
+            margin-top: 0px;
+            &hover{
+                border-bottom: 0px solid gold;
+            }
+         }
+    }
+    &.noborderhover{
+        input{
+            &:hover,&:focus{
+               border-bottom: none;
+            }
+        }
+    }
+ 
+    .itemStan{
+         margin-left: 10%;
+         width: 80%;
+         background: $color_danger_dark; 
+         color: white;
+         padding: 10px;
+         margin-bottom: -10px;
+         letter-spacing:2px;
+            &.LoginError,&.EmailError,&.PassError{
+                display: none;
+            }
+            &.Password-bad{
+                background: $color_danger_dark;
+            }
+             &.Password-week{
+                background: #e6811b;
+            }
+            &.Password-good{
+                background: #8bc744;
+            }
+            &.Password-strong{
+                background: #8ff516;
+            }
+        
+    }
+}
+@media only screen and (max-width: 500px) {
+        .loginActions{
+               display: flex;
+               margin: 5px;
+               flex-direction: column;
+               width: 100%;
+            .login,.register{ 
+                border-radius: 0px;
+            }
+            .login{
+                margin-left: 0;
+            }
+        }
+}
+
+    

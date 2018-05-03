@@ -1,0 +1,47 @@
+
+:root { font-size: $root_font_size; line-height: $base_line_height; }
+body { font-family: $base_font_family; color: $color_black; }
+
+h1, h2, h3, h4, h5, h6 { font-weight: $headings_weight; }
+h1 { font-size: 4rem; }
+h2 { font-size: 3.5rem; }
+h3 { font-size: 3rem; }
+h4 { font-size: 2.5rem; }
+h5 { font-size: 2rem; }
+h6 { font-size: 1.5rem; }
+p { font-size: 1rem; }
+
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-justify { text-align: justify; }
+.text-capitalize { text-transform: capitalize; }
+.text-uppercase { text-transform: uppercase; }
+.text-lowercase { text-transform: lowercase; }
+
+ol {
+  padding: 0 0 0 0.5rem;
+  list-style-position: inside;
+
+  li { margin: 0.3rem 0; }
+  &.list-upper-roman { list-style-type: upper-roman; }
+  &.list-bigger { font-size: 1.2rem; }
+
+}
+
+ul {
+  padding: 0 0 0 0.5rem;
+  list-style-position: inside;
+
+  li {
+    margin: 0.3rem 0;
+
+    span { margin-left: -0.5rem; }
+  }
+
+  &.list-bigger { font-size: 1.2rem; }
+  &.list-unstyled { list-style-type: none; }
+  &.list-square { list-style-type: square; }
+  &.list-circle { list-style-type: circle; }
+
+}

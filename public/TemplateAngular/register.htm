@@ -1,0 +1,152 @@
+<nav class="navbar login-Navbar">
+    <div class="container">
+        <a href=""  class="navbar-logo">StilFriend</a>
+        <a href="#" class="navbar-mobile-menu-button  material-icons" 
+        data-menu-id="#menu-1"   >
+              dehaze
+        </a>
+        <ul class="navbar-menu login" style="margin-right: 50px;" id="menu-1">
+            <li><a class='loginsiteMenu loginsite-active' data-login-section="#login">Logowanie</a></li>
+            <li><a class='loginsiteMenu loginsite-Notactive' data-login-section="#register">Rejestracjia</a></li>
+        </ul>
+    </div>
+</nav>
+<section class="container container-center">
+    <div class="row row-align-center">
+        <div class="col-xl-6 col-xl-offset-3 col-l-8 col-l-offset-2 col-s-10 col-s-offset-1   center-this">
+            <div class="col-xl-6 col-xl-offset-3">
+                <img src="img/sf.gif">
+            </div>
+            <div class="ContentDivLogin container-center">
+                <form method="post">
+                    <div class="data-login-section" ng-controller="login" id="login">
+                        <div class="login-section-name">Logowanie</div>
+                        <div ng-show="ErorrsLoginNotification" class="alert alert-danger login-errors">
+                            <ul>
+                                <li ng-show="ErorrsLogin[1].value">
+                                    Błędny login lub hasło !
+                                </li>
+                                <li ng-show="ErorrsLogin[2].value">
+                                    Konto zostało zbanowane na skutek naruszania regulaminu !
+                                </li>
+
+                                <li ng-show="ErorrsLogin[0].value">
+                                    Nie pełne dane do zalogowania !
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="login-section-forms">
+                            <div class="form-input-normal">
+                                <input id="input-1" type="text" ng-class="{'inputError': ErorrsLoginNotification}" ng-model="loginglogin" placeholder="Login">
+                                <label for="input-1"></label>
+                            </div>
+                            <div class="form-input-normal">
+                                <input id="input-1" type="password" ng-class="{'inputError': ErorrsLoginNotification}" ng-model="logingpassword" placeholder="Hasło">
+                                <label for="input-1"></label>
+                            </div>
+                        </div>
+                        <div class="data-login-section loginActions">
+                            <button class="btn register btn-success btn-radius-left logingStart" ng-click="logingClick()">
+                                            Zaloguj
+                            </button>
+                            <button class="loginsiteMenu  btn btn-info passwordrest" data-login-section="#passwordresset">
+                                                Nie pamiętasz hasłą ?
+                            </button>
+                            <button class="loginsiteMenu  btn register btn-warning btn-radius-right" data-login-section="#register">
+                                    Rejestracjia
+                            </button>
+                        </div>
+                    </div>
+                    <div class="data-login-section center-this" ng-controller="register" id="register">
+                        <div class="login-section-name">Rejestracjia</div>
+                        <div ng-show="ErorrsRegisterValidate" class="alert alert-danger login-errors">
+                            <ul>
+                                <li ng-show="ErorrsRegister[0].value" class="EmptyLoginFilds">
+                                    Nie wypełniono następujacych pól:
+                                    <ul ng-repeat="Field in EmptyFieldsRegister">
+                                        <li><b>{{Field}}</b></li>
+                                    </ul>
+                                </li>
+                                <li ng-show="ErorrsRegister[1].value" class="EmptyLoginFilds">
+                                    hasła nie są takie same
+                                </li>
+                                <li ng-show="ErorrsRegister[2].value" class="EmptyLoginFilds">
+                                    Hasło jest za słabe
+                                </li>
+                                <li ng-show="ErorrsRegister[3].value" class="EmptyLoginFilds">
+                                    email nie jest poprawny
+                                </li>
+                                <li ng-show="ErorrsRegister[5].value" class="EmptyLoginFilds">
+                                    Nie zakceptowano regulaminu
+                                </li>
+                                <li ng-show="ErorrsRegister[4].value" class="EmptyLoginFilds">
+                                    Login o nazwie <b>{{login}}</b> jest zajęty
+                                </li>
+                                <li ng-show="ErorrsRegister[6].value" class="EmptyLoginFilds">
+                                    Rejestracjia sie nie powiodłą bład servera
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="login-section-forms">
+                            <div class="form-input-normal">
+                                <label for="input-1">   
+                                                <div class="itemStan btn-radius-top LoginError">
+                                                    Login <b>{{login}}</b> jest już zajęty
+                                                </div>   
+                                                <input id="input-1" type="test" name="login"  ng-model="login" class="LoginRegister" placeholder="Login">
+                                            </label>
+                            </div>
+                            <div class="form-input-normal">
+                                <label for="input-2">   
+                                    <div class="itemStan EmailError" >
+                                        Emial nie jest poprawny
+                                    </div>   
+                                    <input id="input-2" type="test"  ng-model="email" 
+                                    class="email" placeholder="Email">
+                                </label>
+                            </div>
+                            <div class="form-input-normal passwordForm">
+                                <label for="input-3">
+                                    <div class="itemStan PassError passwordForm" >
+                                            {{PassStrength | TranslatePasswordErorr}}
+                                    </div>  
+                                    <input id="input-3" class="Password passwordForm" type="password" ng-model="password" placeholder="Hasło ">
+                                </label>
+                            </div>
+                            <div class="form-input-normal passwordForm" >
+                                <label for="input-4">
+                                    <input id="input-4" type="password" ng-model="passwordrepeat"  
+                                    class="Passwordpasswordrepeat passwordForm"
+                                    placeholder="Powtórz hasło ">
+                                </label>
+                            </div>
+                            <div class="form-checkbox Regulation inputError">
+                                <input id="regulation" type="checkbox" name="regulation" ng-model="regulation" value="regulation">
+                                <label for="regulation">
+                                        Akceptuje 
+                                    <a href="#" class='loginsiteMenu' data-login-section="#regulation">
+                                        Regulamin
+                                    </a> 
+                                </label>
+                            </div>
+                        </div>
+                        <div class="data-login-section loginActions">
+                            <button type="submit" class="btn register btn-success btn-radius-left RegisterStart">
+                                    Zarejestruj
+                            </button>
+                            <button class="loginsiteMenu register btn  btn-info btn-radius-right" data-login-section="#login">
+                                    Mam jusz konto
+                            </button>
+                        </div>
+                    </div>
+                    <div class="data-login-section " id="passwordresset">
+                        <div class="login-section-name">Resetowanie Hasła</div>
+                    </div>
+                    <div class="data-login-section " id="regulation">
+                        <div class="login-section-name">Regulamin</div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

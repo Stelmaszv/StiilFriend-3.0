@@ -1,0 +1,45 @@
+.tabs {
+  .menu {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      flex-grow: 1;
+      margin: 0 .2em;
+
+      &:first-child {
+        margin: 0 .2em 0 0;
+      }
+      &:last-child {
+        margin: 0 0 0 .2em;
+      }
+
+      a {
+        display: block;
+        text-align: center;
+        padding: .5em;
+        text-decoration: none;
+        color: $color_primary;
+        box-shadow: 0 2px 5px $color_gray_light;
+
+        &:hover, &.active {
+          background-color: $color_primary;
+          color: $color_white;
+        }
+      }
+    }
+  }
+
+  .body {
+    > div {
+      display: none;
+    }
+
+    .show {
+      display: block;
+    }
+  }
+}
