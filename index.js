@@ -9,6 +9,8 @@ var Auth= require('./Auth');
 var DB = DBConnect();
 var Routs = Routs(app);
 var Auth=Auth(app,DB);
+var GetMessages= require('./Messages');
+var GetMessages=GetMessages(io);
 app.use(express.static('public'))
 app.use('/static', express.static('public'))
 http.listen(port, function(){

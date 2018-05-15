@@ -52,21 +52,22 @@ Helpers.service( 'Componets' , [function() {
           }
     }
     function navbar() {
+        if(screen.width<480){
+            let nawbar = document.querySelector('.navbar');
+            nawbar.classList.add('Mobile','MainMobile')
+        }
         let navbarMobileMenuButtons = document.querySelectorAll('.navbar-mobile-menu-button');
           for (let navbarMobileMenuButton of navbarMobileMenuButtons) {
             navbarMobileMenuButton.addEventListener('click', function(e) {
               e.preventDefault();
               let menu = document.querySelector(navbarMobileMenuButton.getAttribute('data-menu-id'));
-              navbarMobileMenuButton.classList.add('clicked-button');
-              $( menu ).slideDown( "slow");
-              let clickedbuttons = document.querySelectorAll('.clicked-button');
-              for (let clickedbutton of clickedbuttons) {
-                    clickedbutton.addEventListener('click', function(e) {
-                        $( menu ).slideUp( "slow");
-                        navbarMobileMenuButton.classList.remove('clicked-button');
-                    });
-              }
-              
+                if(menu.style.display==''|| menu.style.display=='none' ){
+                    navbarMobileMenuButton.classList.add('clicked-button');
+                    $( menu ).slideDown( "slow");
+                }else{
+                    navbarMobileMenuButton.classList.remove('clicked-button');
+                    $( menu ).slideUp( "slow");
+                }
             });
           }
           let setBodyMargin = (function self() {
@@ -78,7 +79,16 @@ Helpers.service( 'Componets' , [function() {
           })();
 
           window.addEventListener('resize', function() {
-            setBodyMargin();
+              let navbarMobileMenuButtons = document.querySelectorAll('.navbar-mobile-menu-button');
+              for (let navbarMobileMenuButton of navbarMobileMenuButtons) {
+                  let menu = document.querySelector(navbarMobileMenuButton.getAttribute('data-menu-id'));
+                  if(menu.style.display!=''|| menu.style.display!='none' ){
+                        $( menu ).slideUp( "slow");
+                  }
+              }
+              
+              MenuTops.click();
+              
           });
 
           window.addEventListener('scroll', function() {
@@ -187,15 +197,27 @@ Helpers.service( 'Componets' , [function() {
         }
     }
     function dropdown() {
-          let dropdownMenus = document.querySelectorAll('.dropdown');
-          for (let dropdownMenu of dropdownMenus) {
-            let dropdownMenuButton = dropdownMenu.querySelector('.dropdown-menu-button');
+        /*
+        let dropdownMenus = document.querySelectorAll('.MainNavNavbarDrobdown');
+        for (let dropdownMenu of dropdownMenus) {
+            let dropdownMenuButton = dropdownMenu.querySelector('.MainNavNavbar-dropdown-menu-button');
             dropdownMenuButton.addEventListener('click', function(e) {
-              e.preventDefault();
-              let menu = dropdownMenu.querySelector('.dropdown-menu');
-              toggleFlex(menu);
-            });
-          }
+                e.preventDefault();
+                console.log()
+                dropdownMenu.classList.add('clicked-button','ActivSection','btn-radius-top');
+                let switchItem = dropdownMenu.querySelector('.DropdownStan');
+                //Dropdown-Menu-Div
+                let DropDownMenu = dropdownMenu.querySelector('.Dropdown-Menu-Div');
+                $(DropDownMenu).slideDown( "slow");
+                let DopDownUp = dropdownMenu.querySelector('.DopDownUp');
+                DopDownUp.addEventListener('click', function(e) {
+                    $(DropDownMenu).slideUp( "slow");
+                    dropdownMenuButton.classList.remove('clicked-button');
+                    dropdownMenu.classList.remove('clicked-button','ActivSection','btn-radius-top');
+                })
+            })
+        }
+        */
      }
 }]);
 Helpers.service( 'Rerister' , ['Forms','Array','Errors','GetUrl',function(Forms,Array,Errors,GetUrl) {
@@ -249,8 +271,7 @@ Helpers.service( 'Array' , [function() {
                         FindField=key;
                     }
                 break;
-            }
-            
+            }    
         });
         return FindField;
     }
@@ -283,5 +304,46 @@ Helpers.service( 'Sesion',['store', 'jwtHelper',function(store,jwtHelper){
         }else{
             return false;
         }
+    }
+}])
+Helpers.factory('Socket',['socketFactory',function(socketFactory){
+    return socketFactory();
+}])
+Helpers.service('TimeConvert',['$filter',function($filter){
+    this.time=CreateTime();
+    this.CreateTime=function(){
+        return CreateTime();
+    }
+    function CreateTime(){
+        var time= new Date();
+        var year= time.getFullYear();
+        var mount=time.getMonth();
+        mount=mount+1;
+        var day=time.getDate();
+        var haur=time.getHours();
+        var minuts=time.getMinutes();
+        var secunds=time.getSeconds();
+        ValuetoReturn=year+':'+convert(mount)+':'+convert(day)+':'+convert(haur)+':'+convert(minuts)+':'+convert(secunds)
+        return ValuetoReturn;
+    }
+    function convert(value){
+        if(value<10){
+            return '0'+value;
+        }else{
+            return value;
+        }
+    }
+    function ResrashTime (key,type){
+        key=$filter('timestampToDate')(key,type);
+        return key;
+    }
+    this.UpdateTime=function(array){
+          angular.forEach(array, function (value, key) {
+             // array[key].date=ResrashTime(array[key].date)
+              array[key].Time=ResrashTime(array[key].date,'short')
+              
+          })
+        return array
+
     }
 }])

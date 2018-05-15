@@ -1,7 +1,7 @@
 /*
 Error: Undefined variable: "$container_max_width".
-        on line 1 of D:/StilFriend 3.0 (Nude.js Angular.js)/public/CSS/component/_grid.scss
-        from line 6 of D:\StilFriend 3.0 (Nude.js Angular.js)\public\CSS\component\hcj-framework.scss
+        on line 1 of D:/xamp/htdocs/Stillfriend/StiilFriend-3.0/public/CSS/component/_grid.scss
+        from line 6 of D:\xamp\htdocs\Stillfriend\StiilFriend-3.0\public\CSS\component\hcj-framework.scss
 
 1: 
 2: // @import 'test';
@@ -11,8 +11,8 @@ Error: Undefined variable: "$container_max_width".
 6: @import 'grid';
 
 Backtrace:
-D:/StilFriend 3.0 (Nude.js Angular.js)/public/CSS/component/_grid.scss:1
-D:\StilFriend 3.0 (Nude.js Angular.js)\public\CSS\component\hcj-framework.scss:6
+D:/xamp/htdocs/Stillfriend/StiilFriend-3.0/public/CSS/component/_grid.scss:1
+D:\xamp\htdocs\Stillfriend\StiilFriend-3.0\public\CSS\component\hcj-framework.scss:6
 C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/script/tree/variable.rb:49:in `_perform'
 C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/script/tree/node.rb:50:in `perform'
 C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:402:in `visit_prop'
@@ -72,4 +72,4 @@ C:/Program Files (x86)/Koala/bin/sass:22:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$container_max_width\".\A         on line 1 of D:/StilFriend 3.0 (Nude.js Angular.js)/public/CSS/component/_grid.scss\A         from line 6 of D:\StilFriend 3.0 (Nude.js Angular.js)\public\CSS\component\hcj-framework.scss\A \A 1: \A 2: // @import 'test';\A 3: \A 4: @import 'normalize';\A 5: @import 'helpers';\A 6: @import 'grid';"; }
+  content: "Error: Undefined variable: \"$container_max_width\".\A         on line 1 of D:/xamp/htdocs/Stillfriend/StiilFriend-3.0/public/CSS/component/_grid.scss\A         from line 6 of D:\xamp\htdocs\Stillfriend\StiilFriend-3.0\public\CSS\component\hcj-framework.scss\A \A 1: \A 2: // @import 'test';\A 3: \A 4: @import 'normalize';\A 5: @import 'helpers';\A 6: @import 'grid';"; }

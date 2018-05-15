@@ -1,0 +1,419 @@
+/*
+.Main-Navbar{
+    z-index: 0;
+    background: $menuLoginColor;
+    border-bottom: $borderMenulogin;
+    .logoNav{
+        width: 100px;
+        height: 50px;
+    }
+    .navbar-menu-Left{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+        .SearchMenuElemnt{
+            margin-left: 15px;
+            margin-bottom: -20px;
+            .Main-Search{
+                margin-top: 5px;
+                transition: .8s all;
+                display: block;
+                padding: 10px;
+                width: 400px;
+                opacity: 0.7;
+                &:hover{
+                    opacity: 1;
+
+                }
+            }
+            .searchDiv{
+                display: none;
+                position: absolute;
+                width: 400px;
+                top:45px;
+                background: $menuLoginColor;
+                -webkit-box-shadow: 11px 47px 60px 9px rgba(0,0,0,0.48);
+                -moz-box-shadow: 11px 47px 60px 9px rgba(0,0,0,0.48);
+                box-shadow: 11px 47px 60px 9px rgba(0,0,0,0.48);
+                color: rebeccapurple;
+            }
+            .SearchDivPadding{
+                display: none;
+                position: absolute;
+                background: $menuLoginColor;
+                width: 500px;
+                height: 25px;
+            }
+            .Resultbox{
+                background: white;
+                padding:5px; 
+            }
+        }
+    }
+    .navbar-menu {
+        position: relative;
+        .ProfilInfo,.Load-Messages,.Load-Notification,.MainNavNavbarDrobdown{
+            a{
+                transition: .8s all;
+                opacity: 0.7;
+                &:hover{
+                    opacity: 1;
+                    color: #f0f023;
+                } 
+                .MainMenuName{
+                    margin-left: 20px;
+                    margin-top: 5px;
+                }
+                
+            }
+            
+        }
+        .Load-Messages,.Load-Notification,.Load-Drapdown{
+            margin-left: 0px;
+            &.ActivSection{
+                background: lighten($menuLoginColor, 10%);
+                border-left:2px solid #ffda0e;
+                border-right: 2px solid #ffda0e;
+                border-top:2px solid #ffda0e;
+            }
+            a{
+                &.clicked-button{
+                    transform: scale(1.2);
+                    opacity: 1; 
+                    color: #f8e716; 
+                    font-weight: 800;
+                }
+                
+            }
+        }
+        .Load-Section-messages,.Load-Section-notifications,.Load-Section-Drapdown{
+            display: none;
+            .Dropdown-Menu-Div{
+                letter-spacing: 5px;
+                text-align: left;
+                list-style: none;
+                flex-direction: column;
+            }
+        }
+        .Load-div{
+                display: none;
+                background: lighten($menuLoginColor, 10%);
+                position: absolute;
+                top: 65;
+                right: 0;
+                width: 400px;
+                border-bottom: 2px solid #ffda0e;
+                border-left: 2px solid #ffda0e;
+                border-right: 2px solid #ffda0e;
+        }
+        .UpSection{
+                transition: .8s all;
+                opacity: .7;
+                width: 100%;
+                background: #ffda0e;
+                text-align: center;
+                &:hover{
+                    opacity: 1;
+                }
+                
+        }        
+    }
+}
+
+
+
+.MobileOnly{
+    display: none;
+}
+@media only screen and (max-width: 1050px) {
+    .Main-Navbar{
+        .navbar-menu-Left{
+            .SearchMenuElemnt{
+                .Main-Search{
+                    width: 300px;
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 768px) {
+    .MobileOnly{
+        display: flex;
+    }
+    .Main-Navbar{
+        .navbar-menu-Left{
+            .SearchMenuElemnt{
+                .Main-Search{
+                    margin-top: 10px;
+                }
+            }
+        }
+        .ProfilInfo,.Load-Messages,.Load-Notification,.MainNavNavbarDrobdown{
+            a{
+                .MainMenuName{
+                    letter-spacing: 5px;
+                    margin: 5px;
+                }
+            }
+            
+        } 
+        .MainNavNavbarDrobdown{
+            .MainNavNavbar-dropdown-menu-button{
+                margin-bottom: 10px;
+            }
+            position: static;
+            transition: .8s all;
+            .clicked-button{
+                  opacity: 1; 
+                  color: #f8e716; 
+                  font-weight: 800;
+            }
+            .Dropdown-Menu-Div{
+                  -webkit-box-shadow: 11px 47px 60px 9px rgba(0,0,0,0.48);
+                  -moz-box-shadow: 11px 47px 60px 9px rgba(0,0,0,0.48);
+                  box-shadow: 0px 0px 0px 0px none;
+                  background: none;
+                  border-bottom: 0px solid $menuLoginColor;
+                  border-left: 0px solid $menuLoginColor;
+                  border-right: 0px solid $menuLoginColor;
+                  position: static;
+                  flex-direction: column;
+                   li{
+                       padding: 0px;
+                       transition: .8s all;
+                       .DopDownUp{
+                           margin-top: -5px;
+                           width: 100%;
+                           background: #ffda0e;
+                           text-align: center;
+                       }
+                       background-color: $menuLoginColor;
+                       opacity: 0.5;
+                        letter-spacing: 5px;
+                       &:hover{
+                           background-color: $menuLoginColor;
+                           opacity: 1;
+                           a{
+                               color: #f8e716;
+                           }
+                       }
+                   }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 535px) {
+    .Main-Navbar{
+        .navbar-menu-Left{
+            .SearchMenuElemnt{
+                display: none;
+            }
+        }
+        
+    }
+}
+
+*/
+.Main-Navbar{
+    z-index: 0;
+    background: $menuLoginColor;
+    border-bottom: $borderMenulogin;
+    .logoNav{
+        width: 100px;
+        height: 50px;
+    }
+    .mobilebatton{
+        a{
+            color: red;
+        }
+    }
+    .navbar-menu-Left{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+        .SearchMenuElemnt{
+            margin-left: 15px;
+            margin-bottom: -20px;
+            .Main-Search{
+                margin-top: 5px;
+                transition: .8s all;
+                padding: 10px;
+                width: 400px;
+                opacity: 0.7;
+                display: flex;
+                &:hover{
+                    opacity: 1;
+
+                }
+            }
+            .searchDiv{
+                display: none;
+                position: absolute;
+                width: 400px;
+                top:45px;
+                background: $menuLoginColor;
+                -webkit-box-shadow: 11px 47px 60px 9px rgba(0,0,0,0.48);
+                -moz-box-shadow: 11px 47px 60px 9px rgba(0,0,0,0.48);
+                box-shadow: 11px 47px 60px 9px rgba(0,0,0,0.48);
+                color: rebeccapurple;
+            }
+            .SearchDivPadding{
+                display: none;
+                position: absolute;
+                background: $menuLoginColor;
+                width: 500px;
+                height: 25px;
+            }
+            .Resultbox{
+                background: white;
+                padding:5px; 
+            }
+        }
+    }
+    .navbar-menu {
+        position: relative;
+        .ProfilInfo,.Load-Messages,.Load-Notification,.Load-Drapdown{
+            a{
+                transition: .8s all;
+                opacity: 0.7;
+                &:hover{
+                    opacity: 1;
+                    color: #f0f023;
+                } 
+                .MainMenuName{
+                    margin-left: 20px;
+                    margin-top: 5px;
+                }
+                
+            }
+            
+        }
+        .Load-Messages,.Load-Notification,.Load-Drapdown{
+            margin-left: 0px;
+            &.ActivSection{
+                background: lighten($menuLoginColor, 10%);
+                border-left:2px solid #ffda0e;
+                border-right: 2px solid #ffda0e;
+                border-top:2px solid #ffda0e;
+            }
+            a{
+                &.clicked-button{
+                    transform: scale(1.2);
+                    opacity: 1; 
+                    color: #f8e716; 
+                    font-weight: 800;
+                }
+                 &.notreeded{
+                    position: relative;
+                     color: #f8e716;
+                     transform: scale(1.2);
+                    .CountItem{  
+                        position: absolute;
+                        color: white;
+                        width: 20px;
+                        height: 20px;
+                        left: 5px;
+                        top: 5px;
+                        background-color: #F34A53;
+                        border-radius: 100%;
+                        font-weight: 800;
+                    }
+                }
+            }
+        }
+        .Load-Section-messages,.Load-Section-notifications,.Load-Section-Drapdown{
+            display: none;
+            .Dropdown-Menu-Div{
+                letter-spacing: 5px;
+                text-align: left;
+                list-style: none;
+                flex-direction: column;
+            }
+        }
+        .Load-div{
+                display: none;
+                background: lighten($menuLoginColor, 10%);
+                position: absolute;
+                top: 65;
+                right: 0;
+                width: 400px;
+                border-bottom: 2px solid #ffda0e;
+                border-left: 2px solid #ffda0e;
+                border-right: 2px solid #ffda0e;
+        }
+        .UpSection{
+                transition: .8s all;
+                opacity: .7;
+                width: 100%;
+                background: #ffda0e;
+                text-align: center;
+                &:hover{
+                    opacity: 1;
+                }
+                
+        }        
+    }
+}
+
+@media(min-width: 480px) {
+   .Main-Navbar{
+        .navbar-menu-Left{
+            .SearchMenuElemnt{
+                .Main-Search{
+                    width: 300px;
+                }
+            }
+        }
+    }
+    .MobileOnly{
+        display: flex;
+    }
+}
+@media(max-width: 480px){
+    .Main-Navbar{
+        .navbar-menu-Left{
+           .Main-Search{
+                &.DestopOnly{
+                    display: none;
+                }
+            }
+       }
+    }
+}
+@media (max-width: 768px) {
+    .Main-Navbar{
+        .navbar-menu {
+           .Load-Messages,.Load-Notification,.Load-Drapdown{
+               a{
+                   &.notreeded{
+                        position: static;
+                         transform: scale(1.0);
+                        .CountItem{  
+                            position: static;
+                        }
+                    }
+               }
+           }
+       }
+    }
+
+}
+@media (min-width: 768px) {
+   .Main-Navbar{
+        .navbar-menu-Left{
+            .SearchMenuElemnt{
+                .Main-Search{
+                    width: 350px;
+                }
+            }
+        }
+    }
+    .MobileOnly{
+        display: none;
+    }
+}
+

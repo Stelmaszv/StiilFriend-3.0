@@ -207,16 +207,120 @@ StartControlers.controller("register",['$scope','$http','Errors','Forms','Compon
         ];
 	});
 }]);
-StartControlers.controller("main",['$scope','$http','Sesion',function($scope,$http,Sesion){
-    $scope.user=Sesion.Tokken;
-    let logingStart = document.querySelector('.logout');
-    logingStart.addEventListener('click',function(){       
 
-        if(confirm('czy napewno chcesz sie wylogowac ?')){
-            Sesion.Logout()
-            location.reload()
-        }
+StartControlers.controller("MainController",['$scope','$http','Sesion','Socket','Messages','Componets','TimeConvert','$interval',function($scope,$http,Sesion,Socket,Messages,Componets,TimeConvert,$interval){
+    Componets.load();
+    $scope.user=Sesion.Tokken; 
+    TimeConvert.CreateTime()
+    $scope.counts={
+        'NotreededMes':0,
+        'NotreededNot':0
+    }
+    $scope.SearchBattuns={
+        'SearchDiv':false,
+        'NotreededNot':1
+    }
+    Socket.emit('request-messages',$scope.user)
+    Socket.on('messages',function(data){
+        $scope.messages=data;
+        $scope.messages=TimeConvert.UpdateTime($scope.messages);
+        $scope.messages=Messages.SetMessages($scope.messages)
+        $scope.counts.NotreededMes=Messages.countNotReeded($scope.messages);
     })
+    Socket.on('message',function(data){
+        $scope.messages.push(data);
+        $scope.messages=TimeConvert.UpdateTime($scope.messages);
+        $scope.messages=Messages.SetMessages($scope.messages)
+        $scope.counts.NotreededMes=Messages.countNotReeded($scope.messages);
+    })
+    $scope.MarkAsReeded= function(){
+        data = $scope.messages;
+        data=Messages.MarkAsReeded(data,true)
+        Socket.emit('MarkAsReeded',data)
+    }
+    $scope.sent=function(){
+        $scope.MessageStan=[];
+        $scope.MessageStan.push($scope.user)
+        $scope.Tosent={"UserID":3,"login":"kotek","email":"Mama@kotak.12","password":"$2b$10$3zhnjpQ4kc2iwqUfrftwWOfqRO6WF5lsvLZMekZCZIFiicv9G1ifi","ban":0,"active":0,"configure":0,"avatar":"user/photo/3/kotek.jpg"};
+        $scope.MessageStan.push($scope.Tosent)
+        $scope.MessageStan[0].reeded=true;
+        $scope.MessageStan[1].reeded=false;
+        $scope.MessageStan[0].deleted=false;
+        $scope.MessageStan[1].deleted=false;
+        content='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam maiores ad odio, temporibus quo dolore nobis pariatur blanditiis nam eos maxime ratione at. A ratione magnam, voluptate, autem distinctio quia.';
+        Socket.emit('message',{"sendID":$scope.user.UserID,"time":TimeConvert.CreateTime(),"Contnet":content,MessageStan:$scope.MessageStan})
+    }
+    Socket.on('MarkAsReeded',function(data){
+        
+        $scope.messages=Messages.MarkAsReeded(data,false)
+        $scope.messages=Messages.SetMessages($scope.messages)
+        $scope.counts.NotreededMes=Messages.countNotReeded($scope.messages);
+        
+    })
+    let Search = document.querySelector('.Main-Search');
+    Search.addEventListener('keyup',function(e){
+        let SearchDiv = document.querySelector('.SearchDiv');
+        if(this.value.length>0){
+            $(SearchDiv).slideDown( "slow");
+        }else{
+            $(SearchDiv).slideUp( "slow");
+        }
+    }) 
+    LoadSection(0)
+    LoadSection(1)
+    LoadSection(2)
+    function LoadSection(Elemnt){
+        $scope.ActiveElments=[
+            {"Click":'.Load-Notification-Click',"Active":'.MainMenuItem.Notification',"ActivSection":'.Load-Notification',"SectionName":'.Load-Section-notifications',"Url":'http://localhost:3000/messages'},
+            {"Click":'.Load-Messages-Click',"Active":'.MainMenuItem.Messages',"ActivSection":'.Load-Messages',"SectionName":'.Load-Section-messages',"Url":'http://localhost:3000/messages'},
+            {"Click":'.Load-Drapdown-Click',"Active":'.MainMenuItem.Drapdown',"ActivSection":'.Load-Drapdown',"SectionName":'.Load-Section-Drapdown'}
+        ]    
+        let LoadSection = document.querySelector($scope.ActiveElments[Elemnt].Click);
+        if(screen.width<480){
+            window.location =''+$scope.ActiveElments[Elemnt].Url+''
+        }else{
+            LoadSection.addEventListener('click',function(e){
+                e.preventDefault();
+                $scope.ActiveElments=ResetActiveElents($scope.ActiveElments);
+                let ActiveItem = document.querySelector($scope.ActiveElments[Elemnt].Active);
+                let ActivSectionItem = document.querySelector($scope.ActiveElments[Elemnt].ActivSection);
+                let SectionName= document.querySelector($scope.ActiveElments[Elemnt].SectionName);
+                let LoadSection= document.querySelector('.Load-div')
+                if($scope.Elment==undefined | $scope.Elment!=Element ){
+                    $(SectionName).slideDown( "slow");
+                    ActiveItem.classList.add('clicked-button')
+                    ActivSectionItem.classList.add('ActivSection','btn-radius-top')
+                    $(LoadSection).slideDown( "slow");
+                }else if($scope.Elment===Element){
+                    $(SectionName).slideUp( "slow");
+                    ActiveItem.classList.remove('clicked-button')
+                    ActivSectionItem.classList.remove('ActivSection','btn-radius-top')
+                    $(LoadSection).slideUp( "slow");
+                    $scope.Elment=undefined;
+                    return false;
+                }
+                $scope.Elment=Element;
+            })
+        }
+            function ResetActiveElents(array){
+                for (i = 0; i < array.length; i++) { 
+                   ActivSectionItem = document.querySelector(array[i].ActivSection);
+                   ActiveItem = document.querySelector(array[i].Active);
+                   SectionName= document.querySelector(array[i].SectionName);
+                   SectionName.style.display='none';
+                   ActiveItem.classList.remove('clicked-button')
+                   ActivSectionItem.classList.remove('ActivSection','btn-radius-top')
+                }
+                return array;
+            } 
+    }
+    function UpdateTime(){
+        $scope.messages=TimeConvert.UpdateTime($scope.messages);
+    }
+    setInterval(function(){ 
+       $interval(UpdateTime, 1000);
+    }, 1000);
 }]);
+
 
 

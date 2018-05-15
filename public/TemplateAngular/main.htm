@@ -1,4 +1,98 @@
-<div ng-controller="main">
-    <h2 class="logout"><center>Witaj na na portalu <b>{{user.login}}</b></center></h2>
+   <div ng-controller="MainController" >
+    <nav class="navbar Main-Navbar btn-shadow">
+        <div class="container">
+            <ul class="navbar-menu-Left">
+                <li class="navbar-logo"><img class="logoNav"  src="img/sfhedlogo.gif"></li>
+                <li class="SearchMenuElemnt">
+                        <input type="text" class="Main-Search DestopOnly" ng-model="Search" placeholder="Szukaj...">
+                        <div class="SearchDiv">
+                        <div class="Resultbox">
+                            {{Search}}<br>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <a href="#" class=" navbar-mobile-menu-button material-icons mobilebatton" data-menu-id="#menu-1"   >
+                    menu
+            </a>
+            <ul class="navbar-menu"  id="menu-1">
+                <li class="ProfilInfo">
+                    <a href="/MyProfil">
+                        <i class="material-icons pull-left">person</i>
+                        <span class="MainMenuName pull-left">{{user.login}}</span>
+                    </a>
+                </li>
+                <li class="LoadSectionJS Load-Messages" >
+                        <a  class="MainMenuItem Messages Load-Messages-Click" ng-class="{'notreeded':counts.NotreededMes>0}">
+                            <i class="material-icons pull-left" ng-show="counts.NotreededMes==0">mail_outline</i>
+                            <i class="material-icons pull-left" ng-show="counts.NotreededMes>0">mail</i>
+                            <span class="MobileOnly pull-left  MainMenuName">Wiadomosci</span>
+                            <span class="pull-right  MainMenuName" ng-class="{'notreededItem':counts.NotreededMes>0,'CountItem':counts.NotreededMes>0}" ng-show="counts.NotreededMes>0">{{counts.NotreededMes | ToMuch:'small' }}</span>
+                        </a>
+                        
+                </li>
+                <li class="LoadSectionJS Load-Notification ">
+                    <a  class="MainMenuItem Notification Load-Notification-Click" ng-class="{'notreeded':counts.NotreededNot>0}">
+                            <i class="material-icons pull-left" ng-show="counts.NotreededNot==0">
+                                    notifications
+                            </i>
+                            <i class="material-icons pull-left" ng-show="counts.NotreededNot>0">
+                                    notifications_active
+                            </i>
+                            <span class="MobileOnly pull-left   MainMenuName">Powiadmonia</span>
+                            <span class="pull-right  MainMenuName CountItem" ng-class="{'notreededItem':counts.NotreededNot>0,'CountItem':counts.NotreededNot>0}" ng-show="counts.NotreededNot>0">{{counts.NotreededNot | ToMuch:'small'}}</span>
+                    </a>
+                </li>
+                <li class="LoadSectionJS Load-Drapdown">
+                   <a  class="MainMenuItem Drapdown Load-Drapdown-Click ">
+                           <i class="material-icons pull-left">
+                                     arrow_drop_down
+                            </i>
+                            <span class="MobileOnly pull-left   MainMenuName">Więcej</span>
+                    </a>
+                </li>
+                <div class="Load-Notification-Load-Messages">
+                    <div class="Load-div">
+                        <div class="Load-Section-messages">
+                            <div ng-include src="'TemplateAngular/messages.htm'" ></div>
+                        </div>
+                        <div class="Load-Section-Drapdown">
+                            <ul class="Dropdown-Menu-Div" >
+                                  <li>
+                                     <a href="#">
+                                      <i class="material-icons">autorenew</i>
+                                      Ustawienia
+                                      </a>
+                                  </li>
+                                  <li class="logout">
+                                      <a href="#">
+                                          <i class="material-icons">power_settings_new</i>
+                                          Wyloguj
+                                      </a>
+                                  </li>
+                            </ul>
+                        </div>
+                        <div class="Load-Section-notifications" >
+                            <div ng-include src="'TemplateAngular/notifications.htm'" ></div>
+                        </div>
+                    </div>
+                </div>
+            </ul>
+            
+        </div>
+    </nav>
+    <section class="MainPage">
+        <div class="container">
+            <div class="row">
+                <div class="leftSite col-xl-2 col-l-2 col-m-2"></div>
+                <div class="MainSite col-xl-8 col-l-8 col-m-8">
+       
+                </div>
+                <div class="Chat col-xl-2 col-l-2 col-m-2"></div>
+            </div>
+        </div>
+    </section>
 </div>
+
+
 

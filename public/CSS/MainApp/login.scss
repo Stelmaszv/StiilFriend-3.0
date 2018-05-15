@@ -1,28 +1,36 @@
 .login-Navbar{
     background: $menuLoginColor;
     border-bottom: $borderMenulogin;
-    a {
-        transition: .3s all;
+    
+  .navbar-logo {
+    font-size: 1.1em;
+  }
+  .logoNav{
+        width: 100px;
+        height: 50px;
+  }
+  .navbar-menu {
+     transition: .6s all;
+     a {
+        
+        text-align: center;
+        letter-spacing: 5px;
+        font-weight: 800;
         &.loginsite-active{
-            letter-spacing: 1px;
+            
             color:$LoginMenuActiveColor;
             opacity: 1;
-            font-weight: 800;
-            transform: scale(1.4);
         }   
         &.loginsite-Notactive{
             color: $LoginMenuNotActiveColor;
             opacity: 0.5;
-            font-weight: 400;
         }
         &:hover, &:focus {
             color: white;
         }
     }
- .navbar-logo {
-    font-weight: 800;
-    font-size: 1.1em;
   }
+ 
 }
 #login{
     display: block;

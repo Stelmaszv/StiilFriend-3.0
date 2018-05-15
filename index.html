@@ -7,20 +7,24 @@
        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
        <link rel="stylesheet" type="text/css" href="CSS/MainApp/main.css">
     </head>
-    <body ng-app="myApp">
+    <body ng-app="myApp" onselectstart="return false" onselect="return false" oncopy="return">
         <div ng-view></div>
+        <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
         <script src="https://cdn.rawgit.com/auth0/angular-storage/master/dist/angular-storage.js"></script>
         <script src="https://cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js"></script>
+        <script src="libs/socket.js"></script>
         <script src="JS/MainApp/Routs.js"></script>
         <script src="JS/MainApp/ControlerLogin.js"></script>
         <script src="JS/MainApp/servis/Helpers.js"></script>
         <script src="JS/MainApp/servis/notification.js"></script>
         <script src="JS/MainApp/servis/notification.js"></script>
         <script src="JS/MainApp/servis/url.js"></script>
+        <script src="JS/MainApp/servis/MainServis.js"></script>
         <script src="JS/MainApp/filtrs/translate.js"></script>
+        <script src="JS/MainApp/filtrs/filtrs.js"></script>
         <script src="JS/MainApp/url.js"></script>
     </body>
 </html>

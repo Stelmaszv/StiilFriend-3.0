@@ -1,23 +1,25 @@
 .login-Navbar {
   background: #4e4ab1;
   border-bottom: 5px solid #ffda0e; }
-  .login-Navbar a {
-    transition: .3s all; }
-    .login-Navbar a.loginsite-active {
-      letter-spacing: 1px;
-      color: #ffffff;
-      opacity: 1;
-      font-weight: 800;
-      transform: scale(1.4); }
-    .login-Navbar a.loginsite-Notactive {
-      color: rgba(255, 255, 255, 0.61);
-      opacity: 0.5;
-      font-weight: 400; }
-    .login-Navbar a:hover, .login-Navbar a:focus {
-      color: white; }
   .login-Navbar .navbar-logo {
-    font-weight: 800;
     font-size: 1.1em; }
+  .login-Navbar .logoNav {
+    width: 100px;
+    height: 50px; }
+  .login-Navbar .navbar-menu {
+    transition: .6s all; }
+    .login-Navbar .navbar-menu a {
+      text-align: center;
+      letter-spacing: 5px;
+      font-weight: 800; }
+      .login-Navbar .navbar-menu a.loginsite-active {
+        color: #ffffff;
+        opacity: 1; }
+      .login-Navbar .navbar-menu a.loginsite-Notactive {
+        color: rgba(255, 255, 255, 0.61);
+        opacity: 0.5; }
+      .login-Navbar .navbar-menu a:hover, .login-Navbar .navbar-menu a:focus {
+        color: white; }
 
 #login {
   display: block; }
@@ -122,5 +124,445 @@
       border-radius: 0px; }
     .loginActions .login {
       margin-left: 0; } }
+/*
+.Main-Navbar{
+    z-index: 0;
+    background: $menuLoginColor;
+    border-bottom: $borderMenulogin;
+    .logoNav{
+        width: 100px;
+        height: 50px;
+    }
+    .navbar-menu-Left{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+        .SearchMenuElemnt{
+            margin-left: 15px;
+            margin-bottom: -20px;
+            .Main-Search{
+                margin-top: 5px;
+                transition: .8s all;
+                display: block;
+                padding: 10px;
+                width: 400px;
+                opacity: 0.7;
+                &:hover{
+                    opacity: 1;
+
+                }
+            }
+            .searchDiv{
+                display: none;
+                position: absolute;
+                width: 400px;
+                top:45px;
+                background: $menuLoginColor;
+                -webkit-box-shadow: 11px 47px 60px 9px rgba(0,0,0,0.48);
+                -moz-box-shadow: 11px 47px 60px 9px rgba(0,0,0,0.48);
+                box-shadow: 11px 47px 60px 9px rgba(0,0,0,0.48);
+                color: rebeccapurple;
+            }
+            .SearchDivPadding{
+                display: none;
+                position: absolute;
+                background: $menuLoginColor;
+                width: 500px;
+                height: 25px;
+            }
+            .Resultbox{
+                background: white;
+                padding:5px; 
+            }
+        }
+    }
+    .navbar-menu {
+        position: relative;
+        .ProfilInfo,.Load-Messages,.Load-Notification,.MainNavNavbarDrobdown{
+            a{
+                transition: .8s all;
+                opacity: 0.7;
+                &:hover{
+                    opacity: 1;
+                    color: #f0f023;
+                } 
+                .MainMenuName{
+                    margin-left: 20px;
+                    margin-top: 5px;
+                }
+                
+            }
+            
+        }
+        .Load-Messages,.Load-Notification,.Load-Drapdown{
+            margin-left: 0px;
+            &.ActivSection{
+                background: lighten($menuLoginColor, 10%);
+                border-left:2px solid #ffda0e;
+                border-right: 2px solid #ffda0e;
+                border-top:2px solid #ffda0e;
+            }
+            a{
+                &.clicked-button{
+                    transform: scale(1.2);
+                    opacity: 1; 
+                    color: #f8e716; 
+                    font-weight: 800;
+                }
+                
+            }
+        }
+        .Load-Section-messages,.Load-Section-notifications,.Load-Section-Drapdown{
+            display: none;
+            .Dropdown-Menu-Div{
+                letter-spacing: 5px;
+                text-align: left;
+                list-style: none;
+                flex-direction: column;
+            }
+        }
+        .Load-div{
+                display: none;
+                background: lighten($menuLoginColor, 10%);
+                position: absolute;
+                top: 65;
+                right: 0;
+                width: 400px;
+                border-bottom: 2px solid #ffda0e;
+                border-left: 2px solid #ffda0e;
+                border-right: 2px solid #ffda0e;
+        }
+        .UpSection{
+                transition: .8s all;
+                opacity: .7;
+                width: 100%;
+                background: #ffda0e;
+                text-align: center;
+                &:hover{
+                    opacity: 1;
+                }
+                
+        }        
+    }
+}
+
+
+
+.MobileOnly{
+    display: none;
+}
+@media only screen and (max-width: 1050px) {
+    .Main-Navbar{
+        .navbar-menu-Left{
+            .SearchMenuElemnt{
+                .Main-Search{
+                    width: 300px;
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 768px) {
+    .MobileOnly{
+        display: flex;
+    }
+    .Main-Navbar{
+        .navbar-menu-Left{
+            .SearchMenuElemnt{
+                .Main-Search{
+                    margin-top: 10px;
+                }
+            }
+        }
+        .ProfilInfo,.Load-Messages,.Load-Notification,.MainNavNavbarDrobdown{
+            a{
+                .MainMenuName{
+                    letter-spacing: 5px;
+                    margin: 5px;
+                }
+            }
+            
+        } 
+        .MainNavNavbarDrobdown{
+            .MainNavNavbar-dropdown-menu-button{
+                margin-bottom: 10px;
+            }
+            position: static;
+            transition: .8s all;
+            .clicked-button{
+                  opacity: 1; 
+                  color: #f8e716; 
+                  font-weight: 800;
+            }
+            .Dropdown-Menu-Div{
+                  -webkit-box-shadow: 11px 47px 60px 9px rgba(0,0,0,0.48);
+                  -moz-box-shadow: 11px 47px 60px 9px rgba(0,0,0,0.48);
+                  box-shadow: 0px 0px 0px 0px none;
+                  background: none;
+                  border-bottom: 0px solid $menuLoginColor;
+                  border-left: 0px solid $menuLoginColor;
+                  border-right: 0px solid $menuLoginColor;
+                  position: static;
+                  flex-direction: column;
+                   li{
+                       padding: 0px;
+                       transition: .8s all;
+                       .DopDownUp{
+                           margin-top: -5px;
+                           width: 100%;
+                           background: #ffda0e;
+                           text-align: center;
+                       }
+                       background-color: $menuLoginColor;
+                       opacity: 0.5;
+                        letter-spacing: 5px;
+                       &:hover{
+                           background-color: $menuLoginColor;
+                           opacity: 1;
+                           a{
+                               color: #f8e716;
+                           }
+                       }
+                   }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 535px) {
+    .Main-Navbar{
+        .navbar-menu-Left{
+            .SearchMenuElemnt{
+                display: none;
+            }
+        }
+        
+    }
+}
+
+*/
+.Main-Navbar {
+  z-index: 0;
+  background: #4e4ab1;
+  border-bottom: 5px solid #ffda0e; }
+  .Main-Navbar .logoNav {
+    width: 100px;
+    height: 50px; }
+  .Main-Navbar .mobilebatton a {
+    color: red; }
+  .Main-Navbar .navbar-menu-Left {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row; }
+    .Main-Navbar .navbar-menu-Left .SearchMenuElemnt {
+      margin-left: 15px;
+      margin-bottom: -20px; }
+      .Main-Navbar .navbar-menu-Left .SearchMenuElemnt .Main-Search {
+        margin-top: 5px;
+        transition: .8s all;
+        padding: 10px;
+        width: 400px;
+        opacity: 0.7;
+        display: flex; }
+        .Main-Navbar .navbar-menu-Left .SearchMenuElemnt .Main-Search:hover {
+          opacity: 1; }
+      .Main-Navbar .navbar-menu-Left .SearchMenuElemnt .searchDiv {
+        display: none;
+        position: absolute;
+        width: 400px;
+        top: 45px;
+        background: #4e4ab1;
+        -webkit-box-shadow: 11px 47px 60px 9px rgba(0, 0, 0, 0.48);
+        -moz-box-shadow: 11px 47px 60px 9px rgba(0, 0, 0, 0.48);
+        box-shadow: 11px 47px 60px 9px rgba(0, 0, 0, 0.48);
+        color: rebeccapurple; }
+      .Main-Navbar .navbar-menu-Left .SearchMenuElemnt .SearchDivPadding {
+        display: none;
+        position: absolute;
+        background: #4e4ab1;
+        width: 500px;
+        height: 25px; }
+      .Main-Navbar .navbar-menu-Left .SearchMenuElemnt .Resultbox {
+        background: white;
+        padding: 5px; }
+  .Main-Navbar .navbar-menu {
+    position: relative; }
+    .Main-Navbar .navbar-menu .ProfilInfo a, .Main-Navbar .navbar-menu .Load-Messages a, .Main-Navbar .navbar-menu .Load-Notification a, .Main-Navbar .navbar-menu .Load-Drapdown a {
+      transition: .8s all;
+      opacity: 0.7; }
+      .Main-Navbar .navbar-menu .ProfilInfo a:hover, .Main-Navbar .navbar-menu .Load-Messages a:hover, .Main-Navbar .navbar-menu .Load-Notification a:hover, .Main-Navbar .navbar-menu .Load-Drapdown a:hover {
+        opacity: 1;
+        color: #f0f023; }
+      .Main-Navbar .navbar-menu .ProfilInfo a .MainMenuName, .Main-Navbar .navbar-menu .Load-Messages a .MainMenuName, .Main-Navbar .navbar-menu .Load-Notification a .MainMenuName, .Main-Navbar .navbar-menu .Load-Drapdown a .MainMenuName {
+        margin-left: 20px;
+        margin-top: 5px; }
+    .Main-Navbar .navbar-menu .Load-Messages, .Main-Navbar .navbar-menu .Load-Notification, .Main-Navbar .navbar-menu .Load-Drapdown {
+      margin-left: 0px; }
+      .Main-Navbar .navbar-menu .Load-Messages.ActivSection, .Main-Navbar .navbar-menu .Load-Notification.ActivSection, .Main-Navbar .navbar-menu .Load-Drapdown.ActivSection {
+        background: #706cc2;
+        border-left: 2px solid #ffda0e;
+        border-right: 2px solid #ffda0e;
+        border-top: 2px solid #ffda0e; }
+      .Main-Navbar .navbar-menu .Load-Messages a.clicked-button, .Main-Navbar .navbar-menu .Load-Notification a.clicked-button, .Main-Navbar .navbar-menu .Load-Drapdown a.clicked-button {
+        transform: scale(1.2);
+        opacity: 1;
+        color: #f8e716;
+        font-weight: 800; }
+      .Main-Navbar .navbar-menu .Load-Messages a.notreeded, .Main-Navbar .navbar-menu .Load-Notification a.notreeded, .Main-Navbar .navbar-menu .Load-Drapdown a.notreeded {
+        position: relative;
+        color: #f8e716;
+        transform: scale(1.2); }
+        .Main-Navbar .navbar-menu .Load-Messages a.notreeded .CountItem, .Main-Navbar .navbar-menu .Load-Notification a.notreeded .CountItem, .Main-Navbar .navbar-menu .Load-Drapdown a.notreeded .CountItem {
+          position: absolute;
+          color: white;
+          width: 20px;
+          height: 20px;
+          left: 5px;
+          top: 5px;
+          background-color: #F34A53;
+          border-radius: 100%;
+          font-weight: 800; }
+    .Main-Navbar .navbar-menu .Load-Section-messages, .Main-Navbar .navbar-menu .Load-Section-notifications, .Main-Navbar .navbar-menu .Load-Section-Drapdown {
+      display: none; }
+      .Main-Navbar .navbar-menu .Load-Section-messages .Dropdown-Menu-Div, .Main-Navbar .navbar-menu .Load-Section-notifications .Dropdown-Menu-Div, .Main-Navbar .navbar-menu .Load-Section-Drapdown .Dropdown-Menu-Div {
+        letter-spacing: 5px;
+        text-align: left;
+        list-style: none;
+        flex-direction: column; }
+    .Main-Navbar .navbar-menu .Load-div {
+      display: none;
+      background: #706cc2;
+      position: absolute;
+      top: 65;
+      right: 0;
+      width: 400px;
+      border-bottom: 2px solid #ffda0e;
+      border-left: 2px solid #ffda0e;
+      border-right: 2px solid #ffda0e; }
+    .Main-Navbar .navbar-menu .UpSection {
+      transition: .8s all;
+      opacity: .7;
+      width: 100%;
+      background: #ffda0e;
+      text-align: center; }
+      .Main-Navbar .navbar-menu .UpSection:hover {
+        opacity: 1; }
+
+@media (min-width: 480px) {
+  .Main-Navbar .navbar-menu-Left .SearchMenuElemnt .Main-Search {
+    width: 300px; }
+
+  .MobileOnly {
+    display: flex; } }
+@media (max-width: 480px) {
+  .Main-Navbar .navbar-menu-Left .Main-Search.DestopOnly {
+    display: none; } }
+@media (max-width: 768px) {
+  .Main-Navbar .navbar-menu .Load-Messages a.notreeded, .Main-Navbar .navbar-menu .Load-Notification a.notreeded, .Main-Navbar .navbar-menu .Load-Drapdown a.notreeded {
+    position: static;
+    transform: scale(1); }
+    .Main-Navbar .navbar-menu .Load-Messages a.notreeded .CountItem, .Main-Navbar .navbar-menu .Load-Notification a.notreeded .CountItem, .Main-Navbar .navbar-menu .Load-Drapdown a.notreeded .CountItem {
+      position: static; } }
+@media (min-width: 768px) {
+  .Main-Navbar .navbar-menu-Left .SearchMenuElemnt .Main-Search {
+    width: 350px; }
+
+  .MobileOnly {
+    display: none; } }
+@media only screen and (max-width: 768px) {
+  .MainPage .leftSite {
+    display: none; }
+  .MainPage .Chat {
+    display: none; } }
+.Messages-Nabvar {
+  background: #858ac3;
+  border-bottom: 2px solid black;
+  text-align: center; }
+  .Messages-Nabvar .navbar-menu {
+    transition: .8s all; }
+    .Messages-Nabvar .navbar-menu li a {
+      font-size: 11px;
+      font-weight: 500;
+      font-style: italic;
+      color: #fffefe; }
+      .Messages-Nabvar .navbar-menu li a:hover {
+        transition: .8s all;
+        color: red;
+        transform: scale(1); }
+  .Messages-Nabvar .MessagesDiv {
+    position: relative; }
+    .Messages-Nabvar .MessagesDiv .MessagesIcon {
+      opacity: 0.5;
+      margin: 10px;
+      width: 25px;
+      height: 25px; }
+      .Messages-Nabvar .MessagesDiv .MessagesIcon:hover {
+        transition: .8s all;
+        opacity: 1; }
+    .Messages-Nabvar .MessagesDiv .MessagesCount {
+      position: absolute;
+      color: white;
+      width: 20px;
+      height: 20px;
+      left: 20px;
+      top: 5px;
+      background-color: #F34A53;
+      border-radius: 100%;
+      font-weight: 800; }
+  .Messages-Nabvar .TrassDiv {
+    opacity: 0.5;
+    margin: 10px;
+    width: 25px;
+    height: 25px; }
+    .Messages-Nabvar .TrassDiv:hover {
+      transition: .8s all;
+      opacity: 1; }
+
+.messages-Loop {
+  width: 100%;
+  height: 220px;
+  overflow: auto;
+  overflow-x: hidden; }
+  .messages-Loop .messages-Loop-Element {
+    transition: .8s all;
+    background: white;
+    color: black;
+    opacity: 0.7; }
+    .messages-Loop .messages-Loop-Element.not-reeded {
+      opacity: 1; }
+    .messages-Loop .messages-Loop-Element .avatar {
+      width: 50px;
+      height: 50px; }
+    .messages-Loop .messages-Loop-Element:hover {
+      opacity: 1; }
+    .messages-Loop .messages-Loop-Element .Time, .messages-Loop .messages-Loop-Element .Login {
+      text-align: left;
+      font-weight: 600; }
+    .messages-Loop .messages-Loop-Element .Time {
+      text-align: right; }
+    .messages-Loop .messages-Loop-Element .messages-Loop-Contnet {
+      padding: 2px;
+      text-align: left; }
+  .messages-Loop .Empty-Messages {
+    background: white;
+    color: black;
+    padding: 10px; }
+
+::-webkit-scrollbar {
+  width: 10px; }
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; }
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; }
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; }
 
 /*# sourceMappingURL=main.css.map */

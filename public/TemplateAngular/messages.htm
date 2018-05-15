@@ -1,0 +1,43 @@
+<sectin id="Main-Messages">
+    <nav class="navbar Messages-Nabvar">
+        <ul class="navbar-menu">
+            <li ng-click="sent()"><a>Napisz  wiadmość</a></li>
+            <li><a>Skrzynka Odbiorcza</a></li>
+        </ul>
+        <span ng-click="MarkAsReeded()" class="MessagesDiv">
+            <img class="MessagesIcon Messages" src="{{messages | urlIcons:'SainAsReed'}}">
+            <span class="MessagesCount" ng-show="counts.NotreededMes>0">1</span>
+        </span>
+        <img class="TrassDiv" src="{{messages | urlIcons:'Delete'}}">
+    </nav>
+    <div class="messages-Loop">
+        <div ng-repeat="message in messages | orderBy : '-date'">
+            <div class="row messages-Loop-Element" ng-class="{'not-reeded':!message.reeded}">
+                <div class="col-s-2">
+                   <!--
+                    <img class="avatar" src="{{message.avatarShow | filtrPhoto: 'user':message.sex }}">
+                    -->
+                    <img class="avatar" src="{{message.avatarShow}}">
+                </div>
+                <div class="col-s-10">
+                    <div class="row">
+                        <div class="col-s-6 Login">
+                            {{message.loginShow}}
+                        </div>
+                        <div class="col-s-6 Time">
+                            {{message.Time}}
+                        </div>
+                    </div>
+                    <div class="messages-Loop-Contnet">
+                        <span ng-if="message.sendID==user.UserID">
+                          <i class="material-icons">{{message.MessageStan | CheckIfReeded:user}}</i>  
+                      </span> {{message.Contnet | tektlengh:40 | Nodata:'Wiadmość jest pusta !' }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="Empty-Messages" ng-show="!messages.length">
+             Skszynka jest pusta
+        </div>
+    </div>
+</sectin>

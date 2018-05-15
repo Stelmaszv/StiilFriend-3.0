@@ -1,17 +1,21 @@
 /*
 Error: Undefined variable: "$menuLoginColor".
-        on line 2 of D:\xamp\htdocs\Stillfriend\StiilFriend-3.0\public\CSS\MainApp\login.scss
+        on line 221 of D:\xamp\htdocs\Stillfriend\StiilFriend-3.0\public\CSS\MainApp\MainNavbar.scss
 
-1: .login-Navbar{
-2:     background: $menuLoginColor;
-3:     border-bottom: $borderMenulogin;
-4:     
-5:   .navbar-logo {
-6:     font-size: 1.1em;
-7:   }
+216: }
+217: 
+218: *\/
+219: .Main-Navbar{
+220:     z-index: 0;
+221:     background: $menuLoginColor;
+222:     border-bottom: $borderMenulogin;
+223:     .logoNav{
+224:         width: 100px;
+225:         height: 50px;
+226:     }
 
 Backtrace:
-D:\xamp\htdocs\Stillfriend\StiilFriend-3.0\public\CSS\MainApp\login.scss:2
+D:\xamp\htdocs\Stillfriend\StiilFriend-3.0\public\CSS\MainApp\MainNavbar.scss:221
 C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/script/tree/variable.rb:49:in `_perform'
 C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/script/tree/node.rb:50:in `perform'
 C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:402:in `visit_prop'
@@ -58,4 +62,4 @@ C:/Program Files (x86)/Koala/bin/sass:22:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$menuLoginColor\".\A         on line 2 of D:\xamp\htdocs\Stillfriend\StiilFriend-3.0\public\CSS\MainApp\login.scss\A \A 1: .login-Navbar{\A 2:     background: $menuLoginColor;\A 3:     border-bottom: $borderMenulogin;\A 4:     \A 5:   .navbar-logo {\A 6:     font-size: 1.1em;\A 7:   }"; }
+  content: "Error: Undefined variable: \"$menuLoginColor\".\A         on line 221 of D:\xamp\htdocs\Stillfriend\StiilFriend-3.0\public\CSS\MainApp\MainNavbar.scss\A \A 216: }\A 217: \A 218: */\A 219: .Main-Navbar{\A 220:     z-index: 0;\A 221:     background: $menuLoginColor;\A 222:     border-bottom: $borderMenulogin;\A 223:     .logoNav{\A 224:         width: 100px;\A 225:         height: 50px;\A 226:     }"; }
