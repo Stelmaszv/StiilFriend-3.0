@@ -1,7 +1,7 @@
 <nav class="navbar login-Navbar">
     <div class="container">
         <span href=""  class="navbar-logo"><img class="logoNav"  src="img/sfhedlogo.gif"></span>
-        <a href="#" class="navbar-mobile-menu-button  material-icons" 
+        <a href="#" class="navbar-mobile-menu-button material-icons login" 
         data-menu-id="#menu-1"   >
              menu
         </a>
@@ -9,9 +9,6 @@
             <li><a class='loginsiteMenu loginsite-active' data-login-section="#login">Logowanie</a></li>
             <li><a class='loginsiteMenu loginsite-Notactive' data-login-section="#register">Rejestracjia</a></li>
         </ul>
-    </div>
-    <div class="navbar-mobile-menu-button-hide HideBarIcon" id="menu-1">
-        <i class="material-icons">arrow_drop_up</i>
     </div>
 </nav>
 <section class="container container-center">
@@ -93,11 +90,11 @@
                         <div class="login-section-forms">
                             <div class="form-input-normal">
                                 <label for="input-1">   
-                                                <div class="itemStan btn-radius-top LoginError">
-                                                    Login <b>{{login}}</b> jest już zajęty
-                                                </div>   
-                                                <input id="input-1" type="test" name="login"  ng-model="login" class="LoginRegister" placeholder="Login">
-                                            </label>
+                                    <div class="itemStan btn-radius-top LoginError">
+                                        Login <b>{{login}}</b> jest już zajęty
+                                    </div>   
+                                    <input id="input-1" type="test" name="login"  ng-model="login" class="LoginRegister" placeholder="Login">
+                                </label>
                             </div>
                             <div class="form-input-normal">
                                 <label for="input-2">   

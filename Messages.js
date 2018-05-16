@@ -6,7 +6,7 @@ function Messages(io){
    io.on('connection', function(socket){
         socket.on('request-messages',function(data){
             db.query("SELECT * FROM `messages` INNER join users on users.UserID=messages.sendID ORDER BY `messages`.`date` DESC", function (err, result, fields) {
-                socket.emit('messages',result)
+               socket.emit('messages',result)
             });
         })
         socket.on('message',function(data){

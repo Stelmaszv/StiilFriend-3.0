@@ -1,19 +1,63 @@
+$MessagesNavbarBacground:#5a5aff;
+$massagesFontColorInNavbar:white;
+
+$mesagestransition:.8s all;
+$MessagesNavbarBorder:2px solid black;
+$MessagesNavbarMenuFontSize:15px;
+$MessagesNavbarMenuFontWeight:500;
+$MessagesNavbarMenuFontStyle:italic;
+$MessagesNavbarTransition:$mesagestransition;
+$mesagestransitionColorHover:red;
+$mesagestransitionScale:scale(1.0);
+$MessagesIconOpacity:0.5;
+$MessagesIconOpacityHover:1;
+$MessagesIconMargin:10px;
+$MessagesIconWidth:25px;
+$MessagesIconHeight:25px;
+
+$MessagesCountColor:white;
+$MessagesCountWidth:20px;
+$MessagesCountheight:20px;
+$MessagesCountLeft:20px;
+$MessagesCountTop:5px;
+$MessagesCountBackground:#F34A53;
+$MessagesCountBorderRadius:100%;
+$MessagesCountFontWeight:800;
+
+$MessagesLoopWidth:100%;
+$MessagesLoopHeight:220px;
+
+$messagesLoopElementOpacityHover:1;
+$messagesLoopElementOpacity:0.7;
+$messagesLoopElementColor:black;
+$messagesLoopElementbackground:white;
+
+$messagesLoopElementAvatarWidth:50px;
+$messagesLoopElementAvatarHeight:50px;
+$messagesLoopElementAvatarOpacityHover:1;
+$TimeloginFontWeight:600;
+
+$MessagesLoopContnetPadding:2px;
+$MessagesLoopContnetPadding:2px;
+$EmptyMessagesBacground:white;
+$EmptyMessagesColor:black;
+$EmptyMessagesPadding:10px;
 .Messages-Nabvar{
-    background: $massagesNavbarColor;
-    border-bottom: 2px solid black;
+    background: $MessagesNavbarBacground;
+    border-bottom: $MessagesNavbarBorder;
     text-align: center;
     .navbar-menu{
-        transition: .8s all;
+        transition: $mesagestransition;
         li{
             a{
-                font-size: 11px;
-                font-weight: 500;
-                font-style: italic;
+                font-size: $MessagesNavbarMenuFontSize;
+                font-weight: $MessagesNavbarMenuFontWeight;
+                font-style: $MessagesNavbarMenuFontStyle;
                 color: $massagesFontColorInNavbar;
                 &:hover{
-                    transition: .8s all;
-                    color: red;
-                    transform: scale(1.0);
+                    transition: $mesagestransition;
+                    color: $mesagestransitionColorHover;
+                    transform: $MessagesNavbarTransition;
                     
                 }
             }
@@ -22,79 +66,79 @@
     .MessagesDiv{
         position: relative;
        .MessagesIcon{
-        opacity: 0.5;
-        margin: 10px;
-        width:  25px;
-        height: 25px;
+        opacity: $MessagesIconOpacity;
+        margin: $MessagesIconMargin;
+        width:  $MessagesIconWidth;
+        height: $MessagesIconHeight;
         &:hover{
-            transition: .8s all;
-            opacity: 1;
+            transition: $mesagestransition;
+            opacity:$MessagesIconOpacityHover;
         }
       }
        .MessagesCount{
            position: absolute;
-           color: white;
-           width: 20px;
-           height: 20px;
-           left: 20px;
-           top: 5px;
-           background-color: #F34A53;
-           border-radius: 100%;
-           font-weight: 800;
+           color: $MessagesCountColor;
+           width: $MessagesCountWidth;
+           height: $MessagesCountheight;
+           left: $MessagesCountLeft;
+           top: $MessagesCountTop;
+           background-color:$MessagesCountBackground;
+           border-radius: $MessagesCountBorderRadius;
+           font-weight: $MessagesCountFontWeight;
        }
     }
     .TrassDiv{
-        opacity: 0.5;
-        margin: 10px;
-        width:  25px;
-        height: 25px;
+        opacity: $MessagesIconOpacity;
+        margin: $MessagesIconMargin;
+        width:  $MessagesIconWidth;
+        height: $MessagesIconHeight;
         &:hover{
-            transition: .8s all;
-            opacity: 1;
+            transition: $mesagestransition;
+            opacity: $MessagesIconOpacityHover;
         }
     }
 }
 .messages-Loop{
-    width: 100%;
-    height: 220px;
+    width: $MessagesLoopWidth;
+    height: $MessagesLoopHeight;
     overflow: auto;
     overflow-x: hidden;
     
     .messages-Loop-Element{
-        transition: .8s all;
+        transition: $mesagestransition;
         &.not-reeded{
-            opacity: 1;
+            opacity: $messagesLoopElementOpacityHover;
         }
-        background: white;
-        color: black;
-        opacity: 0.7;
+        background: $messagesLoopElementbackground;
+        color: $messagesLoopElementColor;
+        opacity: $messagesLoopElementOpacity;
         .avatar{
-            width: 50px;
-            height: 50px;
+            width: $messagesLoopElementAvatarWidth;
+            height: $messagesLoopElementAvatarHeight;
         }
         &:hover{
-           opacity: 1;
+           opacity: $messagesLoopElementAvatarOpacityHover;
         }
          .Time,.Login{
-             
-             text-align: left;
-            font-weight: 600;
+            text-align: left;
+            font-weight: $TimeloginFontWeight;
         }
         .Time{
             text-align: right;
         }
         .messages-Loop-Contnet{
-            padding: 2px;
+            padding: $MessagesLoopContnetPadding;
             text-align: left;
         }
     }
     .Empty-Messages{
         background: white;
         color: black;
-        padding: 10px;
+        padding: $EmptyMessagesPadding;
     }
    
 }
+
 ::-webkit-scrollbar {
     width: 10px;
 }

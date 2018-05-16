@@ -1,7 +1,6 @@
 var StartControlers = angular.module("Start", ["Notification","Helpers","Translate","Url"]);
 StartControlers.controller("login",['$scope','$http','Errors','Forms','Componets','Sesion','$location'
                                 ,function($scope,$http,Errors,Forms,Componets,Sesion,$location){
-    Componets.load();
     $scope.ErorrsLogin=[
         {value:  false ,'name':'EmptyData'},
         {value:  false ,'name':'wrongpass'},
@@ -57,7 +56,7 @@ StartControlers.controller("Start",['$scope','$http','Sesion',function($scope,$h
     }                                                               
 }]);
 StartControlers.controller("register",['$scope','$http','Errors','Forms','Componets','Rerister','$interval','Post','Sesion',function($scope,$http,Errors,Forms,Componets,Rerister,$interval,Post,Sesion){
-    Componets.load();
+    Componets.loadSessinCompnent();
     $scope.ErorrsRegister=[
         {value:  false ,'name':'EmptyData'},
         {value:  false ,'name':'passmath'},
@@ -207,9 +206,8 @@ StartControlers.controller("register",['$scope','$http','Errors','Forms','Compon
         ];
 	});
 }]);
-
 StartControlers.controller("MainController",['$scope','$http','Sesion','Socket','Messages','Componets','TimeConvert','$interval',function($scope,$http,Sesion,Socket,Messages,Componets,TimeConvert,$interval){
-    Componets.load();
+    Componets.loadMainCompnent();
     $scope.user=Sesion.Tokken; 
     TimeConvert.CreateTime()
     $scope.counts={
@@ -233,29 +231,14 @@ StartControlers.controller("MainController",['$scope','$http','Sesion','Socket',
         $scope.messages=Messages.SetMessages($scope.messages)
         $scope.counts.NotreededMes=Messages.countNotReeded($scope.messages);
     })
-    $scope.MarkAsReeded= function(){
-        data = $scope.messages;
-        data=Messages.MarkAsReeded(data,true)
-        Socket.emit('MarkAsReeded',data)
-    }
-    $scope.sent=function(){
-        $scope.MessageStan=[];
-        $scope.MessageStan.push($scope.user)
-        $scope.Tosent={"UserID":3,"login":"kotek","email":"Mama@kotak.12","password":"$2b$10$3zhnjpQ4kc2iwqUfrftwWOfqRO6WF5lsvLZMekZCZIFiicv9G1ifi","ban":0,"active":0,"configure":0,"avatar":"user/photo/3/kotek.jpg"};
-        $scope.MessageStan.push($scope.Tosent)
-        $scope.MessageStan[0].reeded=true;
-        $scope.MessageStan[1].reeded=false;
-        $scope.MessageStan[0].deleted=false;
-        $scope.MessageStan[1].deleted=false;
-        content='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam maiores ad odio, temporibus quo dolore nobis pariatur blanditiis nam eos maxime ratione at. A ratione magnam, voluptate, autem distinctio quia.';
-        Socket.emit('message',{"sendID":$scope.user.UserID,"time":TimeConvert.CreateTime(),"Contnet":content,MessageStan:$scope.MessageStan})
+    $scope.Logout=function(){
+        Sesion.Logout();
+        location.reload();
     }
     Socket.on('MarkAsReeded',function(data){
-        
         $scope.messages=Messages.MarkAsReeded(data,false)
         $scope.messages=Messages.SetMessages($scope.messages)
         $scope.counts.NotreededMes=Messages.countNotReeded($scope.messages);
-        
     })
     let Search = document.querySelector('.Main-Search');
     Search.addEventListener('keyup',function(e){
@@ -320,7 +303,54 @@ StartControlers.controller("MainController",['$scope','$http','Sesion','Socket',
     setInterval(function(){ 
        $interval(UpdateTime, 1000);
     }, 1000);
+    $scope.GetData=function(url){
+        stop = $interval(function() {
+            ValueToReturn=undefined;
+            $http.get(url).then( function( Get ){
+                $scope.Get=Get.data
+            });
+            if($scope.Get!=undefined){
+                $interval.cancel(stop);
+                stop = undefined;
+                ValueToReturn=$scope.Get;
+            }
+        }, 1);
+        return ValueToReturn
+    }
 }]);
-
+StartControlers.controller("MessagesController",['$scope','$http','Sesion','Socket','Messages','Componets','TimeConvert','$interval',function($scope,$http,Sesion,Socket,Messages,Componets,TimeConvert,$interval){
+    intervalLoad = $interval(function() {
+        $scope.data=$scope.GetData('/Test');
+        if($scope.data!=undefined){
+            $interval.cancel(intervalLoad);
+            intervalLoad = undefined;
+        }
+    }, 1);
+    var sent = function(){
+        $scope.MessageStan=[];
+        $scope.MessageStan.push($scope.user)
+        $scope.Tosent={"UserID":3,"login":"kotek","email":"Mama@kotak.12","password":"$2b$10$3zhnjpQ4kc2iwqUfrftwWOfqRO6WF5lsvLZMekZCZIFiicv9G1ifi","ban":0,"active":0,"configure":0,"avatar":"","sex":"F"};
+        $scope.MessageStan.push($scope.Tosent)
+        $scope.MessageStan[0].reeded=true;
+        $scope.MessageStan[1].reeded=false;
+        $scope.MessageStan[0].deleted=false;
+        $scope.MessageStan[1].deleted=false;
+        content='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam maiores ad odio, temporibus quo dolore nobis pariatur blanditiis nam eos maxime ratione at. A ratione magnam, voluptate, autem distinctio quia.';
+        Socket.emit('message',{"sendID":$scope.user.UserID,"time":TimeConvert.CreateTime(),"Contnet":content,MessageStan:$scope.MessageStan})
+    }
+    var MarkasReeded = function(){
+        data = $scope.messages;
+        data=Messages.MarkAsReeded(data,true)
+        Socket.emit('MarkAsReeded',data)
+    }
+    let SentSelector = document.querySelector('.sent');
+    let MarkasReededSelector = document.querySelector('.Reeded');
+    SentSelector.addEventListener('click',function(e){
+        sent();
+    })
+    MarkasReededSelector.addEventListener('click',function(e){
+        MarkasReeded()
+    })
+}]);
 
 

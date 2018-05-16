@@ -49,9 +49,9 @@ MainServis.service( 'Messages' , [ 'Sesion','$filter',function(Sesion,$filter) {
                }
                if(array[i].sendID==this.IdUser){
                    var item=RoundAvatar(array[i].MessageStan)
-    
+                   photo=$filter('filtrPhoto')(item.avatar,'user',item.sex)
                    array[i].loginShow=item.login;
-                   array[i].avatarShow=item.avatar;
+                   array[i].avatarShow=photo;
                }else{
                    photo=$filter('filtrPhoto')(array[i].avatar,'user',array[i].sex);
                    array[i].loginShow=array[i].login;

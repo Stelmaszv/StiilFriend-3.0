@@ -1,61 +1,112 @@
-/*
-Error: Undefined variable: "$menuLoginColor".
-        on line 2 of D:\xamp\htdocs\Stillfriend\StiilFriend-3.0\public\CSS\MainApp\login.scss
+.login-Navbar {
+  background: #4e4ab1;
+  border-bottom: 5px solid #ffda0e; }
+  .login-Navbar .navbar-logo {
+    font-size: 1.1em; }
+  .login-Navbar .logoNav {
+    width: 100px;
+    height: 50px; }
+  .login-Navbar .navbar-menu {
+    transition: .6s all; }
+    .login-Navbar .navbar-menu a {
+      letter-spacing: 5px;
+      font-weight: 800; }
+      .login-Navbar .navbar-menu a.loginsite-active {
+        color: #ffffff;
+        opacity: 1; }
+      .login-Navbar .navbar-menu a.loginsite-Notactive {
+        color: rgba(255, 255, 255, 0.61);
+        opacity: 0.5; }
+      .login-Navbar .navbar-menu a:hover, .login-Navbar .navbar-menu a:focus {
+        color: white; }
 
-1: .login-Navbar{
-2:     background: $menuLoginColor;
-3:     border-bottom: $borderMenulogin;
-4:     
-5:   .navbar-logo {
-6:     font-size: 1.1em;
-7:   }
+#login {
+  display: block; }
 
-Backtrace:
-D:\xamp\htdocs\Stillfriend\StiilFriend-3.0\public\CSS\MainApp\login.scss:2
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/script/tree/variable.rb:49:in `_perform'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/script/tree/node.rb:50:in `perform'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:402:in `visit_prop'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/base.rb:36:in `visit'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:79:in `block in with_base'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:135:in `with_frame'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:79:in `with_base'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:162:in `visit'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:444:in `block (2 levels) in visit_rule'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:444:in `map'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:444:in `block in visit_rule'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:183:in `with_environment'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:442:in `visit_rule'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/base.rb:36:in `visit'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:79:in `block in with_base'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:135:in `with_frame'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:79:in `with_base'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:162:in `visit'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/base.rb:52:in `map'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/base.rb:52:in `visit_children'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:171:in `block in visit_children'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:183:in `with_environment'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:170:in `visit_children'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/base.rb:36:in `block in visit'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:190:in `visit_root'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/base.rb:36:in `visit'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:161:in `visit'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:10:in `visit'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/root_node.rb:36:in `css_tree'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/root_node.rb:29:in `render_with_sourcemap'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/engine.rb:389:in `_render_with_sourcemap'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/engine.rb:307:in `render_with_sourcemap'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/exec/sass_scss.rb:391:in `run'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/exec/sass_scss.rb:63:in `process_result'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/exec/base.rb:52:in `parse'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/exec/base.rb:19:in `parse!'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/bin/sass:13:in `<top (required)>'
-C:/Program Files (x86)/Koala/bin/sass:22:in `load'
-C:/Program Files (x86)/Koala/bin/sass:22:in `<main>'
-*/
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Error: Undefined variable: \"$menuLoginColor\".\A         on line 2 of D:\xamp\htdocs\Stillfriend\StiilFriend-3.0\public\CSS\MainApp\login.scss\A \A 1: .login-Navbar{\A 2:     background: $menuLoginColor;\A 3:     border-bottom: $borderMenulogin;\A 4:     \A 5:   .navbar-logo {\A 6:     font-size: 1.1em;\A 7:   }"; }
+#register, #passwordresset, #regulation {
+  display: none; }
+
+.loginActions {
+  margin-top: 10px;
+  text-align: center; }
+  .loginActions .register, .loginActions .passwordrest {
+    margin-left: -10px; }
+
+.login-errors {
+  text-align: left; }
+  .login-errors ul {
+    list-style: none; }
+
+.ContentDivLogin {
+  background-color: #96cef2;
+  border-radius: 5%;
+  box-shadow: 0 2px 8px black;
+  padding: 10px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; }
+  .ContentDivLogin .login-section-name {
+    text-align: center;
+    font-size: 1.5em;
+    font-family: serif;
+    letter-spacing: 10px;
+    color: white; }
+
+.form-input-normal {
+  position: relative; }
+  .form-input-normal input {
+    background: rgba(233, 239, 242, 0.8);
+    padding: 10px;
+    outline: none;
+    min-width: inherit;
+    border: none;
+    width: 80%;
+    margin-top: 10px;
+    opacity: 0.7; }
+    .form-input-normal input:hover, .form-input-normal input:focus {
+      background: #e9eff2;
+      opacity: 1;
+      border-bottom: 2px solid gold; }
+    .form-input-normal input.inputError {
+      background: #e80700; }
+      .form-input-normal input.inputError:hover, .form-input-normal input.inputError:focus {
+        background: #e80700; }
+    .form-input-normal input.inputSucces {
+      background: #57e038; }
+      .form-input-normal input.inputSucces:hover, .form-input-normal input.inputSucces:focus {
+        background: #57e038; }
+    .form-input-normal input.Password-bad {
+      background: #cf0600; }
+    .form-input-normal input.Password-week {
+      background: #ffdd38; }
+    .form-input-normal input.Password-good {
+      background: #3ec61f; }
+    .form-input-normal input.Password-strong {
+      background: #57e038; }
+    .form-input-normal input.PasswaordJoin {
+      margin-top: 0px; }
+      .form-input-normal input.PasswaordJoinhover {
+        border-bottom: 0px solid gold; }
+  .form-input-normal.noborderhover input:hover, .form-input-normal.noborderhover input:focus {
+    border-bottom: none; }
+  .form-input-normal .itemStan {
+    margin-left: 10%;
+    width: 80%;
+    color: white;
+    padding: 10px;
+    margin-bottom: -10px;
+    letter-spacing: 2px; }
+    .form-input-normal .itemStan.LoginError, .form-input-normal .itemStan.EmailError, .form-input-normal .itemStan.PassError {
+      display: none; }
+    .form-input-normal .itemStan.Password-bad {
+      background: #cf0600; }
+    .form-input-normal .itemStan.Password-week {
+      background: #ffdd38; }
+    .form-input-normal .itemStan.Password-good {
+      background: #3ec61f; }
+    .form-input-normal .itemStan.Password-strong {
+      background: #57e038; }
+
+/*# sourceMappingURL=login.css.map */

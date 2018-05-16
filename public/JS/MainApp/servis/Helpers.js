@@ -1,13 +1,19 @@
 var Helpers = angular.module("Helpers", ["Notification","url"]);
 Helpers.service( 'Componets' , [function() {
-    this.load = function () {
-        InputsNormal();
+    this.loadMainCompnent = function () {
+        UnivaersalComponent();
+    }
+    this.loadSessinCompnent = function () {
         loginMenu();
-        navbar();
+        UnivaersalComponent();
+    }
+    function UnivaersalComponent(){
+        InputsNormal();
         formInputs();
         alertsDismissable();
-        dropdown();
+        tabs();
         modal();
+        navbar()
     }
     function InputsNormal(){
         let Form = document.querySelectorAll('.form-input-normal');
@@ -52,10 +58,6 @@ Helpers.service( 'Componets' , [function() {
           }
     }
     function navbar() {
-        if(screen.width<480){
-            let nawbar = document.querySelector('.navbar');
-            nawbar.classList.add('Mobile','MainMobile')
-        }
         let navbarMobileMenuButtons = document.querySelectorAll('.navbar-mobile-menu-button');
           for (let navbarMobileMenuButton of navbarMobileMenuButtons) {
             navbarMobileMenuButton.addEventListener('click', function(e) {
@@ -86,9 +88,6 @@ Helpers.service( 'Componets' , [function() {
                         $( menu ).slideUp( "slow");
                   }
               }
-              
-              MenuTops.click();
-              
           });
 
           window.addEventListener('scroll', function() {

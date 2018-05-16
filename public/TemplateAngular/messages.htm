@@ -1,12 +1,12 @@
-<sectin id="Main-Messages">
-    <nav class="navbar Messages-Nabvar">
+<sectin ng-controller="MessagesController" id="Main-Messages">
+    <nav class="navbar Messages-Nabvar" ng-load="GetMessages(messages)">
         <ul class="navbar-menu">
-            <li ng-click="sent()"><a>Napisz  wiadmość</a></li>
+            <li class="sent"><a>Napisz  wiadmość</a></li>
             <li><a>Skrzynka Odbiorcza</a></li>
         </ul>
-        <span ng-click="MarkAsReeded()" class="MessagesDiv">
+        <span class="MessagesDiv Reeded" >
             <img class="MessagesIcon Messages" src="{{messages | urlIcons:'SainAsReed'}}">
-            <span class="MessagesCount" ng-show="counts.NotreededMes>0">1</span>
+            <span class="MessagesCount" ng-show="counts.NotreededMes>0">{{counts.NotreededMes | ToMuch:'normal'}}</span>
         </span>
         <img class="TrassDiv" src="{{messages | urlIcons:'Delete'}}">
     </nav>
@@ -14,9 +14,6 @@
         <div ng-repeat="message in messages | orderBy : '-date'">
             <div class="row messages-Loop-Element" ng-class="{'not-reeded':!message.reeded}">
                 <div class="col-s-2">
-                   <!--
-                    <img class="avatar" src="{{message.avatarShow | filtrPhoto: 'user':message.sex }}">
-                    -->
                     <img class="avatar" src="{{message.avatarShow}}">
                 </div>
                 <div class="col-s-10">
@@ -31,7 +28,7 @@
                     <div class="messages-Loop-Contnet">
                         <span ng-if="message.sendID==user.UserID">
                           <i class="material-icons">{{message.MessageStan | CheckIfReeded:user}}</i>  
-                      </span> {{message.Contnet | tektlengh:40 | Nodata:'Wiadmość jest pusta !' }}
+                      </span> {{message.Contnet | tektlengh:30 | Nodata:'Wiadmość jest pusta !' }}
                     </div>
                 </div>
             </div>
