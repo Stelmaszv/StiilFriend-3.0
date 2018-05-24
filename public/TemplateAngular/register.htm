@@ -49,15 +49,15 @@
                             <button class="btn register btn-success btn-radius-left logingStart" ng-click="logingClick()">
                                             Zaloguj
                             </button>
-                            <button class="loginsiteMenu  btn btn-info passwordrest" data-login-section="#passwordresset">
+                            <button class="loginsiteMenu register btn btn-info passwordrest" data-login-section="#passwordresset">
                                                 Nie pamiętasz hasłą ?
                             </button>
-                            <button class="loginsiteMenu  btn register btn-warning btn-radius-right" data-login-section="#register">
+                            <button class="loginsiteMenu register btn register btn-warning btn-radius-right" data-login-section="#register">
                                     Rejestracjia
                             </button>
                         </div>
                     </div>
-                    <div class="data-login-section center-this" ng-controller="register" id="register">
+                    <div class="data-login-section center-this"  ng-controller="Register-Conroller" id="register">
                         <div class="login-section-name">Rejestracjia</div>
                         <div ng-show="ErorrsRegisterValidate" class="alert alert-danger login-errors">
                             <ul>
@@ -68,13 +68,13 @@
                                     </ul>
                                 </li>
                                 <li ng-show="ErorrsRegister[1].value" class="EmptyLoginFilds">
-                                    hasła nie są takie same
+                                    Hasła nie są takie same
                                 </li>
                                 <li ng-show="ErorrsRegister[2].value" class="EmptyLoginFilds">
                                     Hasło jest za słabe
                                 </li>
                                 <li ng-show="ErorrsRegister[3].value" class="EmptyLoginFilds">
-                                    email nie jest poprawny
+                                    Email nie jest poprawny
                                 </li>
                                 <li ng-show="ErorrsRegister[5].value" class="EmptyLoginFilds">
                                     Nie zakceptowano regulaminu
@@ -89,20 +89,26 @@
                         </div>
                         <div class="login-section-forms">
                             <div class="form-input-normal">
-                                <label for="input-1">   
+                                <label for="input-1">  
                                     <div class="itemStan btn-radius-top LoginError">
                                         Login <b>{{login}}</b> jest już zajęty
                                     </div>   
-                                    <input id="input-1" type="test" name="login"  ng-model="login" class="LoginRegister" placeholder="Login">
+                                    <input id="input-1" type="test" name="login" ng-model="login" class="LoginRegister" placeholder="Login">
                                 </label>
                             </div>
+                            <center>
+                                <div class="row chuseSex">
+                                    <button class="SexElemnt" data="F">Kobieta</button>
+                                    <button class="SexElemnt" data="M">Mężczyzna</button>
+                                </div>
+                            </center>
                             <div class="form-input-normal">
                                 <label for="input-2">   
                                     <div class="itemStan EmailError" >
                                         Emial nie jest poprawny
                                     </div>   
                                     <input id="input-2" type="test"  ng-model="email" 
-                                    class="email" placeholder="Email">
+                                    class="email EmailRegister" placeholder="Email">
                                 </label>
                             </div>
                             <div class="form-input-normal passwordForm">
@@ -110,7 +116,7 @@
                                     <div class="itemStan PassError passwordForm" >
                                             {{PassStrength | TranslatePasswordErorr}}
                                     </div>  
-                                    <input id="input-3" class="Password passwordForm" type="password" ng-model="password" placeholder="Hasło ">
+                                    <input id="input-3" class="Password passwordForm PasswordFormRegister" type="password" ng-model="password" placeholder="Hasło ">
                                 </label>
                             </div>
                             <div class="form-input-normal passwordForm" >
@@ -121,7 +127,7 @@
                                 </label>
                             </div>
                             <div class="form-checkbox Regulation inputError">
-                                <input id="regulation" type="checkbox" name="regulation" ng-model="regulation" value="regulation">
+                                <input id="regulation" type="checkbox" name="regulation" ng-model="regulation" value="regulation" class="regulation">
                                 <label for="regulation">
                                         Akceptuje 
                                     <a href="#" class='loginsiteMenu' data-login-section="#regulation">
@@ -131,7 +137,7 @@
                             </div>
                         </div>
                         <div class="data-login-section loginActions">
-                            <button type="submit" class="btn register btn-success btn-radius-left RegisterStart">
+                            <button type="submit"  class="btn register btn-success btn-radius-left RegisterStart">
                                     Zarejestruj
                             </button>
                             <button class="loginsiteMenu register btn  btn-info btn-radius-right" data-login-section="#login">

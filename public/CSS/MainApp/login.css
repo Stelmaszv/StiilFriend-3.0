@@ -1,3 +1,23 @@
+.chuseSex {
+  text-align: left;
+  height: 30px;
+  width: 80%; }
+  .chuseSex .SexElemnt {
+    background: #e9eff2;
+    opacity: 0.9;
+    boder: 0;
+    width: 50%; }
+    .chuseSex .SexElemnt:hover {
+      transition: 0.8s all;
+      opacity: 0.9;
+      background-color: #e9eff2;
+      border: 2px solid gold; }
+    .chuseSex .SexElemnt.ActiveSex {
+      transition: .8s all;
+      opacity: 1;
+      background-color: #e9eff2;
+      border: 5px solid gold; }
+
 .login-Navbar {
   background: #4e4ab1;
   border-bottom: 5px solid #ffda0e; }
@@ -31,6 +51,9 @@
   text-align: center; }
   .loginActions .register, .loginActions .passwordrest {
     margin-left: -10px; }
+  .loginActions .register:hover {
+    transition: 0.8s all;
+    background: #d15b5b; }
 
 .login-errors {
   text-align: left; }
@@ -56,6 +79,10 @@
 
 .form-input-normal {
   position: relative; }
+  .form-input-normal .LoginRegister {
+    margin-bottom: 10px; }
+  .form-input-normal .email {
+    margin-top: 10px; }
   .form-input-normal input {
     background: rgba(233, 239, 242, 0.8);
     padding: 10px;
@@ -64,30 +91,38 @@
     border: none;
     width: 80%;
     margin-top: 10px;
-    opacity: 0.7; }
+    opacity: 0.9; }
     .form-input-normal input:hover, .form-input-normal input:focus {
+      transition: 0.8s all;
       background: #e9eff2;
       opacity: 1;
       border-bottom: 2px solid gold; }
     .form-input-normal input.inputError {
-      background: #e80700; }
+      background: #e36b67; }
       .form-input-normal input.inputError:hover, .form-input-normal input.inputError:focus {
-        background: #e80700; }
+        transition: 0.8s all;
+        background: #e36b67; }
     .form-input-normal input.inputSucces {
       background: #57e038; }
       .form-input-normal input.inputSucces:hover, .form-input-normal input.inputSucces:focus {
+        transition: 0.8s all;
         background: #57e038; }
     .form-input-normal input.Password-bad {
+      transition: 0.8s all;
       background: #cf0600; }
     .form-input-normal input.Password-week {
+      transition: 0.8s all;
       background: #ffdd38; }
     .form-input-normal input.Password-good {
+      transition: 0.8s all;
       background: #3ec61f; }
     .form-input-normal input.Password-strong {
+      transition: 0.8s all;
       background: #57e038; }
     .form-input-normal input.PasswaordJoin {
       margin-top: 0px; }
       .form-input-normal input.PasswaordJoinhover {
+        transition: 0.8s all;
         border-bottom: 0px solid gold; }
   .form-input-normal.noborderhover input:hover, .form-input-normal.noborderhover input:focus {
     border-bottom: none; }
@@ -96,17 +131,23 @@
     width: 80%;
     color: white;
     padding: 10px;
+    background: #e36b67;
+    margin-top: 20px;
     margin-bottom: -10px;
     letter-spacing: 2px; }
     .form-input-normal .itemStan.LoginError, .form-input-normal .itemStan.EmailError, .form-input-normal .itemStan.PassError {
       display: none; }
     .form-input-normal .itemStan.Password-bad {
+      transition: 0.8s all;
       background: #cf0600; }
     .form-input-normal .itemStan.Password-week {
+      transition: 0.8s all;
       background: #ffdd38; }
     .form-input-normal .itemStan.Password-good {
+      transition: 0.8s all;
       background: #3ec61f; }
     .form-input-normal .itemStan.Password-strong {
+      transition: 0.8s all;
       background: #57e038; }
 
 /*# sourceMappingURL=login.css.map */

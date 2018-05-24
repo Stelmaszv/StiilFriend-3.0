@@ -219,7 +219,7 @@ Helpers.service( 'Componets' , [function() {
         */
      }
 }]);
-Helpers.service( 'Rerister' , ['Forms','Array','Errors','GetUrl',function(Forms,Array,Errors,GetUrl) {
+Helpers.service( 'Register' , ['Forms','Array','Errors',function(Forms,Array,Errors) {
     this.Run = function (FormArray,ErrorArray){
         EmptyForms=Forms.Empty(FormArray,ErrorArray);
         if(!EmptyForms){
@@ -238,7 +238,7 @@ Helpers.service( 'Rerister' , ['Forms','Array','Errors','GetUrl',function(Forms,
                        pass=Forms.PasswordStrength(FormArray[key].value)
                        if(pass!='bad'){
                             Error=Errors.GetError(ErrorArray,'passmath')
-                            Find=Array.Find(FormArray,'passwordMatch','Type');
+                            Find=Array.FaindField(FormArray,'passwordMatch','Type');
                             if(Forms.PasswordMatch(FormArray[key].value,FormArray[Find].value)){
                                 ErrorArray[Error].value=false;
                             }else{
@@ -256,7 +256,7 @@ Helpers.service( 'Rerister' , ['Forms','Array','Errors','GetUrl',function(Forms,
     }
 }]);
 Helpers.service( 'Array' , [function() {
-    this.Find = function (array,field,place){
+    this.FaindField = function (array,field,place){
         var FindField=''
         angular.forEach(array,function( item , key ){
             switch(place){
@@ -278,23 +278,26 @@ Helpers.service( 'Array' , [function() {
     
 }]);
 Helpers.service( 'Sesion',['store', 'jwtHelper',function(store,jwtHelper){
-    this.SesionssStan=CheckToken();
     this.Tokken=ReturnTokken();
     this.CreateSession= function(Tokken){
-        Tokken=jwtHelper.decodeToken(Tokken);
-        Tokken=Tokken.result;
-        if(!this.SesionssStan){
-            angular.forEach(Tokken,function( item , key ){
-                 store.set( 'Token' , Tokken[key] );
-             });
-        }
-        
+        console.log(Tokken)
+        store.set( 'Token' , Tokken );
+    }
+    this.Test=function(){
+        store.get('user')
     }
     this.Logout= function(Tokken){
         store.remove( 'Token' );
     }
     function ReturnTokken(){
-        return store.get('Token');
+        if(store.get('Token')){
+            Tokken=jwtHelper.decodeToken(store.get('Token'));
+           return  Tokken.result[0]
+        }else{
+            return [];
+        }
+   
+
     }
     function CheckToken(){
         tokken = store.get( 'Token' )

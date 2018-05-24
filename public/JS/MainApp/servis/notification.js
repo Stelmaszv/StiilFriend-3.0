@@ -18,7 +18,7 @@ Notification.service( 'Errors' , ['Array',function(Array) {
         return array;
     }
     this.GetError= function(array,Field){
-        arraylist=Array.Find(array,Field,'Name');
+        arraylist=Array.FaindField(array,Field,'Name');
         return arraylist;
     }
 }]);

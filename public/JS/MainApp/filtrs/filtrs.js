@@ -15,35 +15,21 @@ filtrs.filter('tektlengh', function (Sesion) {
     }
 });
 filtrs.filter('CheckIfReeded', function () {
-    return function (array,user) {
-        var userID=user.UserID
-        var ValueToReturn=false;
-        var count=0;
-        var MembersOfConversation=array.length-1;
-        for (i = 0; i < array.length; i++) { 
-            if(array[i].UserID!=userID){
-                if(array[i].reeded){
-                    count++;
-                }
-            }
-            
-        }
-        if(MembersOfConversation>1){
-            if(count==MembersOfConversation){
-                return 'done_all'
-            }else if(count>1 && count<MembersOfConversation){
-                return 'done' 
-            }else if(count==0){
-                 return 'reply' 
-            }
-        }else{
-            if(count){
-                return 'done'
-            }else{
-                return 'reply' 
-            }
-        }
-    };
+    return function (array,user,mess) {
+       var userID=user.UserID
+       var count=0;
+       all=array.AllMessages
+       for (i = 0; i < all.length; i++) { 
+           if(all[i].sendID==userID && all[i].UserId!=userID && all[i].reeded==0){
+               count++;
+           }
+       }
+       if(!count){
+            return 'done'
+       }else{
+            return 'reply' 
+       }
+    }
 });
 filtrs.filter('timestampToDate', function () {
     return function (timestamp, type = false) {
@@ -348,7 +334,9 @@ filtrs.filter('urlIcons', function () {
     function IconArray(Icon) {
         IconArrayList = {
             'SainAsReed' : '/icon/mail.png',
-            'Delete'     : '/icon/trash.png'
+            'Delete'     : '/icon/trash.png',
+            'like'       : '/icon/like.png',
+            'notification'       : '/icon/notification.png'
         }
         return IconArrayList[Icon]
     }
@@ -400,3 +388,30 @@ filtrs.filter('filtrPhoto', function () {
         return NewURL;
     }
 });
+filtrs.filter('sex', function () {
+    return function (sex, word,expet=false) {
+        return returnWord(word, sex,expet);
+    };
+
+    function returnWord(word, sex,expet) {
+        if(!expet){
+            if (sex == 'M') {
+                word += 'ł';
+            }else{
+                word +='ła';
+            }
+        }else{
+            switch(expet){
+                case 'wziąc':
+                    if (sex == 'M') {
+                        return 'wziął';
+                    }else{
+                        return 'wzięła';
+                    }
+                break;
+            }
+        }
+        return word;
+    }
+});
+

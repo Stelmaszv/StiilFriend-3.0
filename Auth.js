@@ -1,6 +1,7 @@
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var bodyParser = require('body-parser')
+
 var Auth = function Auth(app,db){
     app.use(bodyParser.json())
     this.app= app
@@ -26,12 +27,11 @@ var login = function login(){
                                 loginErorrs.ban=true;
                                 res.send(loginErorrs)
                             }else{
-                                res.send(jwt.sign({result}, 'shhhhh'))
+                                res.send(jwt.sign({result}, 'shhhhh'));                     
                             }
                         }else{
                             loginErorrs.wrongpass=true;
                             res.send(loginErorrs)
-
                         }
                     });
                 }else{
@@ -45,11 +45,14 @@ var login = function login(){
 var Register = function Register(){
     const saltRounds = 10;
     app.post('/register',function(req,res){
-        bcrypt.hash(req.body[2].value, saltRounds, function(err, hash) {
+        bcrypt.hash(req.body[1].value, saltRounds, function(err, hash) {
             let user={
                 login:req.body[0].value,
-                email:req.body[1].value,
-                password:hash
+                email:req.body[2].value,
+                dateregister:req.body[3].value,
+                lostlogin:req.body[3].value,
+                password:hash,
+                sex:req.body[4].value
             };
             let sql = 'INSERT INTO users SET ?'
             db.query(sql,user,function(err, result, field) {
@@ -70,7 +73,7 @@ var LoginAvailable = function LoginAvailable(){
     })
 }
 function UserMigration(){
-  let sql = 'CREATE  TABLE IF NOT EXISTS users (UserID int(11) NOT NULL AUTO_INCREMENT,PRIMARY KEY (`UserID`),login varchar(255) COLLATE utf8_polish_ci NOT NULL,email varchar(255) COLLATE utf8_polish_ci NOT NULL,password varchar(255) COLLATE utf8_polish_ci NOT NULL,ban tinyint(1) NOT NULL,active tinyint(1) NOT NULL,configure tinyint(1) NOT NULL)'
+  let sql = 'CREATE  TABLE IF NOT EXISTS users (UserID int(11) NOT NULL AUTO_INCREMENT,PRIMARY KEY (`UserID`),login varchar(255) COLLATE utf8_polish_ci NOT NULL,email varchar(255) COLLATE utf8_polish_ci NOT NULL,password varchar(255) COLLATE utf8_polish_ci NOT NULL,ban tinyint(1) NOT NULL,active tinyint(1) NOT NULL,configure tinyint(1) NOT NULL,sex varchar(1) NOT NULL,dateregister datetime,lostlogin datetime )'
   db.query(sql);
 }
 module.exports=Auth;

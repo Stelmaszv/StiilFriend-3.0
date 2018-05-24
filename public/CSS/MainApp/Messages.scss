@@ -42,6 +42,10 @@ $MessagesLoopContnetPadding:2px;
 $EmptyMessagesBacground:white;
 $EmptyMessagesColor:black;
 $EmptyMessagesPadding:10px;
+
+$iconWeight:20px;
+$iconHeight:20px;
+$iconMarginRight:10px;
 .Messages-Nabvar{
     background: $MessagesNavbarBacground;
     border-bottom: $MessagesNavbarBorder;
@@ -129,6 +133,11 @@ $EmptyMessagesPadding:10px;
         .messages-Loop-Contnet{
             padding: $MessagesLoopContnetPadding;
             text-align: left;
+            .iconNotificatiopn{
+                margin-right: $iconMarginRight;
+                width: $iconWeight;
+                height: $iconHeight;
+            }
         }
     }
     .Empty-Messages{
