@@ -1,1 +1,70 @@
-hethteh
+<div class="container" ng-controller="MainPageController">
+    <div class="MessStanMobile ShowNotReeded" ng-show="show.MessMobileCount" data-modal-id="#NotReeded">
+        <div class="MobileMessCountSection">
+            <img class="icon" src="{{urlIcons | urlIcons:'MessagesNotReeded'}}">
+               <div class="CountMessagesNotReeded row">
+                   <span class="Item Count">{{counts.NotreededMes}}</span>
+               </div>
+        </div>
+    </div>
+    <div  class="showProfilIcon"  data-modal-id="#Profil">
+        <img class="icon" src="{{urlIcons | urlIcons:'Profil'}}">
+    </div>
+    <div  class="showChatIcon"    data-modal-id="#Chat">
+       <div class="showChatSection">
+           <img class="icon" src="{{urlIcons | urlIcons:'Chat'}}">
+           <div class="CountOnline row">
+               <span class="Item ChatIcon"></span>
+               <span class="Item Count">{{counts.UserOnline}}</span>
+            </div>
+        </div>
+    </div>
+    <div  class="showChatIconHide">
+        <div class="showChatSection">
+           <img class="icon" src="{{urlIcons | urlIcons:'Chat'}}">
+           <div class="CountOnline row">
+               <span class="Item ChatIcon"></span>
+               <span class="Item Count">{{counts.UserOnline}}</span>
+            </div>
+        </div>
+    </div>
+    <div id="ChatDiv" class="ChatStyle">
+        <div ng-include src="'TemplateAngular/Chat.htm'" ></div>
+    </div>
+    <div class="row" id="MainPaageDiv">
+        <div id="ProfilInfo">
+            <div class="ProfilInfoPosition">
+                <div ng-include src="'TemplateAngular/ProfilRightSlite.htm'" ></div>
+            </div>
+        </div>
+        <div id="MainPageContent">
+           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis atque nesciunt esse commodi, aut consectetur laudantium mollitia optio. Blanditiis voluptatem rem eligendi animi dicta quae ea iusto numquam suscipit, tempora!
+        <div class="Model" id="Chat" data-Modal-type="SlideLeft">
+            <div class="InModelBady SlideLeft ChatStyle ChatContent">   
+                <div ng-include src="'TemplateAngular/Chat.htm'" ></div>
+            </div>
+        </div>
+        <div class="Model ShowRightSite" id="Profil" data-Modal-type="SlideRight">
+            <div class="InModelBady SlideRight">
+                <div ng-include src="'TemplateAngular/ProfilRightSlite.htm'"></div>
+            </div>
+        </div>
+        <div class="Model" id="NotReeded" data-Modal-type="normal-model">
+            <div class="InModelBady normal-model "> 
+                <div class="CloseIconDiv">  
+                    <img class="Icon CloseModal"  src="{{urlIcons | urlIcons:'Close'}}">
+                </div>
+                <div id="NotReededDiv">
+                    <div class="UserNotReedLoop" ng-repeat="user in NotReededList">
+                        <div class="UserLoopItem">
+                            <img class="Avatar" src="{{user.avatar}}">
+                            <div class="Count">{{user.notReeddCount}}</div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+   </div>
+</div>

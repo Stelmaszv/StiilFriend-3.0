@@ -51,6 +51,9 @@ filtrs.filter('timestampToDate', function () {
                         return countdown(timestamp, true)
                     }
                     break;
+                case 'chat':
+                    return countdown(timestamp,'chat')
+                break;
             }
         }
 
@@ -158,21 +161,26 @@ filtrs.filter('timestampToDate', function () {
         hours = Math.round(minuts / 60);
         days = Math.round(hours / 24);
         if (minuts == 0) {
-            if (!short) {
-                return 'W tej chwili';
-            } else {
-                return 'terez'
+            if(short!='chat'){
+                if (!short) {
+                    return 'W tej chwili';
+                } else {
+                    return 'terez'
+                }
+            }else{
+                return '1 min';
             }
         } else if (minuts > 0 && hours == 0) {
-            if (!short) {
-                if (minuts == 1) {
-                    return 'minutę temu';
+                if (!short) {
+                    if (minuts == 1) {
+                        return 'minutę temu';
+                    } else {
+                        return minuts + ' minut temu';
+                    }
                 } else {
-                    return minuts + ' minut temu';
+                    return minuts + ' min'
                 }
-            } else {
-                return minuts + ' min'
-            }
+            
         } else if (hours > 0 && days == 0) {
             if (!short) {
                 if (hours == 1) {
@@ -185,14 +193,20 @@ filtrs.filter('timestampToDate', function () {
             }
         } else if (days > 0) {
             if (days == 1) {
-                return 'wczoraj';
+                if(short!='chat'){
+                    return 'wczoraj';
+                }
             } else {
                 if (days < 7) {
-                    var d = new Date(time);
-                    if (!short) {
-                        return 'W ' + ReturnDay(d.getDay())
-                    } else {
-                        return ReturnDay(d.getDay(), true)
+                    if(short!='chat'){
+                        var d = new Date(time);
+                        if (!short) {
+                            return 'W ' + ReturnDay(d.getDay())
+                        } else {
+                            return ReturnDay(d.getDay(), true)
+                        }
+                    }else{
+                        return days+' dni'
                     }
                 } else {
                     if (!short) {
@@ -320,7 +334,7 @@ filtrs.filter('ToMuch',function(){
     
     }
     function small(number){
-        if(number>10){
+        if(number>9){
             return '9+'
         }else{
             return number;
@@ -333,10 +347,23 @@ filtrs.filter('urlIcons', function () {
     };
     function IconArray(Icon) {
         IconArrayList = {
-            'SainAsReed' : '/icon/mail.png',
-            'Delete'     : '/icon/trash.png',
-            'like'       : '/icon/like.png',
-            'notification'       : '/icon/notification.png'
+            'ArrowRight'              :'/icon/ArrowRight.png',
+            'MessagesSend'            :'/icon/messagesend.png',
+            'Close'                   :'/icon/closew.png',
+            'Back'                    :'/icon/Back.png',
+            'logout'                  :'/icon/logout.png',
+            'Messages'                :'/icon/message.png',
+            'MessagesNotReeded'       :'/icon/notreded.png',
+            'Notification'            :'/icon/bell.png',
+            'NotificationNotReeded'   :'/icon/notreedd.png',
+            'Grup'                    :'/icon/grup.png',
+            'Evant'                   :'/icon/evant.png',
+            'Profil'                  :'/icon/user.png',
+            'Chat'                    :'/icon/friendship.png',
+            'SainAsReed'              : '/icon/mail.png',
+            'Delete'                  : '/icon/trash.png',
+            'like'                    : '/icon/like.png',
+            'notification'            : '/icon/notification.png'
         }
         return IconArrayList[Icon]
     }

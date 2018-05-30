@@ -1,0 +1,44 @@
+<div ng-controller="chat" id="ChatContent">
+    <nav class="navbarChat">
+       <ul>
+           <li>    <img class="ChatMenuicon SendMessageChat" 
+                       ng-click="SendMessages()" 
+                       src="{{urlIcons | urlIcons:'MessagesSend'}}">
+           </li>
+           
+           <li class="ChatIconNavbar">
+               <div class="ChatIcon"></div>
+           </li>
+           <li>
+               <div class="CountOnline">{{counts.UserOnline}}</div>
+            </li>
+           <li><input type="text" ng-model="UserSearch" class="ChatFiltr" placeholder="Szukaj..."></li>
+           <li class="CloseModal"><img class="ChatMenuicon" src="{{urlIcons | urlIcons:'ArrowRight'}}"></li>
+           <li><img class="ChatMenuicon HideChat" ng-click="HideChat()"  src="{{urlIcons | urlIcons:'ArrowRight'}}"></li>
+       </ul>
+       <!--
+        <button type="button" class="close-button CloseModal">zamknij okno</button>
+       -->
+    </nav>
+    <div  class="chatDivLoop" ng-repeat="Chat in ChatList | orderBy : '-active'| filter : UserSearch">
+        <div class="row ChatRow" >
+          <div class="col-xs-1 ChatElemnt AvatarChat">
+              <img class="ChatAvatr" src="{{Chat.avatar | filtrPhoto:'user':Chat.sex }}">
+          </div>
+          <div class="col-xs-1 ChatElemnt Login" ng-class="{'loginLenght': Chat.active==0}">
+              <span ng-show="Chat.active==0">
+                  {{Chat.login | tektlengh:"11"}}
+              </span>
+              <span ng-show="Chat.active==1">
+                  {{Chat.login | tektlengh:"13"}}
+              </span>
+          </div>
+          <div class="col-xs-1 ChatElemnt Time" ng-show="Chat.active==0">
+                {{Chat.lostlogin | timestampToDate:"chat"}}
+          </div>
+          <div class="col-xs-1 ChatElemnt Active" ng-show="Chat.active!=0">
+                <div class="ChatIcon"></div>
+          </div>
+        </div>
+</div>
+</div>

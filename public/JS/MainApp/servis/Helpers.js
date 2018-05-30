@@ -168,30 +168,31 @@ Helpers.service( 'Componets' , [function() {
           }
     }
     function modal() {
-        let modalButtons = document.querySelectorAll('[data-modal-id]');
-        for (let modalButton of modalButtons) {
-            let modalId = modalButton.getAttribute('data-modal-id');
-            modalButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector(modalId).style.display = 'flex';
-                document.querySelector('body').style.overflow = 'hidden';
-                setTimeout(function() {
-                    document.querySelector(modalId).classList.add('show');
+       let modalButons=document.querySelectorAll('[data-modal-id]')
+        for(let modalButon of modalButons ){
+            modalButon.addEventListener('click',function(e){
+                modalId= modalButon.getAttribute('data-modal-id')
+                SlideItem=document.querySelector(modalId).getAttribute('data-Modal-type');
+                document.querySelector(modalId).style.display='flex';
+                document.querySelector('.'+SlideItem).style.display='flex';
+                document.querySelector('body').style.overflow='hidden'
+                 setTimeout(function(){
+                     document.querySelector(modalId).classList.add(SlideItem);
                 }, 1);
-            });
+            })
         }
-        let modals = document.querySelectorAll('.modal');
-        for (let modal of modals) {
-            let closeButtons = modal.querySelectorAll('.close');
-            for (let closeButton of closeButtons) {
-              closeButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                modal.classList.remove('show');
-                document.querySelector('body').style.overflow = 'auto';
-                setTimeout(function() {
-                  modal.style.display = 'none';
-                }, 300);
-              });
+        let modals=document.querySelectorAll('.Model');
+        for(let modal of modals ){
+            CloseModals=document.querySelectorAll('.CloseModal')
+            for(let CloseModal of CloseModals ){
+                CloseModal.addEventListener('click',function(e){
+                    SlideItem=document.querySelector(modalId).getAttribute('data-Modal-type');
+                    modal.classList.remove(SlideItem);
+                    document.querySelector('body').style.overflow = 'auto';
+                    setTimeout(function() {
+                         modal.style.display='none';
+                    }, 1);
+                })
             }
         }
     }

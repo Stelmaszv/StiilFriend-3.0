@@ -218,11 +218,15 @@ StartControlers.controller("Register-Conroller",['$scope','$http','Errors','Form
         RegisterRun($scope.RegisterForms);
     })   
 }]);
-StartControlers.controller("MainController",['$scope','$http','Sesion','Socket','Messages','Notification','Componets','TimeConvert','$interval','$filter','Show',function($scope,$http,Sesion,Socket,Messages,Notification,Componets,TimeConvert,$interval,$filter,Show){
+StartControlers.controller("MainController",['$scope','$http','Sesion','Socket','Messages','Notification','Componets','TimeConvert','$interval','$filter','Show','Chat',function($scope,$http,Sesion,Socket,Messages,Notification,Componets,TimeConvert,$interval,$filter,Show,Chat){
     if(Sesion.Tokken.login){
         Componets.loadMainCompnent();
         $scope.user=Sesion.Tokken; 
+        $scope.show={
+            'MessMobileCount':false
+        }
         $scope.counts={
+            'UserOnline'  :0,
             'AllMessages' :0,
             'NotreededMes':0,
             'NotreededNot':0
@@ -231,7 +235,9 @@ StartControlers.controller("MainController",['$scope','$http','Sesion','Socket',
             'SearchDiv':false,
             'NotreededNot':1
         }
-        
+        $scope.NotReededList=[
+            {"login":"stelmaszv","avatar":"user/photo/1/201221.jpg","notReeddCount":1}
+        ];
         $scope.GetData=function(url){
             stop = $interval(function() {
                 ValueToReturn=undefined;
@@ -248,6 +254,7 @@ StartControlers.controller("MainController",['$scope','$http','Sesion','Socket',
         }
         MessagesSocket();
         NotificationSocket();
+        ChatSocket();
         function MessagesSocket(){
             Socket.emit('request-messages',$scope.user)
             Socket.on('messages',function(data){
@@ -267,6 +274,9 @@ StartControlers.controller("MainController",['$scope','$http','Sesion','Socket',
                 messagess=[]
                 $scope.messagesNormal=data;
                 $scope.counts.NotreededMes=Messages.countNotReeded($scope.messagesNormal);
+                if($scope.counts.NotreededMes>0){
+                    $scope.show.MessMobileCount=true;
+                }
                 messagess=Messages.Prepear($scope.messagesNormal,messagess)
                 $scope.messages={
                     'NormalMessages':messagess,
@@ -294,6 +304,23 @@ StartControlers.controller("MainController",['$scope','$http','Sesion','Socket',
                 }
             })
         }
+        function ChatSocket(){
+            Socket.emit('request-chat',$scope.user)
+            Socket.on('load-chat',function(data){
+                loadChat(data)
+            }) 
+            ChatDiv=document.querySelector('body');
+            window.onblur= function(){
+                Socket.emit('request-chat',$scope.user)
+            };
+            window.onbeforeunload = function () {
+                Socket.emit('RemuerFromChat',$scope.user,TimeConvert.CreateTime())
+            };
+            function loadChat(data){
+                $scope.ChatList=Chat.Set(data);
+                $scope.counts.UserOnline=Chat.CountOnline($scope.ChatList)
+            }
+        }
         $scope.ClearNotifications=function(){
             $scope.notifications=Notification.ClearAllNotification();
         }
@@ -319,37 +346,37 @@ StartControlers.controller("MainNavbarController",['$scope','$http','Sesion','So
     } 
     function LoadSection(Elemnt){
             $scope.ActiveElments=[
-                {"Click":'.Load-Notification-Click',"Active":'.MainMenuItem.Notification',"ActivSection":'.Load-Notification',"SectionName":'.Load-Section-notifications',"Url":'http://localhost:3000/messages'},
-                {"Click":'.Load-Messages-Click',"Active":'.MainMenuItem.Messages',"ActivSection":'.Load-Messages',"SectionName":'.Load-Section-messages',"Url":'http://localhost:3000/messages'},
-                {"Click":'.Load-Drapdown-Click',"Active":'.MainMenuItem.Drapdown',"ActivSection":'.Load-Drapdown',"SectionName":'.Load-Section-Drapdown'}
+                {"Click":'.Load-Notification-Click',"Active":'.MainMenuItem.Notification',"ActivSection":'.Load-Notification',"SectionName":'.Load-Section-notifications',"Url":'Notification'},
+                {"Click":'.Load-Messages-Click',"Active":'.MainMenuItem.Messages',"ActivSection":'.Load-Messages',"SectionName":'.Load-Section-messages',"Url":'messages'},
+                {"Click":'.Load-Drapdown-Click',"Active":'.MainMenuItem.Drapdown',"ActivSection":'.Load-Drapdown',"SectionName":'.Load-Section-Drapdown',"Url":'menu'}
             ]    
             let LoadSection = document.querySelector($scope.ActiveElments[Elemnt].Click);
-            if(screen.width<480){
-                window.location =''+$scope.ActiveElments[Elemnt].Url+''
-            }else{
                 LoadSection.addEventListener('click',function(e){
-                    e.preventDefault();
-                    $scope.ActiveElments=ResetActiveElents($scope.ActiveElments);
-                    let ActiveItem = document.querySelector($scope.ActiveElments[Elemnt].Active);
-                    let ActivSectionItem = document.querySelector($scope.ActiveElments[Elemnt].ActivSection);
-                    let SectionName= document.querySelector($scope.ActiveElments[Elemnt].SectionName);
-                    let LoadSection= document.querySelector('.Load-div')
-                    if($scope.Elment==undefined | $scope.Elment!=Element ){
-                        $(SectionName).slideDown( "slow");
-                        ActiveItem.classList.add('clicked-button')
-                        ActivSectionItem.classList.add('ActivSection','btn-radius-top')
-                        $(LoadSection).slideDown( "slow");
-                    }else if($scope.Elment===Element){
-                        $(SectionName).slideUp( "slow");
-                        ActiveItem.classList.remove('clicked-button')
-                        ActivSectionItem.classList.remove('ActivSection','btn-radius-top')
-                        $(LoadSection).slideUp( "slow");
-                        $scope.Elment=undefined;
-                        return false;
+                    if(window.innerWidth<768){
+                        window.location.assign("#!/"+$scope.ActiveElments[Elemnt].Url)
+                    }else{
+                        e.preventDefault();
+                        $scope.ActiveElments=ResetActiveElents($scope.ActiveElments);
+                        let ActiveItem = document.querySelector($scope.ActiveElments[Elemnt].Active);
+                        let ActivSectionItem = document.querySelector($scope.ActiveElments[Elemnt].ActivSection);
+                        let SectionName= document.querySelector($scope.ActiveElments[Elemnt].SectionName);
+                        let LoadSection= document.querySelector('.Load-div')
+                        if($scope.Elment==undefined | $scope.Elment!=Element ){
+                            $(SectionName).slideDown( "slow");
+                            ActiveItem.classList.add('clicked-button')
+                            ActivSectionItem.classList.add('ActivSection','btn-radius-top')
+                            $(LoadSection).slideDown( "slow");
+                        }else if($scope.Elment===Element){
+                            $(SectionName).slideUp( "slow");
+                            ActiveItem.classList.remove('clicked-button')
+                            ActivSectionItem.classList.remove('ActivSection','btn-radius-top')
+                            $(LoadSection).slideUp( "slow");
+                            $scope.Elment=undefined;
+                            return false;
+                        }
+                        $scope.Elment=Element;
                     }
-                    $scope.Elment=Element;
                 })
-            }
                 function ResetActiveElents(array){
                     for (i = 0; i < array.length; i++) { 
                        ActivSectionItem = document.querySelector(array[i].ActivSection);
@@ -436,6 +463,9 @@ StartControlers.controller("NotificationController",['$scope','$http','Sesion','
 }]);
 StartControlers.controller("loguat",['$scope','$http','Sesion','Socket','TimeConvert','$interval',function($scope,$http,Sesion,Socket,TimeConvert,$interval){
     if(Sesion.Tokken.login){
+        $scope.user=Sesion.Tokken; 
+        console.log(TimeConvert.CreateTime())
+        Socket.emit('RemuerFromChat',$scope.user,TimeConvert.CreateTime())
         Sesion.Logout();
         location.reload()
     }else{
@@ -443,4 +473,10 @@ StartControlers.controller("loguat",['$scope','$http','Sesion','Socket','TimeCon
     }
 }]);
 
+StartControlers.controller("MainPageController",['$scope','$http','Sesion','Socket','Messages','Notification','Componets','TimeConvert','$interval','$filter','Show',function($scope,$http,Sesion,Socket,Messages,Notification,Componets,TimeConvert,$interval,$filter,Show){
+    Componets.loadMainCompnent();
+    ShowNotReeded=document.querySelector('.ShowNotReeded');
+    ShowNotReeded.addEventListener('click',function(){
 
+    })
+}]);

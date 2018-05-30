@@ -151,7 +151,9 @@
       background: #57e038; }
 
 .Main-Navbar {
-  z-index: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 2;
   background: #4e4ab1;
   border-bottom: 5px solid #ffda0e; }
   .Main-Navbar .logoNav {
@@ -247,32 +249,271 @@
       border-left: 2px solid #ffda0e;
       border-right: 2px solid #ffda0e; }
 
-@media (min-width: 480px) {
+.DestopOnly {
+  display: none; }
+
+/*
+@media(min-width: 320px) {
+   .Main-Navbar{
+        .navbar-menu-Left{
+            .SearchMenuElemnt{
+                .Main-Search{
+                    width: 180px;
+                }
+            }
+        }
+    }
+    .MobileOnly{
+        display: block;
+    }
+}
+@media(min-width: 480px) {
+   .Main-Navbar{
+        .navbar-menu-Left{
+            .SearchMenuElemnt{
+                .Main-Search{
+                    width: 300px;
+                }
+            }
+        }
+    }
+    .MobileOnly{
+        display: flex;
+    }
+}
+@media(max-width: 480px){
+    .Main-Navbar{
+        .navbar-menu-Left{
+           .Main-Search{
+                &.DestopOnly{
+                    display: none;
+                }
+            }
+       }
+    }
+}
+@media (max-width: 768px) {
+    .Main-Navbar{
+        .navbar-menu {
+           .Load-Messages,.Load-Notification,.Load-Drapdown{
+               a{
+                   &.notreeded{
+                        position: static;
+                         transform: scale(1.0);
+                        .CountItem{  
+                            position: static;
+                        }
+                    }
+               }
+           }
+       }
+    }
+
+}
+*/
+@media (max-width: 350px) {
+  .Main-Navbar {
+    position: relative;
+    height: 50px; }
+    .Main-Navbar .mobile {
+      display: flex; }
+    .Main-Navbar .MenuMobile .IconSearch {
+      display: none; } }
+@media (max-width: 768px) {
+  .Main-Navbar {
+    margin-top: -15px;
+    position: fixed;
+    height: 55px; }
+    .Main-Navbar .CountObject {
+      position: relative; }
+      .Main-Navbar .CountObject .CountIcon {
+        position: absolute;
+        background: red;
+        right: 12px;
+        height: 10px;
+        width: 5px;
+        padding: 9px;
+        border-radius: 100%; }
+        .Main-Navbar .CountObject .CountIcon .CountStan {
+          left: 10px;
+          color: gold;
+          font-weight: bold;
+          font-size: 14px;
+          position: absolute;
+          top: 0px; }
+      .Main-Navbar .CountObject.notreededItem a {
+        color: gold; }
+    .Main-Navbar .notreededItem {
+      color: gold; }
+    .Main-Navbar .normal {
+      display: none; }
+    .Main-Navbar .mobile {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: none;
+      justify-content: center; }
+      .Main-Navbar .mobile .MenuMobile {
+        list-style: none;
+        display: flex;
+        margin-bottom: 5px; }
+        .Main-Navbar .mobile .MenuMobile a {
+          padding: 0px;
+          margin-right: 20px;
+          display: inline-flex; }
+          .Main-Navbar .mobile .MenuMobile a:hover, .Main-Navbar .mobile .MenuMobile a:focus {
+            outline: none;
+            color: gold; } }
+@media (min-width: 768px) {
+  .Main-Navbar .mobile {
+    display: none; }
   .Main-Navbar .navbar-menu-Left .SearchMenuElemnt .Main-Search {
     width: 300px; }
 
   .MobileOnly {
-    display: flex; } }
-@media (max-width: 480px) {
-  .Main-Navbar .navbar-menu-Left .Main-Search.DestopOnly {
-    display: none; } }
-@media (max-width: 768px) {
-  .Main-Navbar .navbar-menu .Load-Messages a.notreeded, .Main-Navbar .navbar-menu .Load-Notification a.notreeded, .Main-Navbar .navbar-menu .Load-Drapdown a.notreeded {
-    position: static;
-    transform: scale(1); }
-    .Main-Navbar .navbar-menu .Load-Messages a.notreeded .CountItem, .Main-Navbar .navbar-menu .Load-Notification a.notreeded .CountItem, .Main-Navbar .navbar-menu .Load-Drapdown a.notreeded .CountItem {
-      position: static; } }
-@media (min-width: 768px) {
-  .Main-Navbar .navbar-menu-Left .SearchMenuElemnt .Main-Search {
-    width: 350px; }
-
-  .MobileOnly {
-    display: none; } }
-@media only screen and (max-width: 768px) {
-  .MainPage .leftSite {
     display: none; }
-  .MainPage .Chat {
+
+  .DestopOnly {
+    display: flex; } }
+.showChatIcon, .showProfilIcon {
+  z-index: 1; }
+
+#ChatDiv {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  top: 0px;
+  right: 0;
+  width: 200px; }
+
+.ChatStyle {
+  background: #e1dff8;
+  border-left: 2px solid gold;
+  height: 100%; }
+
+#MainPaageDiv #ProfilInfo .ProfilInfoPosition {
+  display: none;
+  position: fixed;
+  top: 80px; }
+#MainPaageDiv #MainPageContent {
+  text-align: justify;
+  width: 100%;
+  margin-top: 50px;
+  min-height: 50px; }
+
+.showChatIcon, .showProfilIcon, .MessStanMobile, .showChatIconHide {
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  right: 0;
+  top: 70px;
+  opacity: .9; }
+  .showChatIcon .icon, .showProfilIcon .icon, .MessStanMobile .icon, .showChatIconHide .icon {
+    margin-top: 15px;
+    width: 50px;
+    height: 50px; }
+  .showChatIcon:hover, .showProfilIcon:hover, .MessStanMobile:hover, .showChatIconHide:hover {
+    opacity: 1;
+    transform: scale(1.1); }
+
+.showChatIcon .icon, .MessStanMobile .icon, .showChatIconHide .icon {
+  margin-left: -20px; }
+.showChatIcon .showChatSection, .showChatIcon .MobileMessCountSection, .MessStanMobile .showChatSection, .MessStanMobile .MobileMessCountSection, .showChatIconHide .showChatSection, .showChatIconHide .MobileMessCountSection {
+  position: relative; }
+  .showChatIcon .showChatSection .CountOnline, .showChatIcon .showChatSection .CountMessagesNotReeded, .showChatIcon .MobileMessCountSection .CountOnline, .showChatIcon .MobileMessCountSection .CountMessagesNotReeded, .MessStanMobile .showChatSection .CountOnline, .MessStanMobile .showChatSection .CountMessagesNotReeded, .MessStanMobile .MobileMessCountSection .CountOnline, .MessStanMobile .MobileMessCountSection .CountMessagesNotReeded, .showChatIconHide .showChatSection .CountOnline, .showChatIconHide .showChatSection .CountMessagesNotReeded, .showChatIconHide .MobileMessCountSection .CountOnline, .showChatIconHide .MobileMessCountSection .CountMessagesNotReeded {
+    background: #aaadad;
+    padding: 4px;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    border-radius: 10px;
+    border: 1px solid black; }
+    .showChatIcon .showChatSection .CountOnline .ChatIcon, .showChatIcon .showChatSection .CountMessagesNotReeded .ChatIcon, .showChatIcon .MobileMessCountSection .CountOnline .ChatIcon, .showChatIcon .MobileMessCountSection .CountMessagesNotReeded .ChatIcon, .MessStanMobile .showChatSection .CountOnline .ChatIcon, .MessStanMobile .showChatSection .CountMessagesNotReeded .ChatIcon, .MessStanMobile .MobileMessCountSection .CountOnline .ChatIcon, .MessStanMobile .MobileMessCountSection .CountMessagesNotReeded .ChatIcon, .showChatIconHide .showChatSection .CountOnline .ChatIcon, .showChatIconHide .showChatSection .CountMessagesNotReeded .ChatIcon, .showChatIconHide .MobileMessCountSection .CountOnline .ChatIcon, .showChatIconHide .MobileMessCountSection .CountMessagesNotReeded .ChatIcon {
+      margin-top: 5px; }
+    .showChatIcon .showChatSection .CountOnline .Count, .showChatIcon .showChatSection .CountMessagesNotReeded .Count, .showChatIcon .MobileMessCountSection .CountOnline .Count, .showChatIcon .MobileMessCountSection .CountMessagesNotReeded .Count, .MessStanMobile .showChatSection .CountOnline .Count, .MessStanMobile .showChatSection .CountMessagesNotReeded .Count, .MessStanMobile .MobileMessCountSection .CountOnline .Count, .MessStanMobile .MobileMessCountSection .CountMessagesNotReeded .Count, .showChatIconHide .showChatSection .CountOnline .Count, .showChatIconHide .showChatSection .CountMessagesNotReeded .Count, .showChatIconHide .MobileMessCountSection .CountOnline .Count, .showChatIconHide .MobileMessCountSection .CountMessagesNotReeded .Count {
+      color: white;
+      font-weight: 800;
+      margin-left: 5px; }
+  .showChatIcon .showChatSection .CountMessagesNotReeded, .showChatIcon .MobileMessCountSection .CountMessagesNotReeded, .MessStanMobile .showChatSection .CountMessagesNotReeded, .MessStanMobile .MobileMessCountSection .CountMessagesNotReeded, .showChatIconHide .showChatSection .CountMessagesNotReeded, .showChatIconHide .MobileMessCountSection .CountMessagesNotReeded {
+    padding: 10px;
+    border: 0px solid black;
+    border-radius: 100%;
+    background: red; }
+
+#NotReededDiv {
+  height: 200px;
+  padding: 20px; }
+  #NotReededDiv .UserNotReedLoop {
+    display: flex; }
+    #NotReededDiv .UserNotReedLoop .UserLoopItem {
+      position: relative; }
+      #NotReededDiv .UserNotReedLoop .UserLoopItem .Avatar {
+        width: 150px;
+        height: 150px;
+        border-radius: 25px; }
+      #NotReededDiv .UserNotReedLoop .UserLoopItem .Count {
+        position: absolute;
+        top: -20;
+        left: 130px;
+        padding: 10px;
+        border: 0px solid black;
+        border-radius: 100%;
+        background: red; }
+  #NotReededDiv .SignsAsReed {
+    text-align: center; }
+
+.MessStanMobile {
+  top: 150px; }
+
+.showProfilIcon .icon {
+  margin-left: 10px; }
+
+.showProfilIcon {
+  left: 0; }
+
+@media (min-width: 768px) {
+  .showChatIcon, .showProfilIcon, .MessStanMobile {
+    display: none; }
+
+  .showChatIcon {
+    display: block; }
+
+  #MainPaageDiv #ProfilInfo {
+    width: 200px; }
+    #MainPaageDiv #ProfilInfo .ProfilInfoPosition {
+      width: 180px;
+      display: block; }
+  #MainPaageDiv #MainPageContent {
+    width: 60%; }
+
+  #ChatDiv {
     display: none; } }
+@media (min-width: 1024px) {
+  .showChatIcon, .showProfilIcon {
+    display: none; }
+
+  #MainPaageDiv #ProfilInfo {
+    width: 250px; }
+    #MainPaageDiv #ProfilInfo .ProfilInfoPosition {
+      width: 240px; }
+  #MainPaageDiv #MainPageContent {
+    margin-top: 80px;
+    width: 500px; }
+
+  #ChatDiv {
+    width: 200px;
+    display: block; } }
+@media (min-width: 1650px) {
+  .showChatIconHide {
+    top: 70px;
+    right: -100px; }
+
+  #MainPaageDiv #ProfilInfo {
+    width: 300px; }
+    #MainPaageDiv #ProfilInfo .ProfilInfoPosition {
+      width: 250px; }
+  #MainPaageDiv #MainPageContent {
+    width: 700px; } }
 .Messages-Nabvar {
   background: #5a5aff;
   border-bottom: 2px solid black;
@@ -364,5 +605,136 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555; }
+
+.ChatRow {
+  margin-top: 5px; }
+  .ChatRow .ChatElemnt {
+    padding: 0px; }
+    .ChatRow .ChatElemnt.AvatarChat {
+      width: 50px; }
+      .ChatRow .ChatElemnt.AvatarChat .ChatAvatr {
+        width: 40px;
+        height: 40px; }
+    .ChatRow .ChatElemnt.Login {
+      font-size: 15px;
+      margin-top: 5px;
+      width: 130px; }
+      .ChatRow .ChatElemnt.Login.loginLenght {
+        width: 118px; }
+    .ChatRow .ChatElemnt.Time {
+      font-size: 9px;
+      margin-top: 10px;
+      width: 30px; }
+    .ChatRow .ChatElemnt.Active {
+      margin-top: 5px; }
+
+.navbarChat {
+  margin-top: 60px; }
+  .navbarChat ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row; }
+    .navbarChat ul .chatcount {
+      position: relative; }
+      .navbarChat ul .chatcount .count {
+        color: white;
+        position: absolute;
+        top: 4px;
+        padding: 2px;
+        left: 25px;
+        background: #46bc23;
+        border-radius: 100%; }
+    .navbarChat ul li {
+      padding: 5px;
+      height: 35px;
+      border-bottom: 2px solid gold;
+      background: #bfb8b8; }
+      .navbarChat ul li .ChatFiltr {
+        width: 85px; }
+      .navbarChat ul li .CountOnline {
+        color: white; }
+      .navbarChat ul li.ChatIconNavbar .ChatIcon {
+        margin-top: 5px; }
+      .navbarChat ul li .ChatMenuicon {
+        width: 25px;
+        height: 25px; }
+  .navbarChat .CloseModal {
+    display: none; }
+
+.ChatIcon {
+  margin-top: 10px;
+  background: #46bc23;
+  padding: 5px;
+  width: 5px;
+  height: 5px;
+  border-radius: 100%; }
+
+@media (max-width: 1024px) {
+  .navbarChat {
+    margin-top: -5px; }
+    .navbarChat .CloseModal {
+      display: block; }
+    .navbarChat ul li .ChatFiltr {
+      width: 135px; }
+
+  .ChatRow .ChatElemnt {
+    margin-left: 10px;
+    margin-top: 20px; }
+    .ChatRow .ChatElemnt.AvatarChat {
+      width: 55px; }
+      .ChatRow .ChatElemnt.AvatarChat .ChatAvatr {
+        width: 50px;
+        height: 50px; }
+    .ChatRow .ChatElemnt.Login {
+      margin-top: 30px;
+      font-size: 18px;
+      width: 150px; }
+      .ChatRow .ChatElemnt.Login.loginLenght {
+        width: 138px; }
+    .ChatRow .ChatElemnt.Time, .ChatRow .ChatElemnt.Active {
+      margin-top: 35px;
+      width: 40px; }
+    .ChatRow .ChatElemnt.Active {
+      margin-top: 25px; } }
+#RightProfil {
+  border: 3px solid gold;
+  background: #bababa;
+  min-height: 360px; }
+  #RightProfil .photo {
+    background: #bababa; }
+    #RightProfil .photo .avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 100%;
+      margin-bottom: 5px; }
+  #RightProfil .Menu {
+    background: #e3e3e3; }
+    #RightProfil .Menu .icon {
+      margin-left: 5;
+      width: 25px;
+      height: 25px; }
+    #RightProfil .Menu .Count-ProfilRight {
+      font-weight: bold;
+      padding-left: 25px;
+      color: red; }
+  #RightProfil .Mobile {
+    padding: 5px;
+    display: none; }
+  #RightProfil .login {
+    display: flex; }
+  #RightProfil .Center {
+    text-align: center; }
+
+@media (max-width: 768px) {
+  #RightProfil {
+    width: 300px;
+    min-height: 600px;
+    border: 0px solid black; }
+    #RightProfil .Mobile {
+      display: flex; }
+    #RightProfil .login {
+      display: none; } }
 
 /*# sourceMappingURL=main.css.map */

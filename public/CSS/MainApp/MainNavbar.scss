@@ -57,7 +57,7 @@ $loadNotreededScale: scale(1.2);
 
 $DropdownMenuDivLetterSpacing:5px;
 $Loaddivbackground:lighten($MainNaberBacground, 10%);
-$LoadDivTop:65;
+$LoadDivTop:65;//65
 $LoadDivright:0;
 $LoadDivWidth:400px;
 $LoadDivBoderBottom:2px solid #ffda0e;
@@ -69,7 +69,9 @@ $LoadDivBoder:2px solid #ffda0e;
 
 //$LoadDivBoderLeft:
 .Main-Navbar{
-    z-index: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 2;
     background: $MainNaberBacground;
     border-bottom: $borderMenulogin;
     .logoNav{
@@ -193,7 +195,24 @@ $LoadDivBoder:2px solid #ffda0e;
         }        
     }
 }
-
+.DestopOnly{
+    display: none;
+}
+/*
+@media(min-width: 320px) {
+   .Main-Navbar{
+        .navbar-menu-Left{
+            .SearchMenuElemnt{
+                .Main-Search{
+                    width: 180px;
+                }
+            }
+        }
+    }
+    .MobileOnly{
+        display: block;
+    }
+}
 @media(min-width: 480px) {
    .Main-Navbar{
         .navbar-menu-Left{
@@ -237,18 +256,100 @@ $LoadDivBoder:2px solid #ffda0e;
     }
 
 }
+*/
+@media (max-width: 350px) {
+    .Main-Navbar{
+        position: relative;
+        height: 50px;
+        .mobile{
+             display: flex;
+        }
+        .MenuMobile{
+            .IconSearch{
+                display: none;
+            }
+        }
+    }
+}
+@media (max-width: 768px) {
+    .Main-Navbar{
+        .CountObject{
+            position: relative;
+            .CountIcon{
+                position: absolute;
+                background: red;
+                right:12px;
+                height: 10px;
+                width: 5px;
+                padding: 9px;
+                border-radius: 100%;
+                .CountStan{
+                     left: 10px;
+                     color: gold;
+                     font-weight: bold;
+                     font-size: 14px;
+                     position:absolute;
+                     top:0px;
+                }
+            }
+            &.notreededItem{
+                a{
+                    color: gold;
+                }
+            }
+        }
+        .notreededItem{
+                color: gold;
+        }
+        margin-top: -15px;
+        position: fixed;
+        height: 55px;
+        .normal{
+            display: none;
+        }
+        .mobile{
+             display: flex;
+             flex-direction: row;
+             flex-wrap: none;
+            justify-content: center;
+
+            .MenuMobile{
+                 list-style: none;
+                 display: flex; 
+                 margin-bottom: 5px;
+                  a{
+                       padding: 0px;
+                       margin-right: 20px;
+                       display: inline-flex;
+                       &:hover, &:focus {
+                          outline: none;
+                          color: gold;
+                       }
+                  }
+                
+            }
+        }
+    }
+}
+
 @media (min-width: 768px) {
    .Main-Navbar{
+        .mobile{
+            display: none;
+        }
         .navbar-menu-Left{
             .SearchMenuElemnt{
                 .Main-Search{
-                    width: 350px;
+                    width: 300px;
                 }
             }
         }
     }
     .MobileOnly{
         display: none;
+    }
+    .DestopOnly{
+        display: flex;
     }
 }
 

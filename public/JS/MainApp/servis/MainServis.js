@@ -239,3 +239,27 @@ MainServis.service( 'Show' ,['Sesion',function(Sesion) {
             return ReturnValue;
     }
 }]);
+MainServis.service( 'Chat' ,['Sesion',function(Sesion) {
+    this.IdUser=Sesion.Tokken.UserID
+    this.Set=function(chat){
+        UserId=this.IdUser
+        var chatArray=[]
+            angular.forEach(chat, function (array, key) {
+                if(chat[key].UserID!=UserId){
+                    chatArray.push(chat[key])
+                }
+            })
+        return chatArray;
+    }
+    this.CountOnline=function(chat){
+        var count=0;
+        angular.forEach(chat, function (array, key) {
+            if(chat[key].active==1){
+                count=count+1
+            }
+        })
+        return count;
+    }
+}]);
+
+

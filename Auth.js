@@ -73,7 +73,7 @@ var LoginAvailable = function LoginAvailable(){
     })
 }
 function UserMigration(){
-  let sql = 'CREATE  TABLE IF NOT EXISTS users (UserID int(11) NOT NULL AUTO_INCREMENT,PRIMARY KEY (`UserID`),login varchar(255) COLLATE utf8_polish_ci NOT NULL,email varchar(255) COLLATE utf8_polish_ci NOT NULL,password varchar(255) COLLATE utf8_polish_ci NOT NULL,ban tinyint(1) NOT NULL,active tinyint(1) NOT NULL,configure tinyint(1) NOT NULL,sex varchar(1) NOT NULL,dateregister datetime,lostlogin datetime )'
+  let sql = 'CREATE  TABLE IF NOT EXISTS users (UserID int(11) NOT NULL AUTO_INCREMENT,PRIMARY KEY (`UserID`),login varchar(255) COLLATE utf8_polish_ci NOT NULL,avatar VARCHAR(100) NOT NULL,email varchar(255) COLLATE utf8_polish_ci NOT NULL,password varchar(255) COLLATE utf8_polish_ci NOT NULL,ban tinyint(1) NOT NULL,active tinyint(1) NOT NULL,configure tinyint(1) NOT NULL,sex varchar(1) NOT NULL,dateregister datetime,lostlogin datetime )'
   db.query(sql);
 }
 module.exports=Auth;

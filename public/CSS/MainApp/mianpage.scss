@@ -1,11 +1,192 @@
-@media only screen and (max-width: 768px) {
-    .MainPage{
-        .leftSite{
+$ChatDIVBorder:3px solid gold;
+$ChatDIVbackground:#e1dff8;
+$ChatDIVwidth:200px;
+$showChatIconBacground:red;
+$showProfilIconBacground:red;
+$transition:.8s all;
+
+.showChatIcon,.showProfilIcon{
+    z-index: 1;
+}
+#ChatDiv{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    top:0px;
+    right: 0;
+    width: 200px;
+}
+.ChatStyle{
+    background: $ChatDIVbackground;
+    border-left:2px solid gold; 
+    height: 100%;
+}
+
+#MainPaageDiv{
+   #ProfilInfo{
+        .ProfilInfoPosition{
             display: none;
+            position: fixed;
+            top:80px;
         }
-        .Chat{
-           display: none;
+    }
+    #MainPageContent{
+        text-align: justify;
+        width: 100%;
+        margin-top: 50px;
+        min-height: 50px; 
+    }
+}
+.showChatIcon,.showProfilIcon,.MessStanMobile,.showChatIconHide{
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    right: 0;
+    top:70px;
+    opacity: .9;
+    .icon{
+        margin-top: 15px;
+        width: 50px;
+        height: 50px;
+    }
+    &:hover{
+        opacity: 1;
+        transform: scale(1.1);
+    }
+}
+.showChatIcon,.MessStanMobile,.showChatIconHide{
+    
+    .icon{
+        margin-left: -20px;
+    }
+    .showChatSection,.MobileMessCountSection{
+        position: relative;
+        .CountOnline,.CountMessagesNotReeded{
+            background: #aaadad;
+            padding:4px;
+            position: absolute;
+            left:5px;
+            top:5px;
+            border-radius: 10px;
+            border: 1px solid black;
+            .ChatIcon{
+                margin-top: 5px;
+            }
+            .Count{
+                color: white;
+                font-weight: 800;
+                margin-left: 5px;
+            }
         }
+        .CountMessagesNotReeded{
+            padding: 10px;
+            border: 0px solid black;
+            border-radius: 100%;
+            background: red;
+        }
+    }
+}
+
+#NotReededDiv{
+    height: 200px;
+    padding: 20px;
+    .UserNotReedLoop{
+        display: flex;
+        .UserLoopItem{
+             position: relative;
+            .Avatar{
+                width: 150px;
+                height: 150px;
+                border-radius: 25px;
+            }
+            .Count{
+                position: absolute;
+                top: -20; 
+                left:130px;
+                padding: 10px;
+                border: 0px solid black;
+                border-radius: 100%;
+                background: red;
+            }
+        }
+    }
+    .SignsAsReed{
+        text-align: center;
+    }
+}
+.MessStanMobile{
+    top:150px;
+}
+.showProfilIcon{
+    .icon{
+        margin-left: 10px;
+    }
+}
+.showProfilIcon{
+    left: 0;
+}
+@media (min-width: 768px){
+    .showChatIcon,.showProfilIcon,.MessStanMobile{
+        display: none;
+    }
+    .showChatIcon{
+        display: block;
+    }
+    #MainPaageDiv{
+         #ProfilInfo{
+             width: 200px;
+            .ProfilInfoPosition{
+                width: 180px;
+                display: block;
+            }
+         }
+         #MainPageContent{
+                width: 60%;
+        }
+    }
+    #ChatDiv{
+        display: none;
     }
     
 }
+@media (min-width: 1024px) {
+    .showChatIcon,.showProfilIcon{
+        display: none;
+    }
+    #MainPaageDiv{
+        #ProfilInfo{
+            width: 250px;
+            .ProfilInfoPosition{
+                width: 240px;
+            }
+        }
+        #MainPageContent{
+            margin-top: 80px;
+            width: 500px;
+        }
+    }
+    #ChatDiv{
+        width: 200px;
+        display: block;
+    }
+}
+@media (min-width: 1650px) {
+    .showChatIconHide{
+        top:70px;
+        right: -100px;
+    } 
+    #MainPaageDiv{
+        #ProfilInfo{
+            width: 300px;
+            .ProfilInfoPosition{
+                width: 250px;
+            }
+        }   
+        #MainPageContent{
+            
+            width: 700px;
+        }
+    }
+}
+

@@ -13,11 +13,6 @@
     flex-wrap: wrap;
     justify-content: space-between;
   }
-
-  &.compact {
-    font-size: .8em;
-  }
-
   &.fixed {
     position: fixed;
     top: 0;
@@ -73,7 +68,6 @@
 
 @media only screen and (min-width: 768px) {
   .navbar {
-
     &.fixed {
       overflow: hidden;
     }

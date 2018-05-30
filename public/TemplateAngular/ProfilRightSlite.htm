@@ -1,0 +1,46 @@
+<div id="RightProfil" ng-controller="ProfilRight">
+    <div class="Menu">
+        <div class="row Mobile">
+                <div class="col-xs-2"><img class="icon CloseModal" src="{{urlIcons | urlIcons:'Back'}}"></div>
+                <div class="col-xs-8 col-xs-offset-2">{{user.login}}</div>
+        </div>
+        <div class="login">
+            <div class="col-xs-12 col-xs-12 col-xs-offset-4">
+                {{user.login}}
+            </div>
+        </div>
+        <div class="photo">
+            <div class="col-xs-12 Center">
+                <img class="avatar" src="{{user.avatar | filtrPhoto:'user':user.sex}}">
+            </div>
+        </div>
+        <div class="row" ng-show="counts.NotreededMes">
+            <div class="col-xs-2"><img class="icon" src="{{urlIcons | urlIcons:'MessagesNotReeded'}}"></div>
+            <div class="col-xs-7">Wiadmosci</div>
+            <div class="col-xs-3 Count-ProfilRight">{{counts.NotreededMes | ToMuch:filrtLImit}}</div>
+        </div>
+        <div class="row" ng-show="!counts.NotreededMes">
+            <div class="col-xs-2"><img class="icon" src="{{urlIcons | urlIcons:'Messages'}}"></div>
+            <div class="col-xs-8">Wiadmosci</div>
+        </div>
+        <div class="row" ng-show="counts.NotreededNot">
+            <div class="col-xs-2"><img class="icon" src="{{urlIcons | urlIcons:'NotificationNotReeded'}}"></div>
+            <div class="col-xs-7">Powiadomnienia</div>
+            <div class="col-xs-3 Count-ProfilRight">{{counts.NotreededNot | ToMuch:filrtLImit}}</div>
+        </div>
+        <div class="row" ng-show="!counts.NotreededNot">
+            <div class="col-xs-2"><img class="icon" src="{{urlIcons | urlIcons:'Notification'}}"></div>
+            <div class="col-xs-8">Powiadomnienia</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2"><img class="icon" src="{{urlIcons | urlIcons:'Grup'}}"></div>
+            <div class="col-xs-8">Grupy</div>
+            <div class="col-xs-2">1</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2"><img class="icon" src="{{urlIcons | urlIcons:'Evant'}}"></div>
+            <div class="col-xs-8">Wydarzenia</div>
+            <div class="col-xs-2">1</div>
+        </div>
+    </div>
+</div>

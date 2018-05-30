@@ -1,60 +1,86 @@
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100%;
-  overflow: auto;
-  z-index: 2;
-  display: none;
-
-  &:before {
-    content: '';
-    display: block;
+.Model{
     position: fixed;
-    background: $color_black;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 100vw;
     height: 100%;
+    overflow: auto;
     z-index: 2;
-    opacity: 0;
-    transition: $transition_default;
-  }
-
-  .modal-body {
-    position: relative;
-    z-index: 2;
-    background: $color_white;
-    max-width: 600px;
-    min-width: 200px;
-    margin: auto;
-    padding: 1em;
-    transition: $transition_default;
-    transform: rotate(180deg) scale(0);
-
-    .close-button {
-      position: absolute;
-      top: 0;
-      right: 0;
-      margin: .5em;
-      padding: 0;
-      font-size: 1.8em;
-      line-height: .6;
-      background: none;
-      border: none;
-      cursor: pointer;
+    display: none;
+    
+    &:before{
+        content: '';
+        display: block;
+        position: fixed;
+        background: black;
+        top:0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: all 1s ;
     }
-  }
-
-  &.show {
-    &:before {
-      opacity: .85;
+    .InModelBady{
+        position: absolute;     
     }
+    .SlideLeft,.SlideRight{
+        transition: all 1s ;
+        top:0;
+        right: -50%;
+        width: 250px;
 
-    .modal-body {
-      transform: rotate(0) scale(1);
+        
     }
-  }
-
+    .SlideRight{
+         transition: all 1s ;
+        left: -50%;
+    }
+    .normal-model{
+        background: gray;
+        color: white;
+        display: none;
+        position: relative;
+        width: 600px;
+        margin: auto;
+        transition: all 1s ;
+        text-align: justify;
+        padding: 10px;
+        border-radius: 25px;
+        .CloseIconDiv{
+            position: relative;
+            .Icon{
+               position: absolute;
+               top: -15;
+               left: 570;
+               width: 25px;
+               height: 25px;
+            }
+        }
+    }
+    &.SlideRight{
+        &:before {
+          transition: all 1s ;
+          opacity: .75;
+        }
+        .SlideRight{
+          transition: all 1s ;
+          left: 0;
+        }
+    }
+    &.SlideLeft{
+        &:before {
+          transition: all 1s ;
+          opacity: .75;
+        }
+        .SlideLeft{
+            transition: all 1s ;
+            right: 0;
+        }
+    }
+    &.normal-model{
+        &:before {
+          transition: all 1s ;
+          opacity: .75;
+        }
+    }
 }

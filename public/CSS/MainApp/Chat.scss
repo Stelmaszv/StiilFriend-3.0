@@ -1,0 +1,133 @@
+$onlineColor:#46bc23;
+$navbarChatCountColor:white;
+$navbarBaackGround:#bfb8b8;
+$navbarBaackBorder:2px solid gold;
+.ChatRow{
+    margin-top: 5px;
+        .ChatElemnt{
+             padding: 0px;
+             &.AvatarChat{
+                width: 50px;
+                .ChatAvatr{
+                    width: 40px;
+                    height: 40px;
+                }
+            }
+            &.Login{
+                font-size: 15px;
+                margin-top: 5px;
+                width: 130px;
+                &.loginLenght{
+                    width: 118px;
+                }
+            }
+            &.Time{
+                font-size: 9px;
+                margin-top: 10px;
+                width: 30px;
+            }
+            &.Active{
+                margin-top: 5px;
+            }
+        }
+    }
+.navbarChat{
+    margin-top: 60px;
+    ul{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+        .chatcount{
+            position: relative;
+            .count{
+                color: $navbarChatCountColor;
+                position: absolute;
+                top:4px;
+                padding: 2px;
+                left: 25px;
+                background: $onlineColor;
+                border-radius: 100%;
+            }
+        }
+        
+        li{
+            .ChatFiltr{
+                width: 85px;
+            }
+            .CountOnline{
+                color: white;
+            }
+            &.ChatIconNavbar{
+                .ChatIcon{
+                    margin-top: 5px;
+                }
+            }
+            padding: 5px;
+            height: 35px;
+            border-bottom: $navbarBaackBorder;
+            background: $navbarBaackGround;
+            .ChatMenuicon{
+                width: 25px;
+                height: 25px;
+            }
+        }
+    }
+    .CloseModal{
+        display: none;
+    }
+}
+.ChatIcon{
+    margin-top: 10px;
+    background: $onlineColor;
+    padding: 5px;
+    width: 5px;
+    height: 5px;
+    border-radius: 100%;
+}
+@media (max-width: 1024px){
+    
+    .navbarChat{
+        margin-top: -5px;
+        .CloseModal{
+            display: block;
+        }
+        ul{
+            li{
+                .ChatFiltr{
+                    width: 135px;
+                }
+            }
+        }
+    }
+    .ChatRow{
+        .ChatElemnt{
+             margin-left: 10px;
+             margin-top: 20px;
+             &.AvatarChat{
+                width: 55px;
+                 .ChatAvatr{
+                    width: 50px;
+                    height: 50px;
+                }
+             }
+             &.Login{
+                 margin-top: 30px;
+                font-size: 18px;
+                width: 150px;
+                &.loginLenght{
+                    width: 138px;
+                }
+            }
+            &.Time,&.Active{
+                margin-top: 35px;
+                width: 40px;
+
+            }
+            &.Active{
+                margin-top: 25px;
+            }
+        }
+    }
+}

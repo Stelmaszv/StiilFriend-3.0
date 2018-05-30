@@ -1,4 +1,4 @@
-var app = angular.module("myApp", ["Helpers","ngRoute","Start","angular-jwt","btford.socket-io","MainServis","filtrs","ngSanitize"]);
+var app = angular.module("myApp", ["Helpers","ngRoute","Start","angular-jwt","btford.socket-io","MainServis","filtrs","ngSanitize","MainPage"]);
 app.config(function($routeProvider) {
         $routeProvider.when("/", {
             templateUrl : "TemplateAngular/main.htm",
