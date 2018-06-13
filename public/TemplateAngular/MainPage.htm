@@ -1,5 +1,5 @@
 <div class="container" ng-controller="MainPageController">
-    <div class="MessStanMobile ShowNotReeded" ng-show="show.MessMobileCount" data-modal-id="#NotReeded">
+    <div class="MessStanMobile ShowNotReeded" ng-show="show.MessMobileCount" data-modal-id="#NotReededMobile">
         <div class="MobileMessCountSection">
             <img class="icon" src="{{urlIcons | urlIcons:'MessagesNotReeded'}}">
                <div class="CountMessagesNotReeded row">
@@ -38,7 +38,8 @@
             </div>
         </div>
         <div id="MainPageContent">
-           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis atque nesciunt esse commodi, aut consectetur laudantium mollitia optio. Blanditiis voluptatem rem eligendi animi dicta quae ea iusto numquam suscipit, tempora!
+                  {{mobile}}
+                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis atque nesciunt esse commodi, aut consectetur laudantium mollitia optio. Blanditiis voluptatem rem eligendi animi dicta quae ea iusto numquam suscipit, tempora!
         <div class="Model" id="Chat" data-Modal-type="SlideLeft">
             <div class="InModelBady SlideLeft ChatStyle ChatContent">   
                 <div ng-include src="'TemplateAngular/Chat.htm'" ></div>
@@ -49,22 +50,50 @@
                 <div ng-include src="'TemplateAngular/ProfilRightSlite.htm'"></div>
             </div>
         </div>
-        <div class="Model" id="NotReeded" data-Modal-type="normal-model">
-            <div class="InModelBady normal-model "> 
-                <div class="CloseIconDiv">  
-                    <img class="Icon CloseModal"  src="{{urlIcons | urlIcons:'Close'}}">
+        <div ng-include src="'TemplateAngular/ActiveChat.htm'"></div>
+        <div  class="NewMesPreviev-JS " ng-click="RunChat(NevMes[0].Session)" ng-show="NevMes.length">
+          <div class="heders">
+            <img class="NewMesPreviev-Avatar" src="{{NevMes[0].Session.avatar | filtrPhoto:'user':NevMes[0].Session.sex }}">
+            <span class="NewMesPreviev-Login">{{NevMes[0].Session.login}}</span><br>
+          </div>
+         <div class="NewMesPrevievDiv">
+             <div class="NewMesPreviev-Content" >
+                    {{NevMes[0].Mess.Contnet}}
+             </div>
+         </div>
+          
+           <!--
+            <div id="NewMesPrevievDiv" ng-show="NevMes.length">
+                <img class="NewMesPreviev-Avatar" src="{{NevMes[0].ShowAvatar}}">
+                <div class="NewMesPreviev-Heder">
+                    <span class="NewMesPreviev-Login">{{NevMes[0].LoginShow}}</span><br>
+                    <span class="NewMesPreviev-Time">{{NevMes[0].ShowDate}} temu</span>
                 </div>
-                <div id="NotReededDiv">
-                    <div class="UserNotReedLoop" ng-repeat="user in NotReededList">
-                        <div class="UserLoopItem">
-                            <img class="Avatar" src="{{user.avatar}}">
-                            <div class="Count">{{user.notReeddCount}}</div>
-                        </div>
+            </div>
+            <div class="tech-slideshow">
+                <div class="mover-1">
+                    <div class="NewMesPreviev-Content" >
+                        {{NevMes[0].Contnet}}
                     </div>
                 </div>
-                
             </div>
+            -->
         </div>
     </div>
    </div>
+</div>
+
+<div class="modalNormal NotReededMobile" id="NotReededMobile">
+      <div class="modal-body NotReededMobileJS">
+        <img  class="close close-button" src="{{urlIcons | urlIcons:'Close'}}">
+        <div class="NotReededDiv">
+            <div class="UserNotReedLoop" ng-repeat="user in NotReededList">
+                <div class="UserLoopItem" ng-click="RunChat(user)">
+                    <img class="Avatar" src="{{user.avatar}}">
+                    <div class="Count">{{user.CountNotReeded}}</div>
+                </div>
+            </div>
+        </div>
+        <div ng-include src="'TemplateAngular/ActiveChatMobile.htm'"></div>
+      </div>
 </div>

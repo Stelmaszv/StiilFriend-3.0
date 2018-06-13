@@ -1,0 +1,68 @@
+<div ng-if="mobile">
+       <div class="ActiveChatRow">
+        <div class="ActiveChatDiv SomeOneTippingMessages" ng-repeat="chat in ActiveChat" ng-click="MarkAssReed($index)">
+                <div class="UserActiveChat" ng-show="chat.inChat.length>1"
+                     ng-mouseleave="ShowHide($index)" 
+                     ng-mouseenter="ShowAdd($index)">
+                     <div ng-show="chat.inChat.length>2">
+                         <span class="ChatUserName">{{chat.inChat | LoopToString | tektlengh:"30"}}</span>
+                     </div>
+                     <div ng-show="chat.inChat.length==2">
+                        <img class="OnlineIcon" ng-show="chat.inChat[1].active" src="{{urlIcons | urlIcons:'OnlineIcon'}}">
+                        <span class="ChatUserName">{{chat.inChat[1].login}}</span>
+                     </div>
+                     <img class="AddOnlineIcon" ng-show="chat.AddIconShow" src="{{urlIcons | urlIcons:'Add'}}" ng-click="chat.Chused=false">
+                </div>
+                <select ng-model="UserInChat" 
+                        class="SelectUser" 
+                        ng-show="!chat.Chused" 
+                        ng-change=SetUserChat($index,UserInChat) ng-class="{'MarginOption':chat.inChat.length>1}">
+                       <option ng-repeat="user in ChatList" 
+                               value="{{user.UserID}}" ng-selected="heth">
+                                {{user.login | tektlengh:"15"}}
+                        </option>
+                </select>
+                <div class="messages-section" ng-class="{'EmptySection':!chat.Chused,'MarginOption':chat.inChat.length>1}">
+                    <div ng-show="!chat.Chused" class="ChatEmpty">
+                          <div ng-show="chat.inChat.length==1"> 
+                                Nie  dodano żadnego użykownika do czatu 
+                          </div>
+                          <div ng-show="chat.inChat.length>1">
+                                wybiesz dodatkowego uzykownika czatu
+                          </div>
+                    </div>
+                    <div  ng-show="chat.Chused">
+                        <div ng-repeat="mess in chat.Messages | orderBy : 'date'" class="ChatActivemessagesSection">
+                            <div class="MessDiv" ng-class="{'isend':mess.sendID==user.UserID}">
+                                <div class="Avatar" ng-show="mess.sendID!=user.UserID">
+                                    <img src="{{mess.avatar | filtrPhoto:'user':mess.sex}}">
+                                </div>
+                                <div class="Content" style=" word-wrap: break-word;">
+                                    {{mess.Contnet}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ReededAllChat" ng-show="chat.LastMess.sendID==user.UserID">
+                                    <i ng-show="chat.inChat[1].AddressShow==0">
+                                          Wszytkie wiadmosci zostały wyświtlone 
+                                    </i>
+                    </div>
+                    <div class="someoneWritingSection" ng-show="chat.SomeoneWriting">
+                        <div class="ChatActivemessagesSection">
+                                <div class="MessDiv">
+                                    <div class="Avatar">
+                                        <img src="{{chat.TyppingPerson.avatar | filtrPhoto:'user':chat.sex}}">
+                                    </div>
+                                    <div class="Content">
+                                        {{chat.TyppingPerson.login}} pisze
+                                    </div>
+                                </div>
+                        </div>
+                    </div>  
+ 
+                </div>
+                <input type="text" ng-show="chat.Chused"  ng-keydown="someoneTypping($index)" ng-keyup="StopTypping($index)" class="SendMess EnterSend" ng-class="{'EmptySection':!chat.Chused}"  placeholder="Napisz wiadmośc ...">
+            </div>
+        </div>
+</div>

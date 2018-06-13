@@ -218,10 +218,15 @@ StartControlers.controller("Register-Conroller",['$scope','$http','Errors','Form
         RegisterRun($scope.RegisterForms);
     })   
 }]);
-StartControlers.controller("MainController",['$scope','$http','Sesion','Socket','Messages','Notification','Componets','TimeConvert','$interval','$filter','Show','Chat',function($scope,$http,Sesion,Socket,Messages,Notification,Componets,TimeConvert,$interval,$filter,Show,Chat){
+StartControlers.controller("MainController",['$scope','$http','Sesion','Socket','Messages','Notification','Componets','TimeConvert','$interval','$filter','Show','Chat','Mobile',function($scope,$http,Sesion,Socket,Messages,Notification,Componets,TimeConvert,$interval,$filter,Show,Chat,Mobile){
     if(Sesion.Tokken.login){
+        $scope.mobile=Mobile.IfMobile
         Componets.loadMainCompnent();
         $scope.user=Sesion.Tokken; 
+        $scope.ActiveChat=[]
+        $scope.PressTime=0;
+        $scope.writeTimeout=2;
+        $scope.NevMes=[]
         $scope.show={
             'MessMobileCount':false
         }
@@ -235,9 +240,6 @@ StartControlers.controller("MainController",['$scope','$http','Sesion','Socket',
             'SearchDiv':false,
             'NotreededNot':1
         }
-        $scope.NotReededList=[
-            {"login":"stelmaszv","avatar":"user/photo/1/201221.jpg","notReeddCount":1}
-        ];
         $scope.GetData=function(url){
             stop = $interval(function() {
                 ValueToReturn=undefined;
@@ -255,6 +257,88 @@ StartControlers.controller("MainController",['$scope','$http','Sesion','Socket',
         MessagesSocket();
         NotificationSocket();
         ChatSocket();
+        $scope.ShowAdd=function(index){
+            $scope.ActiveChat[index].AddIconShow=true;
+        }
+        $scope.ShowHide=function(index){
+            $scope.ActiveChat[index].AddIconShow=false;
+        }
+        $scope.AddNewUserToChat=function(index,value){
+            $scope.ActiveChat[index].UserInChat=false;
+        }
+        $scope.SetUserChat=function(index,value){
+                $scope.ActiveChat[index].Chused=true;
+                AddTo=Chat.AddUser(value,$scope.ChatList)
+                $scope.ActiveChat[index].inChat.push(AddTo);
+                var SentData={
+                    "sesion":$scope.user,
+                    "inchat":$scope.ActiveChat[index].inChat
+                }
+                $http.post('/loadActiveChat',SentData).then( function( Get ){
+                    scroll=document.querySelector('.messages-section') 
+                    $scope.ActiveChat[index].Messages=Chat.SetMessages(Get.data)
+                    $scope.ActiveChat[index].LastMess=Chat.LetestMess($scope.ActiveChat[index].Messages)
+                    setTimeout(function(){
+                        scroll.scrollTop=scroll.scrollHeight+50;
+                    },1);
+                    function SetMessages(data){
+                        Chat.PrepearMessages(data)
+                    }
+                });
+                let EnterSend=document.querySelectorAll('.EnterSend');
+                setTimeout(function(){ 
+                       let EnterSend=document.querySelectorAll('.EnterSend');              
+                        for (let Enter of EnterSend) {
+                            if(Enter){
+                                Enter.addEventListener('keydown',function(event){
+                                        if(event.keyCode=='13'){
+                                            if(Enter.value != ''){
+                                                scroll=document.querySelector('.messages-section')
+                                                scroll.scrollTop=scroll.scrollHeight+50; 
+                                                address=$scope.ActiveChat[index].inChat
+                                                memberINsttring=JSON.stringify(address);
+                                              $scope.ActiveChat[index].inChat=Chat.RemuweReeded($scope.ActiveChat[index].inChat)
+                                                DataSent={
+                                                    "address":memberINsttring,
+                                                    "content":Enter.value,
+                                                    "sendID":$scope.user.UserID,
+                                                    "time":TimeConvert.CreateTime(),
+                                                }
+                                                setTimeout(function(){
+                                                    scroll.scrollTop=scroll.scrollHeight+50;
+                                                }, 50);
+                                                Enter.value='';
+                                                Socket.emit('InsertMessage',DataSent,$scope.user)
+                                            }
+                                        }
+                                });
+                            }
+                        }
+                }, 300);
+                setTimeout(function(){
+                   data={
+                       Chat:$scope.ActiveChat[index].Messages,
+                       Value:value,
+                       InChat:$scope.ActiveChat[index].inChat,
+                       All:$scope.messages.AllMessages
+                   } 
+                   $scope.messages.AllMessages=Chat.AddresReeded(data)
+               },5);
+        }
+        $scope.someoneTypping = function($index){
+            var stan=[{
+                "ActiveChat":$scope.ActiveChat[$index],
+                "SesionData":$scope.user
+            }]
+            Socket.emit('SomeoneTypping',stan)
+        }
+        $scope.StopTypping=function($index){
+            var stan=[{
+                "ActiveChat":$scope.ActiveChat[$index],
+                "SesionData":$scope.user
+            }]
+            Socket.emit('StopTypping',stan)
+        }
         function MessagesSocket(){
             Socket.emit('request-messages',$scope.user)
             Socket.on('messages',function(data){
@@ -263,14 +347,34 @@ StartControlers.controller("MainController",['$scope','$http','Sesion','Socket',
             Socket.on('MarkAsReeded',function(data){
                 $scope.messagesNormal=Messages.MarksAssReedRecived(data,$scope.messagesNormal)
                 loadMessages($scope.messagesNormal)
+                $scope.ChatList=Chat.Set($scope.ChatList,$scope.messages.AllMessages);
             })
+            
             Socket.on('AddMessages',function(data){
-                if(Show.ShowMe(data)){
-                    $scope.messagesNormal=Messages.Add(data,$scope.messagesNormal)
+                if(Show.ShowMe(data.Mess)){
+                    Faind=Chat.FaindUserInActiveChatRes($scope.ActiveChat,data.Mess);
+                    $scope.messagesNormal=Messages.Add(data.Mess,$scope.messagesNormal)
                     loadMessages($scope.messagesNormal)
-                }
+                    $scope.ChatList=Chat.Set($scope.ChatList,$scope.messages.AllMessages);
+                    if(Faind==undefined){
+                        data.Mess=Messages.CreatePrevievMes($scope.messages)
+                        if(data.sendID!=$scope.user.UserID){
+                            $scope.NevMes.push(data)
+                            ScrolData($scope.NevMes)                  
+                        }
+                    }else{  
+    
+                        scroll=document.querySelector('.messages-section')
+                        data=Chat.SetMessages(data.Mess)
+                        $scope.ActiveChat[Faind].Messages.push(data[0])
+                        $scope.ActiveChat[Faind].LastMess=Chat.LetestMess($scope.ActiveChat[Faind].Messages)
+                        $scope.ActiveChat[Faind].SomeoneWriting=false;
+                        scroll.scrollTop=scroll.scrollHeight+50;
+                    }
+                } 
             })
-            function loadMessages(data){
+        }
+        function loadMessages(data){
                 messagess=[]
                 $scope.messagesNormal=data;
                 $scope.counts.NotreededMes=Messages.countNotReeded($scope.messagesNormal);
@@ -284,7 +388,6 @@ StartControlers.controller("MainController",['$scope','$http','Sesion','Socket',
                 }
                 $scope.counts.AllMessages=Messages.CountAllMessages($scope.messages);
                 $scope.messages=Messages.SetMessages($scope.messages,35);
-            }
         }
         function NotificationSocket(){
             Socket.emit('request-Notification',$scope.user)
@@ -306,6 +409,43 @@ StartControlers.controller("MainController",['$scope','$http','Sesion','Socket',
         }
         function ChatSocket(){
             Socket.emit('request-chat',$scope.user)
+            Socket.on('MarkAsReededChat',function(data){
+                key=Chat.FaindUserInActiveChat($scope.ActiveChat,data.ActiveChat)
+                if($scope.ActiveChat[key]){
+                    $scope.ActiveChat[key].inChat=data.ActiveChat.inChat
+                    Intval=setTimeout(function(){ 
+                        scroll=document.querySelector('.messages-section') 
+                        scroll.scrollTop=scroll.scrollHeight+50;
+                    },1)
+                }
+                
+            })
+            Socket.on('SomeoneTypping',function(data){
+                    if(data[0].SesionData.UserID!=$scope.user.UserID){
+                        key=Chat.FaindUserInActiveChat($scope.ActiveChat,data[0].ActiveChat)
+                        if($scope.ActiveChat[key]){
+                            scroll=document.querySelector('.messages-section') 
+                            $scope.ActiveChat[key].TyppingPerson=data[0].SesionData
+                            $scope.ActiveChat[key].SomeoneWriting=true;
+                            scroll.scrollTop=scroll.scrollHeight+50;   
+                        }
+                    }
+            })
+            Socket.on('StopTypping',function(data){
+                
+                    if(data[0].SesionData.UserID!=$scope.user.UserID){
+                        key=Chat.FaindUserInActiveChat($scope.ActiveChat,data[0].ActiveChat)
+                        if($scope.ActiveChat[key]){
+                            $scope.ActiveChat[key].TyppingPerson=data[0].SesionData
+                            scroll=document.querySelector('.messages-section') 
+                            scroll.scrollTop=scroll.scrollHeight+50; 
+                            Intval=setTimeout(function(){ 
+                                $scope.ActiveChat[key].SomeoneWriting=false;
+                            },100); 
+                        }
+                    }
+
+            })
             Socket.on('load-chat',function(data){
                 loadChat(data)
             }) 
@@ -316,13 +456,92 @@ StartControlers.controller("MainController",['$scope','$http','Sesion','Socket',
             window.onbeforeunload = function () {
                 Socket.emit('RemuerFromChat',$scope.user,TimeConvert.CreateTime())
             };
-            function loadChat(data){
-                $scope.ChatList=Chat.Set(data);
-                $scope.counts.UserOnline=Chat.CountOnline($scope.ChatList)
+        }
+        function loadChat(data){
+            $scope.ChatList=Chat.Set(data,$scope.messages.AllMessages);
+            $scope.NotReededList=Messages.SetMobileNotReddedList($scope.ChatList)
+            $scope.counts.UserOnline=Chat.CountOnline($scope.ChatList)
+        }
+        function ScrolData(data){
+            DivHeight=document.querySelector('.NewMesPrevievDiv')
+            document.querySelector('.NewMesPreviev-JS').classList.remove('NewMesPreviev-Opacity')
+            Rows=Math.round(data[0].Mess.Contnet.length/28)
+            Actual=DivHeight.style.height=60;
+            PlusValue=Rows*20;
+            NewHeight=Actual+PlusValue;
+            if(data[0].Mess.Contnet.length>28){
+                if(NewHeight>200){
+                    DivHeight.style.height=200;
+                    var start=-10;
+                    DivHeight.style.transform="translateY(-10%)";
+                    var Time=0;
+                    var limit=1000
+                    Intval=setInterval(function(){  
+                        Time=Time+100;
+                        DivHeight.style.transform="translateY("+start+"%)";
+                        start=start+-10
+                        if(Time>limit-300){
+                            clearInterval(Intval)
+                            DivHeight=document.querySelector('.NewMesPreviev-JS').classList.add('NewMesPreviev-Opacity')
+                            $scope.NevMes=[];
+                        }
+                    },500);
+                    
+                }else{
+                    DivHeight.style.height=NewHeight;
+                    DivHeight.style.transform="translateY(-5%)";
+                    myVar =setTimeout(function(){
+                    clearTimeout(myVar)
+                    document.querySelector('.NewMesPreviev-JS').classList.add('NewMesPreviev-Opacity')
+                      $scope.NevMes=[];
+                   },2000);
+                }
+                
+            }else{
+                myVar =setTimeout(function(){
+                    clearTimeout(myVar)
+                    document.querySelector('.NewMesPreviev-JS').classList.add('NewMesPreviev-Opacity')
+                    $scope.NevMes=[];
+                },2000);    
             }
         }
         $scope.ClearNotifications=function(){
             $scope.notifications=Notification.ClearAllNotification();
+        }
+        $scope.MarkAssReed=function($index){
+        
+          chat=Chat.MarkAssReededChat($scope.ActiveChat[$index].Messages,$scope.messages.AllMessages)
+          Socket.emit('MarkAsReeded',chat,$scope.user)
+           data={
+              Session:$scope.user,
+              ActiveChat:$scope.ActiveChat[$index]
+           }
+            if($scope.ActiveChat[$index].LastMess.sendID!=$scope.user.UserID){
+                Socket.emit('MarkAsReededChat',data);  
+            }
+        }
+        $scope.RunChat=function(chat){
+            if(Mobile.IfMobile){
+                if(Chat.IfAbleToAdd(chat.UserID,$scope.ActiveChat)){
+                    index=$scope.ActiveChat.push({
+                        "inChat":[$scope.user],
+                        "AddIconShow":false,
+                        "SomeoneWriting":false,
+                        "TyppingPerson":false,
+                        "AddressShow":true,
+                        "Chused":false,
+                        "Letest":false
+                    })
+                    index=index-1;
+                    $scope.SetUserChat(index,chat.UserID)
+                }
+            }else{
+                model=document.querySelector('.NotReededMobileJS');
+                model.style.top=-450;
+                $scope.ActiveChat=chat
+                $scope.SetUserChat(0,chat.UserID,'Mobile')
+                
+            }
         }
     }else{
         window.location.assign("#!/start")
@@ -352,9 +571,6 @@ StartControlers.controller("MainNavbarController",['$scope','$http','Sesion','So
             ]    
             let LoadSection = document.querySelector($scope.ActiveElments[Elemnt].Click);
                 LoadSection.addEventListener('click',function(e){
-                    if(window.innerWidth<768){
-                        window.location.assign("#!/"+$scope.ActiveElments[Elemnt].Url)
-                    }else{
                         e.preventDefault();
                         $scope.ActiveElments=ResetActiveElents($scope.ActiveElments);
                         let ActiveItem = document.querySelector($scope.ActiveElments[Elemnt].Active);
@@ -375,7 +591,7 @@ StartControlers.controller("MainNavbarController",['$scope','$http','Sesion','So
                             return false;
                         }
                         $scope.Elment=Element;
-                    }
+                    
                 })
                 function ResetActiveElents(array){
                     for (i = 0; i < array.length; i++) { 
@@ -472,7 +688,6 @@ StartControlers.controller("loguat",['$scope','$http','Sesion','Socket','TimeCon
        window.location.assign("#!/start") 
     }
 }]);
-
 StartControlers.controller("MainPageController",['$scope','$http','Sesion','Socket','Messages','Notification','Componets','TimeConvert','$interval','$filter','Show',function($scope,$http,Sesion,Socket,Messages,Notification,Componets,TimeConvert,$interval,$filter,Show){
     Componets.loadMainCompnent();
     ShowNotReeded=document.querySelector('.ShowNotReeded');

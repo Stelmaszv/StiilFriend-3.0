@@ -1,5 +1,5 @@
 var StartControlers = angular.module("MainPage", ["Notification","Translate","Url"]);
-StartControlers.controller("chat",['$scope','$http','Componets','TimeConvert','Socket',function($scope,$http,Componets,TimeConvert,Socket){
+StartControlers.controller("chat",['$scope','$http','Componets','TimeConvert','Socket','Chat',function($scope,$http,Componets,TimeConvert,Socket,Chat){
       let HideChat=document.querySelector('.HideChat')
       $scope.HideChat=function(){
           $(".ChatStyle").animate({right:-200},function(){
@@ -12,12 +12,27 @@ StartControlers.controller("chat",['$scope','$http','Componets','TimeConvert','S
               });    
           })
       }
-
-      
+      /*
+      $scope.RunChat=function(chat){
+        index=sent()
+        index=index-1;
+        $scope.SetUserChat(index,chat.UserID)
+      }
+      */
       $scope.SendMessages=function(){
         sent()
       }
       var sent = function(){
+        index=$scope.ActiveChat.push({
+            "inChat":[$scope.user],
+             "AddIconShow":false,
+             "SomeoneWriting":false,
+             "TyppingPerson":false,
+             "Chused":false,
+             "Messages":[],
+        })
+        return index;
+        /*
         content='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam maiores ad odio, temporibus quo dolore nobis pariatur blanditiis nam eos maxime ratione at. A ratione magnam, voluptate, autem distinctio quia.';
         address=[{"id":$scope.user.UserID},{"id":2}]
         membersMormal=$scope.user.UserID+' 2'
@@ -30,6 +45,7 @@ StartControlers.controller("chat",['$scope','$http','Componets','TimeConvert','S
             "MemberInCoversationnormal":membersMormal    
         }
         Socket.emit('InsertMessage',DataSent,$scope.user)
+        */
     }
 }]);
 StartControlers.controller("ProfilRight",['$scope','$http','Componets',function($scope,$http,Componets){

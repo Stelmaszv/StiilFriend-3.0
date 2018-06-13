@@ -347,6 +347,8 @@ filtrs.filter('urlIcons', function () {
     };
     function IconArray(Icon) {
         IconArrayList = {
+            'Add'                     :'/icon/add.png',
+            'OnlineIcon'              :'/icon/OnlieIcon.png',
             'ArrowRight'              :'/icon/ArrowRight.png',
             'MessagesSend'            :'/icon/messagesend.png',
             'Close'                   :'/icon/closew.png',
@@ -441,4 +443,23 @@ filtrs.filter('sex', function () {
         return word;
     }
 });
-
+filtrs.filter('LoopToString', function (Sesion) {
+    return function (array) {
+        return ConvertToString(array);
+    };
+    function ConvertToString(chat){
+         var ArrayString="";
+         for (i =1; i < chat.length; i++) {
+            if(i!=1){
+                if(i<3){
+                    ArrayString+=" i "+chat[i].login
+                }else{
+                    ArrayString+=" , "+chat[i].login
+                }
+            }else{
+                ArrayString+=chat[i].login
+            }
+         }
+         return ArrayString;
+    }
+});

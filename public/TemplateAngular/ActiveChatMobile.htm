@@ -1,0 +1,18 @@
+<div ng-if="!mobile">
+   <div class="chatWndowMobile">
+        <div class="HederMobile">
+            <div class="row">
+                <div class="col-xs-1">
+                    <img ng-show="ActiveChat.active=1" class="OnlineIcon" src="{{urlIcons | urlIcons:'OnlineIcon'}}">
+                </div>
+                <div class="col-xs-11 login">
+                    {{ActiveChat.login}}
+                </div>
+            </div>
+        </div>
+        <div class="MessagesDiv"> 
+            
+        </div>
+        <input type="text" class="SendMess EnterSend"   placeholder="Napisz wiadmośc ...">
+    </div>
+</div>

@@ -5,6 +5,21 @@ $showChatIconBacground:red;
 $showProfilIconBacground:red;
 $transition:.8s all;
 
+$NotReededDivCountColor:red;
+$NotReededDivCountBorder:0px solid black;
+$chatBorderColor:2px solid gold;
+
+$showChatIconCountOnlineColor:#aaadad;
+$CountMessagesNotReededCountBorder:1px solid black;
+$CountMessagesNotReededBorder:0px solid black;
+$CountMessagesNotReededBackground:red;
+$activChatWindow:#6363db;
+$activChatMessagesWindow:lighten($activChatWindow, 30%); 
+$MainSearchTransition:.8s all;
+
+$MainNaberBacground:#4e4ab1; //#4e4ab1
+$MainNaberBorder:2px solid #ffda0e;
+
 .showChatIcon,.showProfilIcon{
     z-index: 1;
 }
@@ -18,10 +33,9 @@ $transition:.8s all;
 }
 .ChatStyle{
     background: $ChatDIVbackground;
-    border-left:2px solid gold; 
+    border-left:$chatBorderColor; 
     height: 100%;
 }
-
 #MainPaageDiv{
    #ProfilInfo{
         .ProfilInfoPosition{
@@ -63,13 +77,13 @@ $transition:.8s all;
     .showChatSection,.MobileMessCountSection{
         position: relative;
         .CountOnline,.CountMessagesNotReeded{
-            background: #aaadad;
+            background: $showChatIconCountOnlineColor;
             padding:4px;
             position: absolute;
             left:5px;
             top:5px;
             border-radius: 10px;
-            border: 1px solid black;
+            border: $CountMessagesNotReededCountBorder;
             .ChatIcon{
                 margin-top: 5px;
             }
@@ -81,38 +95,53 @@ $transition:.8s all;
         }
         .CountMessagesNotReeded{
             padding: 10px;
-            border: 0px solid black;
+            border: $CountMessagesNotReededBorder;
             border-radius: 100%;
-            background: red;
+            background: $CountMessagesNotReededBackground;
         }
     }
 }
-
-#NotReededDiv{
-    height: 200px;
-    padding: 20px;
-    .UserNotReedLoop{
-        display: flex;
+.NotReededMobile{
+    .NotReededDiv{
+        height: 200px;
+        padding: 5px;
+        .UserNotReedLoop{
+             display: flex;
+        }
         .UserLoopItem{
-             position: relative;
+            position: relative;
             .Avatar{
-                width: 150px;
-                height: 150px;
-                border-radius: 25px;
+                width: 80px;
+                height:80px;
+                border-radius: 15px;
             }
             .Count{
                 position: absolute;
-                top: -20; 
-                left:130px;
+                top: -10; 
+                right:-10;
                 padding: 10px;
-                border: 0px solid black;
+                color: white;
+                border: $NotReededDivCountBorder;
                 border-radius: 100%;
-                background: red;
+                background: $NotReededDivCountColor;
             }
         }
     }
-    .SignsAsReed{
-        text-align: center;
+    .modal-body{
+        margin-left: 25px;
+        position: fixed;
+        bottom:10px; 
+        background:$MainNaberBacground; 
+        border: 2px solid #ffda0e;
+        width: 380px;
+        height: 120px;
+        .close-button {
+            background: none;
+            top: -30px;
+            right: -30px;
+            width: 30px;
+            height: 30px;
+        }
     }
 }
 .MessStanMobile{
@@ -142,15 +171,23 @@ $transition:.8s all;
             }
          }
          #MainPageContent{
-                width: 60%;
+            margin-top: 80px;
+            width: 480px;
         }
     }
     #ChatDiv{
         display: none;
     }
-    
 }
-@media (min-width: 1024px) {
+@media (min-width: 880px){
+    #MainPaageDiv{
+        #MainPageContent{
+            margin-top: 80px;
+            width: 600px;
+        }
+    }
+}
+@media (min-width: 1050px) {
     .showChatIcon,.showProfilIcon{
         display: none;
     }
@@ -162,13 +199,26 @@ $transition:.8s all;
             }
         }
         #MainPageContent{
-            margin-top: 80px;
-            width: 500px;
+            width: 600px;
         }
     }
     #ChatDiv{
         width: 200px;
         display: block;
+    }
+}
+@media (min-width: 1150px) {
+    #MainPaageDiv{
+        #MainPageContent{
+            width: 650px;
+        }
+    }
+}
+@media (min-width: 1300px) {
+    #MainPaageDiv{
+        #MainPageContent{
+            width: 700px;
+        }
     }
 }
 @media (min-width: 1650px) {
@@ -184,8 +234,7 @@ $transition:.8s all;
             }
         }   
         #MainPageContent{
-            
-            width: 700px;
+            width: 800px;
         }
     }
 }

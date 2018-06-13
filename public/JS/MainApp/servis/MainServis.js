@@ -60,8 +60,8 @@ MainServis.service( 'Messages' , [ 'Sesion','$filter','PushUrl',function(Sesion,
         function PrepearMessages(array,SessionID,MemberInCoversation){
             var set=0
             angular.forEach(MemberInCoversation, function (array, key) {
-                if(MemberInCoversation[key].id!=SessionID){
-                    set=MemberInCoversation[key].id
+                if(MemberInCoversation[key].UserID!=SessionID){
+                    set=MemberInCoversation[key].UserID
                 }
             })
             var count=0;
@@ -87,29 +87,41 @@ MainServis.service( 'Messages' , [ 'Sesion','$filter','PushUrl',function(Sesion,
         })
         return count;
     }
+    this.CreatePrevievMes=function(messages){
+        return letest=messages.NormalMessages[0];
+    }
+    this.CountNotReededFromUser=function(all,idUser){
+            var count=0;
+           angular.forEach(all, function (array, key) { 
+               if(all[key].sendID==idUser && all[key].reeded==0){
+                    count=count+1
+               }
+           })  
+           return count;
+    }
     this.SetMessages=function(array,contentLimit){
         normal=array.NormalMessages
         all=array.AllMessages
         idUser=this.IdUser
         angular.forEach(normal, function (array, key) {
             Data=SetData(normal[key],idUser,all)
-            ShowTime=$filter('timestampToDate')(normal[key].date,'short');
+            ShowTime=$filter('timestampToDate')(normal[key].date,'chat');
             ShowContnet=$filter('tektlengh')(normal[key].Contnet,contentLimit);
             photo=$filter('filtrPhoto')(Data.avatar,'user',Data.sex,idUser);
-            normal[key].NotReededCount=CountNotReededFromUser(normal[key],all,idUser);
-            normal[key].CountMessFromUser=CountMessFromUser(normal[key],idUser,all);
+            normal[key].NotReededCount=CountNotReededFromUser(normal[key],all,normal[key].sendID);
+            normal[key].CountMessFromUser=CountMessFromUser(idUser,all);
             normal[key].LoginShow=Data.login
             normal[key].ShowDeleted=SetDeleted(normal[key],idUser,all,normal[key].CountMessFromUser)
             //normal[key].Reeded=DataManipulatin.SetReeded(idUser,all)
             normal[key].ShowAvatar=photo
             normal[key].ShowDate=ShowTime
             normal[key].ShowContnet=ShowContnet
-            normal[key].AddressRedded=AddressRedded(normal[key],all);  
+            normal[key].AddressRedded=AddressRedded(normal[key],all,normal[key].sendID);  
         })
-        function CountMessFromUser(item,sessionID,all){
+        function CountMessFromUser(sessionID,all){
             var count=0;
             angular.forEach(all, function (array, key) { 
-                if(all[key].UserId==sessionID){
+                if(all[key].sendID==sessionID){
                     count=count+1;
                 }
             })
@@ -126,19 +138,19 @@ MainServis.service( 'Messages' , [ 'Sesion','$filter','PushUrl',function(Sesion,
                 return true;
             }
         }
-        function AddressRedded(array,all){
-            var Faind=FaindUser(array.MemberInCoversation,idUser)
-            return CountNotReededFromUser(array,all,Faind)
+        function AddressRedded(array,all,send){
+            return CountNotReededFromUser(array,all,send)
         }
         function CountNotReededFromUser(user,all,idUser){
-           var Faind=FaindUser(user.MemberInCoversation,idUser)
+
            var count=0;
            angular.forEach(all, function (array, key) { 
-               if(all[key].sendID==Faind && all[key].reeded==0 && all[key].UserId==idUser){
+               if(all[key].sendID==idUser && all[key].reeded==0){
                     count=count+1
                }
            })  
            return count;
+           
         }
         function SetData(GetArray,SesionID,array){
             Data=[]
@@ -154,11 +166,21 @@ MainServis.service( 'Messages' , [ 'Sesion','$filter','PushUrl',function(Sesion,
         }
         return array
     }
+    this.SetMobileNotReddedList=function(chat){
+        NewChat=[];
+        angular.forEach(chat, function (array, key) {
+            if(chat[key].CountNotReeded>0){
+                NewChat.push(chat[key])
+            }
+        })
+        return NewChat;
+        
+    }
     function FaindUser(users,idUser){
             var returnID=0;
             angular.forEach(users, function (array, key) {
-                if(users[key].id!=idUser){
-                    returnID=users[key].id;
+                if(users[key].UserID!=idUser){
+                    returnID=users[key].UserID;
                 }
             })
             return returnID;
@@ -167,6 +189,7 @@ MainServis.service( 'Messages' , [ 'Sesion','$filter','PushUrl',function(Sesion,
         PushUrl.Push('/ClearMessages/'+this.IdUser)
         return [];
     }
+
 }]);
 MainServis.service( 'Notification' , [ 'Sesion','$filter','PushUrl',function(Sesion,$filter,PushUrl) {
     this.IdUser=Sesion.Tokken.UserID
@@ -239,17 +262,50 @@ MainServis.service( 'Show' ,['Sesion',function(Sesion) {
             return ReturnValue;
     }
 }]);
-MainServis.service( 'Chat' ,['Sesion',function(Sesion) {
+MainServis.service( 'Chat' ,['Sesion','Array','Messages','$filter',function(Sesion,Array,Messages,$filter) {
     this.IdUser=Sesion.Tokken.UserID
-    this.Set=function(chat){
+    this.AddUser=function(value,chat){
+        var ArrayToreturn=[];
+        angular.forEach(chat, function (array, key) {
+            if(chat[key].UserID==value){
+                ArrayToreturn=chat[key]
+            }
+        })
+        return ArrayToreturn;
+    }
+    this.Set=function(chat,allMess){
         UserId=this.IdUser
         var chatArray=[]
             angular.forEach(chat, function (array, key) {
                 if(chat[key].UserID!=UserId){
+                    chat[key].CountNotReeded=Messages.CountNotReededFromUser(allMess,chat[key].UserID)
+                    chat[key].AddressShow=AddresReeded(allMess,chat[key].UserID)
                     chatArray.push(chat[key])
                 }
             })
+        function AddresReeded(AllMess,value){
+                count=0;
+                angular.forEach(AllMess, function (All,KeyMes) {
+                       if(All.UserId==value && All.reeded==0){ 
+                            count=count+1
+                       }
+                })
+                return count;
+        }
         return chatArray;
+    }
+    this.AddresReeded=function(data){
+
+    }
+    this.SetMessages=function(chat){
+        var chatloop=[];
+        var Ids=[];
+        angular.forEach(chat, function (array, key) {
+            if(chat[key].sendID==chat[key].UserId){
+                chatloop.push(chat[key])
+            }
+        })
+        return chatloop;
     }
     this.CountOnline=function(chat){
         var count=0;
@@ -259,6 +315,97 @@ MainServis.service( 'Chat' ,['Sesion',function(Sesion) {
             }
         })
         return count;
+    }
+    this.FaindUserInActiveChat=function(scope,data){
+        var count=0
+        var key=0;
+            angular.forEach(scope, function (array, mainkey) {
+                if(scope[mainkey].inChat.length>1){
+                    if(scope[mainkey].inChat.length==data.inChat.length){
+                        angular.forEach(scope[mainkey].inChat, function (array, scopekey) {
+                            count=count+faindUser(scope[mainkey].inChat[scopekey].UserID,data.inChat)
+                        })
+                    }
+                    if(count==scope[mainkey].inChat.length){
+                        key=mainkey
+                    }
+                }else{
+                    key=undefined;
+                }
+            })
+       return key;
+    }
+    this.FaindUserInActiveChatRes=function(scope,data){
+        if(scope.length>0){
+            var count=0
+            var key=0;
+            angular.forEach(scope, function (array, mainkey) {
+                if(scope[mainkey].inChat.length>1){
+                    if(scope[mainkey].inChat.length==data.length){
+                         angular.forEach(scope[mainkey].inChat, function (array, scopekey) {
+                             count=count+faindUser(scope[mainkey].inChat[scopekey].UserID,data)
+                         })
+                        if(count==scope[mainkey].inChat.length){
+                            key=mainkey
+                        }
+                    }
+                }else{
+                    key=undefined;
+                }
+
+            })
+        }else{
+            key=undefined;
+        }
+        return key;
+    }
+    this.MarkAssReededChat=function(chat,messages){
+        MessagesArray=[]
+        angular.forEach(messages, function (array, keyMes) {
+            angular.forEach(chat, function (array, keyChat) {
+                if(messages[keyMes].MessagesId==chat[keyChat].MessagesId && messages[keyMes].reeded==0){
+                    messages[keyMes].reeded==1
+                    MessagesArray.push(messages[keyMes].MessagesId)
+                }
+            });
+        });
+        return MessagesArray;
+    }
+    this.RemuweReeded=function(array){
+        angular.forEach(array, function (Messages, keyMes) {
+            array[keyMes].AddressShow=1
+        })
+        return array;
+    }
+    this.LetestMess=function(array){
+        NewMessages=$filter('orderBy')(array,'-date')
+        return NewMessages[0];
+    }
+    this.IfAbleToAdd=function(active,all){
+        if(all.length==0){
+            return true;
+        }else{
+            var count=0;
+            angular.forEach(all, function (Messages, keyMes) {
+                angular.forEach(all[keyMes].inChat, function (chat, inchatid) {
+                    if(chat.UserID==active){
+                        count=count+1;
+                    }
+                })
+            })
+            if(count==0){
+                return true;
+            }
+        }
+    }
+    function faindUser(id,inChat){
+           count=0
+           angular.forEach(inChat, function (array, key) {
+               if(inChat[key].UserID==id){
+                   count=count+1;
+               }
+           })
+           return count;
     }
 }]);
 

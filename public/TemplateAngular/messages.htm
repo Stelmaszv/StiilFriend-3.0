@@ -26,6 +26,7 @@
                     </div>
                 </div>
                 <div class="messages-Loop-Contnet">
+                   {{message.AddressRedded}}
                     <span ng-if="message.sendID==user.UserID">
                         <i class="material-icons" ng-show="message.AddressRedded>0">reply</i>  
                         <i class="material-icons" ng-show="message.AddressRedded==0">done</i> 

@@ -2,6 +2,14 @@ var Chat = function Chat(io){
     ChatSocket();
     function ChatSocket(){
         io.on('connection', function(socket){
+            socket.on('SomeoneTypping',function(data){
+                data[0].ActiveChat.SomeoneWriting=true;
+                io.emit('SomeoneTypping',data)
+            })
+            socket.on('StopTypping',function(data){
+                data[0].ActiveChat.SomeoneWriting=true;
+                io.emit('StopTypping',data)
+            })
             socket.on('request-chat',function(data){
                 var ID=data.UserID
                 let UpdateMystan=`UPDATE users SET active = 1 WHERE UserID = ${ID}`;
@@ -11,8 +19,6 @@ var Chat = function Chat(io){
                     io.emit('load-chat',result)
                 })
             })
-            socket.on('Add-UserToChat', function(){
-            });
             socket.on('RemuerFromChat', function(data,UpdataTime){
 
                 var ID=data.UserID

@@ -1620,7 +1620,35 @@ a:hover img {
   height: 100%;
   overflow: auto;
   z-index: 2;
-  display: none; }
+  display: none;
+  /*
+  .normal-model{
+      background: $normalmodelBacground;
+      color: white;
+      display: none;
+      position: relative;
+      width: 600px;
+      margin: auto;
+      transition: all 1s ;
+      text-align: justify;
+      padding: 10px;
+      border-radius: 25px;
+      .CloseIconDiv{
+           width: 25px;
+           height: 25px;
+           position: absolute;
+           top: 0;
+           right: 0;
+           margin: .5em;
+           padding: 0;
+           font-size: 1.8em;
+           line-height: .6;
+           background: none;
+           border: none;
+           cursor: pointer;
+      }
+  }
+  */ }
   .Model:before {
     content: '';
     display: block;
@@ -1642,25 +1670,27 @@ a:hover img {
   .Model .SlideRight {
     transition: all 1s;
     left: -50%; }
-  .Model .normal-model {
-    background: gray;
-    color: white;
-    display: none;
+  .Model .modal-body {
     position: relative;
-    width: 600px;
+    z-index: 2;
+    background: #f9f9f9;
+    max-width: 600px;
+    min-width: 200px;
     margin: auto;
-    transition: all 1s;
-    text-align: justify;
-    padding: 10px;
-    border-radius: 25px; }
-    .Model .normal-model .CloseIconDiv {
-      position: relative; }
-      .Model .normal-model .CloseIconDiv .Icon {
-        position: absolute;
-        top: -15;
-        left: 570;
-        width: 25px;
-        height: 25px; }
+    padding: 1em;
+    transition: 0.3s all;
+    transform: rotate(180deg) scale(0); }
+    .Model .modal-body .close-button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: .5em;
+      padding: 0;
+      font-size: 1.8em;
+      line-height: .6;
+      background: none;
+      border: none;
+      cursor: pointer; }
   .Model.SlideRight:before {
     transition: all 1s;
     opacity: .75; }
@@ -1676,6 +1706,53 @@ a:hover img {
   .Model.normal-model:before {
     transition: all 1s;
     opacity: .75; }
+
+.modalNormal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  overflow: auto;
+  z-index: 2;
+  display: none; }
+  .modalNormal:before {
+    content: '';
+    display: block;
+    position: fixed;
+    background: #232323;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    opacity: 0;
+    transition: 0.3s all; }
+  .modalNormal .modal-body {
+    position: relative;
+    z-index: 2;
+    background: #f9f9f9;
+    max-width: 600px;
+    min-width: 200px;
+    margin: auto;
+    padding: 1em;
+    transition: 0.3s all;
+    transform: rotate(180deg) scale(0); }
+    .modalNormal .modal-body .close-button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: .5em;
+      padding: 0;
+      font-size: 1.8em;
+      line-height: .6;
+      background: none;
+      border: none;
+      cursor: pointer; }
+  .modalNormal.show:before {
+    opacity: .85; }
+  .modalNormal.show .modal-body {
+    transform: rotate(0) scale(1); }
 
 .navbar {
   background: black;

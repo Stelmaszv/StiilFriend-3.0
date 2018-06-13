@@ -13,6 +13,7 @@ Helpers.service( 'Componets' , [function() {
         alertsDismissable();
         tabs();
         modal();
+        ModalMormal()
         navbar()
     }
     function InputsNormal(){
@@ -196,6 +197,41 @@ Helpers.service( 'Componets' , [function() {
             }
         }
     }
+    function ModalMormal() {
+              let modalButtons = document.querySelectorAll('[data-modal-id]');
+          for (let modalButton of modalButtons) {
+            let modalId = modalButton.getAttribute('data-modal-id');
+
+            modalButton.addEventListener('click', function(e) {
+              e.preventDefault();
+
+              document.querySelector(modalId).style.display = 'flex';
+              document.querySelector('body').style.overflow = 'hidden';
+
+              setTimeout(function() {
+                document.querySelector(modalId).classList.add('show');
+              }, 1);
+
+            });
+          }
+
+          let modals = document.querySelectorAll('.modalNormal');
+          for (let modal of modals) {
+            let closeButtons = modal.querySelectorAll('.close');
+            for (let closeButton of closeButtons) {
+              closeButton.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                modal.classList.remove('show');
+                document.querySelector('body').style.overflow = 'auto';
+
+                setTimeout(function() {
+                  modal.style.display = 'none';
+                }, 300);
+              });
+            }
+          }
+    }
     function dropdown() {
         /*
         let dropdownMenus = document.querySelectorAll('.MainNavNavbarDrobdown');
@@ -275,6 +311,15 @@ Helpers.service( 'Array' , [function() {
         });
         return FindField;
     }
+    this.repeat=function(id,loop){
+        var VarToReturn=false;
+            angular.forEach(loop, function (array, key) {
+                if(loop[key]==id){
+                    VarToReturn=true;
+                }
+            })
+        return VarToReturn
+    }
     
     
 }]);
@@ -348,5 +393,13 @@ Helpers.service('TimeConvert',['$filter',function($filter){
           })
         return array
 
+    }
+}])
+Helpers.service('Mobile',[function(){
+    this.IfMobile=CheckIfMobile();
+    function CheckIfMobile(){
+        if(innerWidth>480){
+            return true;
+        }
     }
 }])

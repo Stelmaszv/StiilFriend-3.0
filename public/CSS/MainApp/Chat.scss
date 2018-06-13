@@ -2,6 +2,14 @@ $onlineColor:#46bc23;
 $navbarChatCountColor:white;
 $navbarBaackGround:#bfb8b8;
 $navbarBaackBorder:2px solid gold;
+$NewMesPrevievBackground:#e5dfdf;
+$activChatWindow:#6363db;
+$activChatMessagesWindow:lighten($activChatWindow, 30%); 
+$MainSearchTransition:.8s all;
+$normalsend:#3fe5de;//#3fe5de
+$sessionsend:darken($normalsend, 30%);
+$NewMesPrevievJSBoderColor:#6868e6;
+$NewMesPrevievJSContentColor:#f5eeee;
 .ChatRow{
     margin-top: 5px;
         .ChatElemnt{
@@ -16,9 +24,15 @@ $navbarBaackBorder:2px solid gold;
             &.Login{
                 font-size: 15px;
                 margin-top: 5px;
-                width: 130px;
-                &.loginLenght{
-                    width: 118px;
+                width: 120px;//120
+                &.ShowCount{
+                    width: 110px;
+                }
+                &.ShowCountNoActive{
+                    width: 100px;
+                }
+                &.HideCountNoActive{
+                    width: 110px;
                 }
             }
             &.Time{
@@ -28,6 +42,24 @@ $navbarBaackBorder:2px solid gold;
             }
             &.Active{
                 margin-top: 5px;
+                .OnlineIcon{
+                    width: 25px;
+                    height: 25px;
+                }
+            }
+            &.Count{
+                width:10px;
+                position: relative;
+                .CountStan{    
+                  position: absolute;
+                  left:-15px;
+                  color: gold;
+                  font-weight: bold;
+                  border-radius: 10px;
+                  padding: 5px;
+                  background: red;
+                  font-size: 14px;
+                }
             }
         }
     }
@@ -86,6 +118,202 @@ $navbarBaackBorder:2px solid gold;
     height: 5px;
     border-radius: 100%;
 }
+.ActiveChatRow{
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    top: 70%;
+    right: 210px;
+    .ActiveChatDiv{
+        border-radius: 5px;
+       -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+       -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+       box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+       width: 300px;
+       height: 250px;
+       background: $activChatWindow;
+        .AddOnlineIcon{
+            width: 15px;
+            height: 15px;
+        }
+        
+       .SelectUser,.SendMess,.UserActiveChat{
+           transition: $MainSearchTransition;
+            padding: 5px;
+            margin: 10px;
+            width: 280px;
+        }
+        .UserActiveChat{
+           display: flex;
+            .OnlineIcon{
+                width: 15px;
+                height: 15px;
+            }
+            .ChatUserName{
+                color: white;
+            }
+        }
+        
+        .messages-section{ 
+            word-break:break-all;
+            padding: 15px;
+            background: $activChatMessagesWindow; 
+            width:   280px;
+            margin-top: -10px;
+            margin-left: 10px;
+            min-height: 150px;
+            max-height: 150px;
+            overflow: scroll;
+            &.EmptySection{
+                &.MarginOption{
+                  height: 200px;
+                }
+                opacity: 0.5;
+                height: 200px;
+                .ChatEmpty{
+                    text-align: center;
+                    padding: 5px;
+                    font-style: italic;
+                }
+            }
+            
+        }
+        .SendMess{
+            &.EmptySection{
+                opacity: 0;
+            }
+            margin-top: 0px;    
+        }
+    }
+}
+.ReededAllChat{
+   display: flex; 
+   justify-content: center; 
+    font-size: 12px;
+}
+.ChatActivemessagesSection{
+    padding: 5px;
+        .MessDiv{
+        display: flex;
+        justify-content: flex-start;
+        .Avatar{
+            img{
+                margin-right: 10px;
+                width: 25px;
+                height: 25px;
+            }
+        }
+        .Content{
+            justify-content: flex-start;
+            border-radius: 5px;
+            padding: 5px;
+            background: $normalsend;
+        }
+        &.isend{
+             justify-content: flex-end;
+            .Content{
+                background: $sessionsend;
+                color:white;
+            }
+        }
+    }
+}
+.chatWndowMobile{
+    margin-top: -80px;
+    background: $activChatWindow;
+    .HederMobile{
+        background: $activChatWindow;
+        .login{
+            color: white;
+            font-weight: bold;
+        }
+        .OnlineIcon{
+            width: 25px;
+            height: 25px;
+        }
+    }
+    .MessagesDiv{
+        background: $activChatMessagesWindow; 
+        border: 5px solid $activChatWindow; 
+        min-height: 310px;
+    }
+    .SendMess{
+            transition: $MainSearchTransition;
+            padding: 5px;
+            margin: 10px;
+            width: 330px;
+    }
+}
+/*
+.chatWndowMobile{
+     min-height: 400px;
+     background: $activChatWindow;
+         .MessagesDiv{
+            margin-top: -80px;
+            background: $activChatMessagesWindow; 
+            border: 5px solid $activChatWindow; 
+            min-height: 390px;
+            .HederMobile{
+                background: $activChatWindow;
+            }
+        }
+
+}
+*/
+.NewMesPreviev-JS{
+    position: fixed;
+    top:70%;
+    left: 50px;
+    overflow: hidden;
+    background: $NewMesPrevievJSContentColor;//#fcf6f6
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    .heders{
+        .NewMesPreviev-Avatar{
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            z-index: 3;
+            border-radius: 0px 0px 10px 0px;
+            border: 2px solid $NewMesPrevievJSBoderColor;
+        }
+        .NewMesPreviev-Login{
+            position: absolute;
+            z-index: 3;
+            left: 50px;
+            width: 200px;
+            background: $NewMesPrevievJSBoderColor;
+            color: white;
+            padding: 5px;
+        }
+    }
+    .NewMesPrevievDiv{
+        width: 250px;
+        height: 60px;
+        padding: 10px;
+        overflow: hidden;
+        .NewMesPreviev-Content{
+            word-break:break-all;
+            z-index: 1;
+            left: 10px;
+            width: 230;
+            margin-top: 10px;
+            height: 100%;
+            position: absolute;
+            margin: 0 auto;
+            transform: translateY(25%);  
+        }
+    }
+}
+
+.NewMesPreviev-Opacity{
+    transition: .15s all;
+    &.NewMesPreviev-Opacity{
+        transition: .8s all;
+        opacity: 0;
+    }
+}
 @media (max-width: 1024px){
     
     .navbarChat{
@@ -116,9 +344,16 @@ $navbarBaackBorder:2px solid gold;
                  margin-top: 30px;
                 font-size: 18px;
                 width: 150px;
-                &.loginLenght{
-                    width: 138px;
+                &.ShowCount{
+                    width: 130px;
                 }
+                &.ShowCountNoActive{
+                    width: 100px;
+                }
+                &.HideCountNoActive{
+                    width: 140px;
+                }
+
             }
             &.Time,&.Active{
                 margin-top: 35px;
@@ -127,6 +362,12 @@ $navbarBaackBorder:2px solid gold;
             }
             &.Active{
                 margin-top: 25px;
+            }
+            &.Count{
+                width:10px;
+                .CountStan{  
+                  left: 0px;
+                }
             }
         }
     }
