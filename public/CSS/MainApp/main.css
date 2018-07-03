@@ -383,7 +383,10 @@
   z-index: 1;
   top: 0px;
   right: 0;
-  width: 200px; }
+  width: 200px;
+  transition: .5s all; }
+  #ChatDiv.HideSlideRight {
+    right: -200; }
 
 .ChatStyle {
   background: #e1dff8;
@@ -421,6 +424,7 @@
 .showChatIcon .showChatSection, .showChatIcon .MobileMessCountSection, .MessStanMobile .showChatSection, .MessStanMobile .MobileMessCountSection, .showChatIconHide .showChatSection, .showChatIconHide .MobileMessCountSection {
   position: relative; }
   .showChatIcon .showChatSection .CountOnline, .showChatIcon .showChatSection .CountMessagesNotReeded, .showChatIcon .MobileMessCountSection .CountOnline, .showChatIcon .MobileMessCountSection .CountMessagesNotReeded, .MessStanMobile .showChatSection .CountOnline, .MessStanMobile .showChatSection .CountMessagesNotReeded, .MessStanMobile .MobileMessCountSection .CountOnline, .MessStanMobile .MobileMessCountSection .CountMessagesNotReeded, .showChatIconHide .showChatSection .CountOnline, .showChatIconHide .showChatSection .CountMessagesNotReeded, .showChatIconHide .MobileMessCountSection .CountOnline, .showChatIconHide .MobileMessCountSection .CountMessagesNotReeded {
+    width: 35px;
     background: #aaadad;
     padding: 4px;
     position: absolute;
@@ -435,11 +439,14 @@
       font-weight: 800;
       margin-left: 5px; }
   .showChatIcon .showChatSection .CountMessagesNotReeded, .showChatIcon .MobileMessCountSection .CountMessagesNotReeded, .MessStanMobile .showChatSection .CountMessagesNotReeded, .MessStanMobile .MobileMessCountSection .CountMessagesNotReeded, .showChatIconHide .showChatSection .CountMessagesNotReeded, .showChatIconHide .MobileMessCountSection .CountMessagesNotReeded {
-    padding: 10px;
+    padding: 4px;
     border: 0px solid black;
     border-radius: 100%;
     background: red; }
 
+.NotReededMobile .Section.Reeded {
+  text-align: center;
+  color: white; }
 .NotReededMobile .NotReededDiv {
   height: 200px;
   padding: 5px; }
@@ -448,8 +455,8 @@
   .NotReededMobile .NotReededDiv .UserLoopItem {
     position: relative; }
     .NotReededMobile .NotReededDiv .UserLoopItem .Avatar {
-      width: 80px;
-      height: 80px;
+      width: 70px;
+      height: 70px;
       border-radius: 15px; }
     .NotReededMobile .NotReededDiv .UserLoopItem .Count {
       position: absolute;
@@ -474,6 +481,39 @@
     right: -30px;
     width: 30px;
     height: 30px; }
+
+.AddToChat .modal-body {
+  width: 800px;
+  border: 5px solid black;
+  background: #4e4ab1; }
+  .AddToChat .modal-body .ListContnet {
+    padding-left: 5px;
+    padding-bottom: 10px;
+    background: white; }
+    .AddToChat .modal-body .ListContnet .Heder {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px; }
+    .AddToChat .modal-body .ListContnet .ChatAddLoop .section .InputSection, .AddToChat .modal-body .ListContnet .ChatAddLoop .section .AvatarSection {
+      margin-right: 2%; }
+    .AddToChat .modal-body .ListContnet .ChatAddLoop .section .InputAddUserToChat {
+      width: 40px;
+      height: 40px; }
+    .AddToChat .modal-body .ListContnet .ChatAddLoop .section .avatar {
+      width: 50px;
+      height: 50px; }
+    .AddToChat .modal-body .ListContnet .ChatAddLoop .section .LoginToAdd {
+      margin-top: 10px;
+      font-weight: 700; }
+    .AddToChat .modal-body .ListContnet .ChatAddLoop .section .ActivToAadd .OnlineIcon {
+      width: 50px;
+      height: 50px; }
+    .AddToChat .modal-body .ListContnet .Actions {
+      margin-top: 10px;
+      text-align: center; }
+      .AddToChat .modal-body .ListContnet .Actions .Cancel {
+        margin-left: -10px; }
 
 .MessStanMobile {
   top: 150px; }
@@ -668,10 +708,14 @@
         border-radius: 10px;
         padding: 5px;
         background: red;
-        font-size: 14px; }
+        font-size: 10px; }
 
 .navbarChat {
   margin-top: 60px; }
+  .navbarChat .MobileHide {
+    display: block; }
+  .navbarChat .NormalHide {
+    display: none; }
   .navbarChat ul {
     list-style: none;
     margin: 0;
@@ -713,6 +757,67 @@
   height: 5px;
   border-radius: 100%; }
 
+.Loading {
+  display: flex;
+  justify-content: center;
+  height: 10px; }
+  .Loading .LoadingIcon {
+    width: 100px;
+    height: 100px; }
+
+#ActiveChatMobile {
+  width: 100%;
+  height: 120%;
+  position: fixed;
+  z-index: 9;
+  top: 20; }
+  #ActiveChatMobile:before {
+    content: '';
+    display: block;
+    position: fixed;
+    background: black;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.75;
+    transition: all 1s; }
+  #ActiveChatMobile .messages-section {
+    width: 100%;
+    word-break: break-all;
+    padding: 0px;
+    background: #dfdff8;
+    max-height: 100%;
+    overflow: scroll;
+    font-size: 20px; }
+    #ActiveChatMobile .messages-section .ChatEmpty {
+      font-size: 20px;
+      text-align: center;
+      padding: 5px;
+      font-style: italic; }
+  #ActiveChatMobile .ActiveChatSection {
+    position: relative;
+    background-color: #6363db;
+    padding: 10px;
+    margin: 5px; }
+    #ActiveChatMobile .ActiveChatSection .ActiveChatItem {
+      margin: 5px; }
+      #ActiveChatMobile .ActiveChatSection .ActiveChatItem .ActiveChatAvatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 100%; }
+    #ActiveChatMobile .ActiveChatSection .MessagesSection {
+      background-color: #dfdff8;
+      height: 50%; }
+    #ActiveChatMobile .ActiveChatSection .SentSection {
+      z-index: 10; }
+      #ActiveChatMobile .ActiveChatSection .SentSection .SendMessMobile {
+        width: 85%;
+        height: 50px; }
+      #ActiveChatMobile .ActiveChatSection .SentSection .SendMessButton {
+        width: 14%;
+        height: 50px; }
+
 .ActiveChatRow {
   display: flex;
   flex-direction: row;
@@ -726,18 +831,18 @@
     box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
     width: 300px;
     height: 250px;
+    margin-left: 5px;
     background: #6363db; }
-    .ActiveChatRow .ActiveChatDiv .AddOnlineIcon {
-      width: 15px;
-      height: 15px; }
     .ActiveChatRow .ActiveChatDiv .SelectUser, .ActiveChatRow .ActiveChatDiv .SendMess, .ActiveChatRow .ActiveChatDiv .UserActiveChat {
       transition: 0.8s all;
       padding: 5px;
       margin: 10px;
       width: 280px; }
     .ActiveChatRow .ActiveChatDiv .UserActiveChat {
-      display: flex; }
-      .ActiveChatRow .ActiveChatDiv .UserActiveChat .OnlineIcon {
+      display: flex;
+      padding: 0px;
+      width: 280px; }
+      .ActiveChatRow .ActiveChatDiv .UserActiveChat .OnlineIcon, .ActiveChatRow .ActiveChatDiv .UserActiveChat .AddOnlineIcon {
         width: 15px;
         height: 15px; }
       .ActiveChatRow .ActiveChatDiv .UserActiveChat .ChatUserName {
@@ -877,10 +982,8 @@
 @media (max-width: 1024px) {
   .navbarChat {
     margin-top: -5px; }
-    .navbarChat .CloseModal {
-      display: block; }
     .navbarChat ul li .ChatFiltr {
-      width: 135px; }
+      width: 170px; }
 
   .ChatRow .ChatElemnt {
     margin-left: 10px;
@@ -893,22 +996,28 @@
     .ChatRow .ChatElemnt.Login {
       margin-top: 30px;
       font-size: 18px;
-      width: 150px; }
+      width: 185px; }
       .ChatRow .ChatElemnt.Login.ShowCount {
-        width: 130px; }
+        width: 165px; }
       .ChatRow .ChatElemnt.Login.ShowCountNoActive {
-        width: 100px; }
+        width: 160px; }
       .ChatRow .ChatElemnt.Login.HideCountNoActive {
-        width: 140px; }
+        width: 180px; }
     .ChatRow .ChatElemnt.Time, .ChatRow .ChatElemnt.Active {
       margin-top: 35px;
-      width: 40px; }
+      width: 40px;
+      font-weight: 900; }
     .ChatRow .ChatElemnt.Active {
       margin-top: 25px; }
     .ChatRow .ChatElemnt.Count {
       width: 10px; }
       .ChatRow .ChatElemnt.Count .CountStan {
         left: 0px; } }
+@media (min-width: 1024px) {
+  .navbarChat .MobileHide {
+    display: none; }
+  .navbarChat .NormalHide {
+    display: block; } }
 #RightProfil {
   border: 3px solid gold;
   background: #bababa;
@@ -940,7 +1049,7 @@
 
 @media (max-width: 768px) {
   #RightProfil {
-    width: 300px;
+    width: 250px;
     min-height: 1000px;
     border: 0px solid black; }
     #RightProfil .Mobile {

@@ -1,51 +1,143 @@
 var MainServis = angular.module("MainServis", ["Notification","url","Helpers"]);
-MainServis.service( 'Messages' , [ 'Sesion','$filter','PushUrl',function(Sesion,$filter,PushUrl) {
+MainServis.service( 'Messages' , [ 'Sesion','$filter','PushUrl','Array','UserInJason','Url',function(Sesion,$filter,PushUrl,Array,UserInJason,Url) {
     this.IdUser=Sesion.Tokken.UserID
-    this.countNotReeded= function(ArryMessages){
-        var count=0;
-        UserId=this.IdUser;
-        angular.forEach(ArryMessages, function (array, key) {
-            if(ArryMessages[key].reeded==0 && ArryMessages[key].UserId==UserId){
-                count++;
-            }
+    this.Prepare=function(data,all){ 
+        UserID=this.IdUser
+        var mesages=[]
+        var MessRepeat=[];
+        angular.forEach(data, function (array, key) {
+             if(!Array.repeat(data[key].IdConversation,MessRepeat)){
+                 data[key].countNotReeded=undefined;
+                 data[key].UsersInConversationJason=JSON.parse(data[key].UsersInConversationJason)
+                 if(data[key].UsersInConversationJason.length>2){
+                     data[key].AvatarShow=$filter('urlIcons')(data[key].UsersInConversationJason,'MultiChat');
+                     data[key].ShowLogin=$filter('UsersToString')(data[key].UsersInConversationJason);
+                     data[key].ShowLogin=$filter('tektlengh')(data[key].ShowLogin,23);
+                     data[key].UserData=data[key].UsersInConversationJason;
+                     data[key].UserData[1].IdConversation=data[key].IdConversation;
+                 }else if(data[key].UsersInConversationJason.length==2){
+                     FaindUserKey=UserInJason.FaindUserInJasonArray(UserID,data[key].UsersInConversationJason)
+                     data[key].UserData=data[key].UsersInConversationJason[FaindUserKey]
+                     data[key].UserData.IdConversation=data[key].IdConversation
+                     if(data[key].IdSend==UserID){
+                         data[key].SqlID=data[key].UsersInConversationJason[FaindUserKey].UserID
+                         data[key].ShowLogin=data[key].UsersInConversationJason[FaindUserKey].login
+                         data[key].AvatarShow=data[key].UsersInConversationJason[FaindUserKey].avatar
+                         Data=Count(all,data[key])
+                         data[key].CountNotMessFomUser=Data.CountNotMessFomUser
+                         data[key].countNotReeded=Data.countNotReeded
+                     }else{
+                         data[key].SqlID=data[key].UserID
+                         data[key].ShowLogin=data[key].login
+                         data[key].AvatarShow=data[key].avatar
+                         Data=Count(all,data[key])
+                         data[key].CountNotMessFomUser=Data.CountNotMessFomUser
+                         data[key].countNotReeded=Data.countNotReeded
+                     }
+                 }
+                 
+                 mesages.push(data[key])
+                 MessRepeat.push(data[key].IdConversation)
+              }
+              
         })
-        return count;
-    }
-    this.MarksAssReed =function(Messages){
-        idUser=this.IdUser
-        MessagesArray=[]
-        angular.forEach(Messages, function (array, key) {
-           if(Messages[key].reeded==0 && Messages[key].UserId==idUser){
-               Messages[key].reeded=1;
-               MessagesArray.push(Messages[key].MessagesId)
-           }
-        })
-        return MessagesArray;
-    }
-    this.MarksAssReedRecived=function(data,Messages){
-        angular.forEach(Messages, function (array, key) {
-            var Reeded=IfSedToReeded(Messages[key].MessagesId,data)
-            if(Reeded){
-                Messages[key].reeded=1;
-            }
-        })
-        function IfSedToReeded(id,Messages){
-            var ToReturn=false
-            angular.forEach(Messages, function (array, key) {
-                if(Messages[key]==id){
-                    ToReturn=true;
+        function Count(all,data){
+            CountNotMessFomUser=0;
+            countNotReeded=0
+            angular.forEach(all, function (Array, key) {
+                if(typeof Array.UsersInConversationJason=="string"){
+                    Array.UsersInConversationJason=JSON.parse(Array.UsersInConversationJason)
+                }
+                if(Array.UsersInConversationJason.length==2){
+                    if(Array.Reed==0 && Array.UserId==UserID && Array.IdSend==data.SqlID){
+                        CountNotMessFomUser=CountNotMessFomUser+1;
+                    }else if(Array.Reed==0 && Array.UserId==data.SqlID && Array.IdSend==UserID){
+                        countNotReeded=countNotReeded+1;
+                    }
                 }
             })
-            return ToReturn;
+            DataToReturn={
+                "CountNotMessFomUser":CountNotMessFomUser,
+                "countNotReeded":countNotReeded
+            }
+            return DataToReturn
         }
-        return Messages;
-    }
-    this.Add=function(data,Messages){
-        NewMessages=Messages.concat(data);
-        NewMessages=$filter('orderBy')(NewMessages,'-date')
-        return NewMessages;
-    }
-    this.Prepear=function(arrayinsert,messages){   
+        return mesages;
+        /*
+                 if(data[key].UsersInConversationJason.length>2){
+    
+                     data[key].UsersInConversationJason=JSON.parse(data[key].UsersInConversationJason)
+                     if(data[key].IdSend==UserID){
+                         FaindUserKey=UserInJason.FaindUserInJasonArray(UserID,data[key].UsersInConversationJason)
+                         data[key].SqlID=data[key].UsersInConversationJason[FaindUserKey].UserID
+                         data[key].ShowLogin=data[key].UsersInConversationJason[FaindUserKey].login
+                         data[key].AvatarShow=data[key].UsersInConversationJason[FaindUserKey].avatar
+                     }else{
+                         data[key].SqlID=data[key].UserID
+                         data[key].ShowLogin=data[key].login
+                         data[key].AvatarShow=data[key].avatar
+                     }
+               
+                 }else if(data[key].UsersInConversationJason.length==2){
+                     console.log('jeden')
+                 }
+            
+                  */
+        /*
+            if(!Array.repeat(data[key].IdConversation,MessRepeat)){
+                data[key].NotReededCount=0;
+                data[key].UsersInConversationJason=JSON.parse(data[key].UsersInConversationJason)
+                if(data[key].IdSend==UserID){
+                    FaindUserKey=UserInJason.FaindUserInJasonArray(UserID,data[key].UsersInConversationJason)
+                    if(data[key].UsersInConversationJason.length<3){
+                        
+                        data[key].ShowLogin=data[key].UsersInConversationJason[FaindUserKey].login
+                        data[key].AvatarShow=data[key].UsersInConversationJason[FaindUserKey].avatar
+                    }else{
+                        data[key].ShowLogin=$filter('UsersToString')(data[key].UsersInConversationJason);
+                        data[key].AvatarShow=$filter('urlIcons')(data[key].UsersInConversationJason,'MultiChat');
+                    }
+                }else{
+                    if(data[key].UserId==UserID){
+                        FaindUserKey=UserInJason.FaindUserInJasonArray(UserID,data[key].UsersInConversationJason) 
+                        if(data[key].UsersInConversationJason.length<3){
+                            data[key].ShowLogin=data[key].login
+                            data[key].AvatarShow=data[key].avatar
+                        }else{
+                            data[key].ShowLogin= $filter('UsersToString')(data[key].UsersInConversationJason);
+                            data[key].AvatarShow=$filter('urlIcons')(data[key].UsersInConversationJason,'MultiChat');
+                        }
+                    }
+                }
+                
+                mesages.push(data[key])
+                MessRepeat.push(data[key].IdConversation)
+            }
+            */
+        /*
+                if(data[key].IdSend==UserID){
+                    if(data[key].UserId!=UserID){
+                        data[key].UsersInConversationJason=JSON.parse(data[key].UsersInConversationJason)
+                        FaindUserKey=UserInJason.FaindUserInJasonArray(UserID,data[key].UsersInConversationJason)
+                        data[key].ShowLogin=data[key].UsersInConversationJason[FaindUserKey].login
+                        data[key].AvatarShow=data[key].UsersInConversationJason[FaindUserKey].avatar
+                        data[key].NotReededCount=0;
+                        mesages.push(data[key])
+                        MessRepeat.push(data[key].idMessageStan)
+                    }
+                }else{
+                    if(data[key].UserId==UserID){
+                        FaindUserKey=UserInJason.FaindUserInJasonArray(UserID,data[key].UsersInConversationJason) 
+                        data[key].ShowLogin=data[key].login
+                        data[key].AvatarShow=data[key].avatar
+                        data[key].NotReededCount=0;
+                        mesages.push(data[key])
+                        MessRepeat.push(data[key].idMessageStan)
+                    }
+                }
+            */
+        /*
+          old
         userID=this.IdUser
         angular.forEach(arrayinsert, function (array, key) {
             if(typeof arrayinsert[key].MemberInCoversation=="string"){
@@ -75,121 +167,106 @@ MainServis.service( 'Messages' , [ 'Sesion','$filter','PushUrl',function(Sesion,
             return count;
         }
         return messages;
+        */
     }
-    this.CountAllMessages=function(Messages){
-        sessionID=this.IdUser
-        var count=0
-        Messages=Messages.AllMessages
-        angular.forEach(Messages, function (array, key) {
-            if(Messages[key].UserId==sessionID && Messages[key].Deleted==0 ){
-              count=count+1;
+    this.CountMultiChat=function(data,all){
+        angular.forEach(data, function (array, key) {
+            if(data[key].UsersInConversationJason.length>2){
+                Data=Count(all,data[key],data[key].UsersInConversationJason.length)
+                data[key].CountNotMessFomUser=Data
+                data[key].countNotReeded=1
             }
+        })
+        function Count(all,data,length){
+            CountValue=0;
+            SessionID=Sesion.Tokken.UserID
+            angular.forEach(all, function (Array, key) {
+                if(typeof Array.UsersInConversationJason=="string"){
+                    Array.UsersInConversationJason=JSON.parse(Array.UsersInConversationJason)
+                }
+                if(Array.UsersInConversationJason.length==length){
+                    if(data.IdConversation==Array.IdConversation && Array.Reed==0){
+                        if(Array.IdSend!=SessionID && Array.UserId==SessionID){
+                            CountValue=CountValue+1
+                        }
+                    }
+                }
+            
+            })
+            return CountValue;
+        }
+        return data;
+    }
+    this.MarksAssReed=function(Mark){
+        var MarkArray=[];
+        SessionID=this.IdUser
+        angular.forEach(Mark, function (array, key) {
+            if(Mark[key].Reed==0 && Mark[key].UserId==SessionID){
+                MarkArray.push(Mark[key].MesDetId)
+            }
+        })
+        return MarkArray;
+    }
+    this.MarksAssReedRecived=function(data,MessagesAll){
+        angular.forEach(MessagesAll, function (array, MessAllkey) {
+            angular.forEach(data, function (array, Datakey) {
+                if(MessagesAll[MessAllkey].MesDetId==data[Datakey]){
+                    MessagesAll[MessAllkey].Reed=1;
+                }
+            })
+        })
+        return MessagesAll;
+    }
+    this.ClearMessages=function(){
+        Url.GetDataNoReturn('/ClearMessages/'+this.IdUser)
+        return [];
+    }
+    this.CreatePrevievMes=function(messages){
+        return messages[0];
+    }
+    this.SetCountFromUser=function(ArrayCount,Scope){
+        UserID=this.IdUser
+        angular.forEach(Scope, function (ArrayScope, KeyScope) {
+             CountNotMessFomUserCount=0
+             countNotReeded=0
+             angular.forEach(ArrayCount, function (Array, key) {
+                 if(ArrayCount[key].Reed==0 && 
+                    ArrayCount[key].UserId==UserID && 
+                    ArrayCount[key].IdSend==Scope[KeyScope].SqlID){
+                    CountNotMessFomUserCount=CountNotMessFomUserCount+1;
+                    
+                 }else if(ArrayCount[key].Reed==0 && 
+                    ArrayCount[key].UserId==Scope[KeyScope].SqlID && 
+                    ArrayCount[key].IdSend==UserID){
+                     countNotReeded=countNotReeded+1;
+                          
+                 }
+             })
+             Scope[KeyScope].CountNotMessFomUser=CountNotMessFomUserCount;
+             Scope[KeyScope].countNotReeded=countNotReeded;
+        })
+    }
+    this.SetNotReedFromUser=function(ArrayCount,Scope){
+        UserID=this.IdUser
+        angular.forEach(Scope, function (ArrayScope, KeyScope) {
+             count=0
+             angular.forEach(ArrayCount, function (Array, key) {
+                 if(ArrayCount[key].Reed==0 && 
+                    ArrayCount[key].UserId==Scope[KeyScope].SqlID && 
+                    ArrayCount[key].IdSend==UserID){
+                    count=count+1;
+                 }
+             })
+             Scope[KeyScope].countNotReeded=count;
+        })
+    }
+    this.CountMess=function(array){
+        count=0;
+        angular.forEach(array, function (ArrayScope, KeyScope) {
+            count=count+ArrayScope.CountNotMessFomUser
         })
         return count;
     }
-    this.CreatePrevievMes=function(messages){
-        return letest=messages.NormalMessages[0];
-    }
-    this.CountNotReededFromUser=function(all,idUser){
-            var count=0;
-           angular.forEach(all, function (array, key) { 
-               if(all[key].sendID==idUser && all[key].reeded==0){
-                    count=count+1
-               }
-           })  
-           return count;
-    }
-    this.SetMessages=function(array,contentLimit){
-        normal=array.NormalMessages
-        all=array.AllMessages
-        idUser=this.IdUser
-        angular.forEach(normal, function (array, key) {
-            Data=SetData(normal[key],idUser,all)
-            ShowTime=$filter('timestampToDate')(normal[key].date,'chat');
-            ShowContnet=$filter('tektlengh')(normal[key].Contnet,contentLimit);
-            photo=$filter('filtrPhoto')(Data.avatar,'user',Data.sex,idUser);
-            normal[key].NotReededCount=CountNotReededFromUser(normal[key],all,normal[key].sendID);
-            normal[key].CountMessFromUser=CountMessFromUser(idUser,all);
-            normal[key].LoginShow=Data.login
-            normal[key].ShowDeleted=SetDeleted(normal[key],idUser,all,normal[key].CountMessFromUser)
-            //normal[key].Reeded=DataManipulatin.SetReeded(idUser,all)
-            normal[key].ShowAvatar=photo
-            normal[key].ShowDate=ShowTime
-            normal[key].ShowContnet=ShowContnet
-            normal[key].AddressRedded=AddressRedded(normal[key],all,normal[key].sendID);  
-        })
-        function CountMessFromUser(sessionID,all){
-            var count=0;
-            angular.forEach(all, function (array, key) { 
-                if(all[key].sendID==sessionID){
-                    count=count+1;
-                }
-            })
-            return count;
-        }
-        function SetDeleted(item,idUser,all,CountAll){
-            var count=0;
-            angular.forEach(all, function (array, key) { 
-                if(all[key].Deleted==1 && all[key].UserId==idUser){
-                    count=count+1
-                }
-            });
-            if(CountAll==count){
-                return true;
-            }
-        }
-        function AddressRedded(array,all,send){
-            return CountNotReededFromUser(array,all,send)
-        }
-        function CountNotReededFromUser(user,all,idUser){
-
-           var count=0;
-           angular.forEach(all, function (array, key) { 
-               if(all[key].sendID==idUser && all[key].reeded==0){
-                    count=count+1
-               }
-           })  
-           return count;
-           
-        }
-        function SetData(GetArray,SesionID,array){
-            Data=[]
-            UserSend=GetArray.sendID
-            angular.forEach(array, function (array, key) {
-                if(array.MessagesId==GetArray.MessagesId){
-                    if(array.UserId!=SesionID){
-                         Data=array
-                    }
-                }
-            })
-            return Data
-        }
-        return array
-    }
-    this.SetMobileNotReddedList=function(chat){
-        NewChat=[];
-        angular.forEach(chat, function (array, key) {
-            if(chat[key].CountNotReeded>0){
-                NewChat.push(chat[key])
-            }
-        })
-        return NewChat;
-        
-    }
-    function FaindUser(users,idUser){
-            var returnID=0;
-            angular.forEach(users, function (array, key) {
-                if(users[key].UserID!=idUser){
-                    returnID=users[key].UserID;
-                }
-            })
-            return returnID;
-    }  
-    this.ClearAllMessages=function(){
-        PushUrl.Push('/ClearMessages/'+this.IdUser)
-        return [];
-    }
-
 }]);
 MainServis.service( 'Notification' , [ 'Sesion','$filter','PushUrl',function(Sesion,$filter,PushUrl) {
     this.IdUser=Sesion.Tokken.UserID
@@ -248,64 +325,83 @@ MainServis.service( 'Notification' , [ 'Sesion','$filter','PushUrl',function(Ses
     }
 }]);
 MainServis.service( 'Show' ,['Sesion',function(Sesion) {
-    this.IdUser=Sesion.Tokken.UserID
-    this.ShowMe = function (data){
-        return FaindSession(data,this.IdUser)
-    }
-    function FaindSession(users,idUser){
-          var ReturnValue=false;
-            angular.forEach(users, function (array, key) {
-                if(users[key].UserId==idUser || users[key].deliver==idUser){
-                    ReturnValue=true;
-                }
-            })
-            return ReturnValue;
-    }
 }]);
-MainServis.service( 'Chat' ,['Sesion','Array','Messages','$filter',function(Sesion,Array,Messages,$filter) {
+MainServis.service( 'Chat' ,['Sesion','Array','Messages','$filter','store','$timeout','UserInJason',function(Sesion,Array,Messages,$filter,store,$timeout,UserInJason) {
     this.IdUser=Sesion.Tokken.UserID
-    this.AddUser=function(value,chat){
-        var ArrayToreturn=[];
-        angular.forEach(chat, function (array, key) {
-            if(chat[key].UserID==value){
-                ArrayToreturn=chat[key]
-            }
-        })
-        return ArrayToreturn;
-    }
-    this.Set=function(chat,allMess){
-        UserId=this.IdUser
-        var chatArray=[]
-            angular.forEach(chat, function (array, key) {
-                if(chat[key].UserID!=UserId){
-                    chat[key].CountNotReeded=Messages.CountNotReededFromUser(allMess,chat[key].UserID)
-                    chat[key].AddressShow=AddresReeded(allMess,chat[key].UserID)
-                    chatArray.push(chat[key])
-                }
-            })
-        function AddresReeded(AllMess,value){
-                count=0;
-                angular.forEach(AllMess, function (All,KeyMes) {
-                       if(All.UserId==value && All.reeded==0){ 
-                            count=count+1
-                       }
-                })
-                return count;
+    this.GetActiveChat=function(){
+        var ActiveChat=store.get('ActiveChat')
+        if(!ActiveChat){
+           ActiveChat=store.set( 'ActiveChat' ,[]);
         }
-        return chatArray;
+        return ActiveChat
     }
-    this.AddresReeded=function(data){
-
+    this.BlindMultiChat=function(array){
+        User=UserInJason.FaindUserInJasonArray(this.IdUser,array)
+        return array[User].UserID
     }
-    this.SetMessages=function(chat){
-        var chatloop=[];
-        var Ids=[];
+    this.AddToStore=function(arary){
+        ActiveChat=store.set('ActiveChat',arary)
+    }
+    this.Set=function(chat,Messages){
+        var NewChat=[]
+        UserId=this.IdUser
         angular.forEach(chat, function (array, key) {
-            if(chat[key].sendID==chat[key].UserId){
-                chatloop.push(chat[key])
+            if(Messages.length){
+                if(chat[key].UserID!=UserId){
+                    angular.forEach(Messages, function (array, MesKey) {
+                        if(Messages[MesKey].UsersInConversationJason.length==2){
+                            if(Messages[MesKey].SqlID==chat[key].UserID){
+                                chat[key].IdConversation=Messages[MesKey].IdConversation
+                                chat[key].CountNotReeded=Messages[MesKey].CountNotMessFomUser
+                                chat[key].CountNotMessFomUser=Messages[MesKey].countNotReeded
+                            }else{
+                                chat[key].IdConversation=undefined;
+                                chat[key].CountNotReeded=0
+                            }
+                        }else{
+                            chat[key].CountNotReeded=0
+                            chat[key].IdConversation=undefined
+                        }
+                    })
+                    NewChat.push(chat[key])
+                }
+            }else{
+                if(chat[key].UserID!=UserId){
+                    chat[key].CountNotReeded=0
+                    chat[key].IdConversation=undefined
+                    NewChat.push(chat[key])
+                }
             }
         })
-        return chatloop;
+        return NewChat;
+        /*
+        var NewChat=[]
+        UserId=this.IdUser
+        angular.forEach(chat, function (array, key) {
+            if(Messages.length){
+                if(chat[key].UserID!=UserId){
+                    angular.forEach(Messages, function (array, MesKey) {
+                        if(Messages[MesKey].SqlID==chat[key].UserID){
+                            chat[key].IdConversation=Messages[MesKey].IdConversation
+                            chat[key].CountNotReeded=Messages[MesKey].CountNotMessFomUser
+                            chat[key].CountNotMessFomUser=Messages[MesKey].countNotReeded
+                        }else{
+                            chat[key].IdConversation=undefined;
+                            chat[key].CountNotReeded=0
+                        }
+                        NewChat.push(chat[key])
+                    })
+                }
+            }else{
+                if(chat[key].UserID!=UserId){
+                    chat[key].CountNotReeded=0
+                    chat[key].IdConversation=undefined
+                    NewChat.push(chat[key])
+                }
+            }
+        })
+        return NewChat; 
+        */
     }
     this.CountOnline=function(chat){
         var count=0;
@@ -316,97 +412,228 @@ MainServis.service( 'Chat' ,['Sesion','Array','Messages','$filter',function(Sesi
         })
         return count;
     }
-    this.FaindUserInActiveChat=function(scope,data){
-        var count=0
-        var key=0;
-            angular.forEach(scope, function (array, mainkey) {
-                if(scope[mainkey].inChat.length>1){
-                    if(scope[mainkey].inChat.length==data.inChat.length){
-                        angular.forEach(scope[mainkey].inChat, function (array, scopekey) {
-                            count=count+faindUser(scope[mainkey].inChat[scopekey].UserID,data.inChat)
-                        })
-                    }
-                    if(count==scope[mainkey].inChat.length){
-                        key=mainkey
-                    }
-                }else{
-                    key=undefined;
-                }
-            })
-       return key;
+    this.SetSendData=function(array){
+        key=UserInJason.FaindUserInJasonArray(this.IdUser,array);
+        return array[key]
     }
-    this.FaindUserInActiveChatRes=function(scope,data){
-        if(scope.length>0){
-            var count=0
-            var key=0;
-            angular.forEach(scope, function (array, mainkey) {
-                if(scope[mainkey].inChat.length>1){
-                    if(scope[mainkey].inChat.length==data.length){
-                         angular.forEach(scope[mainkey].inChat, function (array, scopekey) {
-                             count=count+faindUser(scope[mainkey].inChat[scopekey].UserID,data)
-                         })
-                        if(count==scope[mainkey].inChat.length){
-                            key=mainkey
-                        }
-                    }
-                }else{
-                    key=undefined;
-                }
-
-            })
-        }else{
-            key=undefined;
+    this.Create=function(Chused){
+        Data={
+                 "loadingMessages" :true,
+                 "inChat":[Sesion.Tokken],
+                 "AddIconShow":false,
+                 "SomeoneWriting":false,
+                 "TyppingPerson":false,
+                 "Chused":Chused,
+                 "Messages":[],
         }
-        return key;
+        return Data;;
     }
-    this.MarkAssReededChat=function(chat,messages){
-        MessagesArray=[]
-        angular.forEach(messages, function (array, keyMes) {
-            angular.forEach(chat, function (array, keyChat) {
-                if(messages[keyMes].MessagesId==chat[keyChat].MessagesId && messages[keyMes].reeded==0){
-                    messages[keyMes].reeded==1
-                    MessagesArray.push(messages[keyMes].MessagesId)
-                }
-            });
-        });
-        return MessagesArray;
-    }
-    this.RemuweReeded=function(array){
-        angular.forEach(array, function (Messages, keyMes) {
-            array[keyMes].AddressShow=1
+    this.AddUser=function(value,chat){
+        var ArrayToreturn=[];
+        angular.forEach(chat, function (array, key) {
+            if(chat[key].UserID==value){
+                ArrayToreturn=chat[key]
+            }
         })
-        return array;
+        return ArrayToreturn;
     }
-    this.LetestMess=function(array){
-        NewMessages=$filter('orderBy')(array,'-date')
-        return NewMessages[0];
-    }
-    this.IfAbleToAdd=function(active,all){
-        if(all.length==0){
-            return true;
-        }else{
-            var count=0;
-            angular.forEach(all, function (Messages, keyMes) {
-                angular.forEach(all[keyMes].inChat, function (chat, inchatid) {
-                    if(chat.UserID==active){
-                        count=count+1;
-                    }
-                })
-            })
-            if(count==0){
+    this.ChatNotActive=function(id){
+        if(id!=-1){
+            if(id){
+                if(this.FindUserInChat(id)){
+                    return true;
+                }
+            }else{
                 return true;
             }
         }
     }
-    function faindUser(id,inChat){
-           count=0
-           angular.forEach(inChat, function (array, key) {
-               if(inChat[key].UserID==id){
-                   count=count+1;
-               }
-           })
-           return count;
+    this.FindUserInChat=function(id){
+        DataIds=document.querySelectorAll('[chat-data-id]')
+        count=0
+        for (let DataId of DataIds) {
+            GetData=DataId.getAttribute('chat-data-id')
+            if(id==DataId.getAttribute('chat-data-id')){
+                count=count+1;
+            }
+        }
+        if(count==0){
+            return true;
+        }
+    }
+    this.ScrolDown=function(id){
+        if(!id){
+            DataIds=document.querySelectorAll('.messages-section')
+            for (let DataId of DataIds) {
+                DataId.scrollTop=DataId.scrollHeight+50;
+            }
+        }else{
+            DataIds=document.querySelectorAll('[chat-data-id]')
+            for (let DataId of DataIds) {
+                GetID=DataId.getAttribute('chat-data-id')
+                if(GetID==id){
+                    data=DataId.querySelector('.messages-section') 
+                    if(data.scrollHeight){
+                        data.scrollTop= data.scrollHeight+50; 
+                    }
+                }
+            }
+        }
+    }
+    this.UpadataConversationChat=function(chat,Datauser,id){
+        angular.forEach(chat, function (array, key) {
+            if(chat[key].UserID==Datauser.UserID){
+                chat[key].IdConversation=id
+            }
+        })
+        return chat
+    }
+    this.UpadataConversationChats=function(ActiveChat,ChatList){
+        angular.forEach(ActiveChat, function (arrayActiveChat, key) {
+            angular.forEach(ChatList, function (arrayChatList, key) {
+                if(arrayActiveChat.inChat.length==2){
+                    angular.forEach(arrayActiveChat.inChat, function (inChat, key) {
+                         if(inChat.UserID==arrayChatList.UserID){
+                             arrayChatList.IdConversation=arrayActiveChat.IdConversation
+                         }
+                    })
+                }
+            })
+       })
+       return ChatList;
+    }
+    this.ActiveChat=function(id,chat){
+        var index=undefined
+        angular.forEach(chat, function (array, key) {
+            if(array.IdConversation==id){
+                index=key;    
+            }
+        })
+        return index;
+    }
+    this.ChatShow=function(Addres){
+        if(typeof Addres == "string"){
+            Addres=JSON.parse(Addres)
+        }
+        Userid=this.IdUser
+        var value=false;
+        angular.forEach(Addres, function (array, key) {
+            if(Addres[key].UserID==Userid){
+                value=true;    
+            }
+        })
+        return value;
+    }
+    this.UserInchat=function(id,inchat){
+        var ToReturn=false;
+        angular.forEach(inchat, function (array, key) {
+            if(inchat[key].UserID==id){
+                ToReturn=true;
+            }
+        })
+        return ToReturn;
+    }
+    this.ResetIdConversation=function(list){
+        angular.forEach(list, function (arrayChatList, key) {
+            list[key].IdConversation=undefined;
+        })
+        return list
+    }
+    this.SetAllMessReeded=function(index){
+        VarToReturn=true;
+        UserID=this.IdUser;
+        if(index.inChat.length==2){
+            lastMes=index.Messages[length]
+            console.log(lastMes)
+            if(lastMes.IdSend==UserID){
+                angular.forEach(index.inChat, function (array, key) {
+                    if(array.UserID!=UserID){
+                        if(array.CountNotMessFomUser>0){
+                            VarToReturn=false;
+                        }
+                    }
+                })
+            }
+        }else{
+            VarToReturn=false;
+        }
+        return VarToReturn;
+    }
+    this.SetReededChat=function(Chat){
+        angular.forEach(Chat, function (array, key) {
+            Chat[key].CountNotReeded=0;
+        })
+        return Chat
+    }
+    this.ShowAllReeded=function(Chat,lastMes){
+        UserID=this.IdUser
+        if(!lastMes){
+            lastMes=Chat.Messages[0]
+        }
+        if(lastMes.IdSend==UserID){
+            return true;
+        }
+    }
+    this.UpdataToMobileNotReededList=function(array){
+
+        var NotReededList=[]
+        angular.forEach(array, function (chat, key) {
+            if(chat.CountNotReeded){
+                NotReededList.push(chat);
+            }
+        })
+        return NotReededList;
+    }
+    this.SetActiveChat=function(ActiveChat){
+        UserID=this.IdUser;
+        angular.forEach(ActiveChat, function (array, ActiveChatkey) {
+            angular.forEach(array.inChat, function (user, key) {
+                if(user.UserID==UserId){
+                    ActiveChat[ActiveChatkey].SetAllMessReeded=true
+                }
+            })
+        })
+        return ActiveChat;
+    }
+    this.GetUserFromChat=function(ActiveChat){
+        UserID=this.IdUser;
+        Var=false;
+        angular.forEach(ActiveChat, function (user, ActiveChatkey) {
+            if(user.UserID!=UserId){
+                Var=user.UserID
+            }
+        })
+        return Var;
+    }
+    this.SetActiveChatItem=function(Array){
+        var item=[]
+        angular.forEach(Array, function (Chat, ActiveChatkey) {
+            if(Chat.Active){
+                item=Chat;
+            }
+        })
+        return item;
+    }
+
+    this.SetActiveChatMobile=function(id,Array){
+        angular.forEach(Array, function (Chat, ActiveChatkey) {
+            if(Chat.IdConversation!=id){
+                Array[ActiveChatkey].Active=false;
+            }
+        })
+        return Array;
+    }
+    function AddUserToChat(value,chat){
+        var ArrayToreturn=[];
+            angular.forEach(chat, function (array, key) {
+                if(chat[key].UserID==value){
+                    ArrayToreturn=chat[key]
+                }
+            })
+            return ArrayToreturn;
     }
 }]);
+
+
 
 

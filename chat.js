@@ -3,11 +3,9 @@ var Chat = function Chat(io){
     function ChatSocket(){
         io.on('connection', function(socket){
             socket.on('SomeoneTypping',function(data){
-                data[0].ActiveChat.SomeoneWriting=true;
                 io.emit('SomeoneTypping',data)
             })
             socket.on('StopTypping',function(data){
-                data[0].ActiveChat.SomeoneWriting=true;
                 io.emit('StopTypping',data)
             })
             socket.on('request-chat',function(data){

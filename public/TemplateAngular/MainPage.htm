@@ -1,16 +1,8 @@
 <div class="container" ng-controller="MainPageController">
-    <div class="MessStanMobile ShowNotReeded" ng-show="show.MessMobileCount" data-modal-id="#NotReededMobile">
-        <div class="MobileMessCountSection">
-            <img class="icon" src="{{urlIcons | urlIcons:'MessagesNotReeded'}}">
-               <div class="CountMessagesNotReeded row">
-                   <span class="Item Count">{{counts.NotreededMes}}</span>
-               </div>
-        </div>
-    </div>
-    <div  class="showProfilIcon"  data-modal-id="#Profil">
+    <div  class="showProfilIcon SlideLeft"  data-Slide-id="#Profil">
         <img class="icon" src="{{urlIcons | urlIcons:'Profil'}}">
     </div>
-    <div  class="showChatIcon"    data-modal-id="#Chat">
+    <div  class="showChatIcon" id="ChatON" MobileReset="true" Show-Hiden-Slide="#ChatDiv" data-Slide-id="#Chat">
        <div class="showChatSection">
            <img class="icon" src="{{urlIcons | urlIcons:'Chat'}}">
            <div class="CountOnline row">
@@ -19,6 +11,12 @@
             </div>
         </div>
     </div>
+    <!--
+    <div  class="showProfilIcon"  data-modal-id="#Profil">
+        <img class="icon" src="{{urlIcons | urlIcons:'Profil'}}">
+    </div>
+    -->
+    <!--
     <div  class="showChatIconHide">
         <div class="showChatSection">
            <img class="icon" src="{{urlIcons | urlIcons:'Chat'}}">
@@ -28,7 +26,8 @@
             </div>
         </div>
     </div>
-    <div id="ChatDiv" class="ChatStyle">
+    -->
+    <div id="ChatDiv" class="ChatStyle" HideType="HideSlideRight">
         <div ng-include src="'TemplateAngular/Chat.htm'" ></div>
     </div>
     <div class="row" id="MainPaageDiv">
@@ -37,28 +36,37 @@
                 <div ng-include src="'TemplateAngular/ProfilRightSlite.htm'" ></div>
             </div>
         </div>
-        <div id="MainPageContent">
-                  {{mobile}}
+        <div id="MainPageContent" >
                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis atque nesciunt esse commodi, aut consectetur laudantium mollitia optio. Blanditiis voluptatem rem eligendi animi dicta quae ea iusto numquam suscipit, tempora!
+    
+        <!--
         <div class="Model" id="Chat" data-Modal-type="SlideLeft">
             <div class="InModelBady SlideLeft ChatStyle ChatContent">   
                 <div ng-include src="'TemplateAngular/Chat.htm'" ></div>
             </div>
         </div>
-        <div class="Model ShowRightSite" id="Profil" data-Modal-type="SlideRight">
-            <div class="InModelBady SlideRight">
+        -->
+        
+        <div class="Slide Right ChatStyle" id="Chat"  ShowType="RightShow">
+            <div class="SlideContent">
+                <div ng-include src="'TemplateAngular/Chat.htm'" ></div>
+            </div>
+        </div>
+        <div class="Slide Left" id="Profil" ShowType="LeftShow">
+            <div class="SlideContent">
                 <div ng-include src="'TemplateAngular/ProfilRightSlite.htm'"></div>
             </div>
         </div>
-        <div ng-include src="'TemplateAngular/ActiveChat.htm'"></div>
-        <div  class="NewMesPreviev-JS " ng-click="RunChat(NevMes[0].Session)" ng-show="NevMes.length">
+        <div ng-show="show.MessMobileVersion" ng-include src="'TemplateAngular/ActiveChat.htm'"></div>
+        <div ng-show="!show.MessMobileVersion" ng-include src="'TemplateAngular/ActiveChatMobile.htm'"></div>
+        <div  class="NewMesPreviev-JS "  ng-show="NevMes.length">
           <div class="heders">
-            <img class="NewMesPreviev-Avatar" src="{{NevMes[0].Session.avatar | filtrPhoto:'user':NevMes[0].Session.sex }}">
-            <span class="NewMesPreviev-Login">{{NevMes[0].Session.login}}</span><br>
+            <img class="NewMesPreviev-Avatar" src="{{NevMes[0].avatar | filtrPhoto:'user':NevMes[0].Session.sex }}">
+            <span class="NewMesPreviev-Login">{{NevMes[0].login}}</span><br>
           </div>
          <div class="NewMesPrevievDiv">
              <div class="NewMesPreviev-Content" >
-                    {{NevMes[0].Mess.Contnet}}
+                    {{NevMes[0].Content}}
              </div>
          </div>
           
@@ -82,18 +90,53 @@
     </div>
    </div>
 </div>
-
+<div class="MessStanMobile ShowNotReeded"  ng-show="counts.NotreededMes" data-modal-id="#NotReededMobile">
+    <div class="MobileMessCountSection">
+        <img class="icon" src="{{urlIcons | urlIcons:'MessagesNotReeded'}}">
+        <div class="CountMessagesNotReeded row">
+            <span class="Item Count">{{counts.NotreededMes}}</span>
+        </div>
+    </div>
+</div>
 <div class="modalNormal NotReededMobile" id="NotReededMobile">
       <div class="modal-body NotReededMobileJS">
         <img  class="close close-button" src="{{urlIcons | urlIcons:'Close'}}">
         <div class="NotReededDiv">
-            <div class="UserNotReedLoop" ng-repeat="user in NotReededList">
-                <div class="UserLoopItem" ng-click="RunChat(user)">
+            <div class="UserNotReedLoop CreateNewChat" DataChat="{{Chat}}" ng-repeat="user in NotReededList">
+                <div class="UserLoopItem">
                     <img class="Avatar" src="{{user.avatar}}">
                     <div class="Count">{{user.CountNotReeded}}</div>
                 </div>
             </div>
+            <div class="Reeded Section">Zaznacz Wszytkie jako pszeczytane</div>
         </div>
-        <div ng-include src="'TemplateAngular/ActiveChatMobile.htm'"></div>
+      </div>
+</div>
+<div class="modalNormal AddToChat" id="AddToChat">
+      <div class="modal-body">
+        <div class="ListContnet">
+            <div class="Heder">Wybierz użytkowników których chcesz dodac do czatu: </div>
+            <div  class="ChatAddLoop" ng-repeat="Chat in ChatList | orderBy : '-active'| filter : UserSearch">
+                     <div class="row section"> 
+                        <div class="col-m-1 InputSection">
+                            <input type="checkbox" class="InputAddUserToChat" name="User" value="{{Chat}}">    
+                        </div>
+                        <div class="col-m-1 AvatarSection">
+                            <img class="avatar" src="{{Chat.avatar | filtrPhoto:'user':Chat.sex}}"> 
+                        </div>
+                        <div class="col-m-7 LoginToAdd">
+                            {{Chat.login}}
+                        </div>
+                        <div class="col-m-2 ActivToAadd">
+                            <img ng-show="Chat.active" class="OnlineIcon" src="{{urlIcons | urlIcons:'OnlineIcon'}}">
+                            <div ng-show="!Chat.active">{{Chat.lostlogin | timestampToDate:"chat"}}</div>
+                        </div>
+                    </div>
+            </div>
+            <div class="Actions">
+                <button class="Accept close btn btn-success btn-radius-left">Akceptuj</button>
+                <button class="Cancel btn btn-danger close btn-radius-right">Anuluj</button>
+            </div>
+        </div>
       </div>
 </div>

@@ -347,6 +347,8 @@ filtrs.filter('urlIcons', function () {
     };
     function IconArray(Icon) {
         IconArrayList = {
+            'MultiChat'               :'/icon/GroupChat.png',
+            'Loading'                 :'/icon/LoadingIcon.gif',
             'Add'                     :'/icon/add.png',
             'OnlineIcon'              :'/icon/OnlieIcon.png',
             'ArrowRight'              :'/icon/ArrowRight.png',
@@ -443,23 +445,41 @@ filtrs.filter('sex', function () {
         return word;
     }
 });
-filtrs.filter('LoopToString', function (Sesion) {
+filtrs.filter('UsersToString', function (Sesion) {
     return function (array) {
-        return ConvertToString(array);
+        array=SesionOut(array)
+        return ArrayToString(array)
     };
-    function ConvertToString(chat){
-         var ArrayString="";
-         for (i =1; i < chat.length; i++) {
-            if(i!=1){
-                if(i<3){
-                    ArrayString+=" i "+chat[i].login
-                }else{
-                    ArrayString+=" , "+chat[i].login
+    function ArrayToString(ConvertArray){
+        
+        ToReturn='';
+        angular.forEach(ConvertArray, function (array, key) {
+                ToReturn+=array.login
+                if(key==0){
+                    if(ConvertArray.length==2){
+                        ToReturn+=' i '
+                    }else{
+                        ToReturn+=' , '
+                    }
+                }else if(ConvertArray.length>2){
+                    if(key!=ConvertArray.length){
+                        ToReturn+=' , '
+                    }
                 }
-            }else{
-                ArrayString+=chat[i].login
-            }
-         }
-         return ArrayString;
+        })
+        
+        return ToReturn;
     }
+    function SesionOut(Sessionout){
+        var newArray=[];
+        Userid=Sesion.Tokken.UserID
+        angular.forEach(Sessionout, function (array, key) {
+            if(array.UserID!=Userid){
+                newArray.push(array)
+            }
+        })
+        return newArray;
+    }
+
+
 });

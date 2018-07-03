@@ -1,11 +1,76 @@
 var Helpers = angular.module("Helpers", ["Notification","url"]);
-Helpers.service( 'Componets' , [function() {
+Helpers.service( 'Componets' , ['Mobile',function(Mobile) {
     this.loadMainCompnent = function () {
         UnivaersalComponent();
     }
     this.loadSessinCompnent = function () {
         loginMenu();
         UnivaersalComponent();
+    }
+    this.Model=function(){
+        ModalMormal()
+        modal()
+    }
+    this.Slids=function(){
+        let SlideButons=document.querySelectorAll('[data-Slide-id]');
+        for(let Button of SlideButons){
+            Button.addEventListener('click',function(e){
+                SlideId= Button.getAttribute('data-Slide-id')
+                if(SlideId!="OffMobile"){
+                    SelectorID=document.querySelector(SlideId)
+                    ShowType=SelectorID.getAttribute('showtype')
+                    SelectorID.classList.add(ShowType)    
+                }
+            })
+        }
+        let SlideHideButons=document.querySelectorAll('[data-SlideHide-id]');
+        for(let Hide of SlideHideButons){
+            Hide.addEventListener('click',function(e){
+                SlideId= Hide.getAttribute('data-SlideHide-id')
+                if(SlideId!="OffMobile"){
+                    SelectorID=document.querySelector(SlideId)
+                    ShowType=SelectorID.getAttribute('showtype')
+                    SelectorID.classList.remove(ShowType)
+                }
+            })
+        }
+        let SlideHideElment=document.querySelectorAll('[Hide-Slide-Elment]');
+        for(let SlideToHide of SlideHideElment){
+            SlideToHide.addEventListener('click',function(e){
+                SlideHideId= SlideToHide.getAttribute('Hide-Slide-Elment')
+                if(SlideHideId!="OffMobile"){
+                    SelectorID=document.querySelector(SlideHideId)
+                    ShowType=SelectorID.getAttribute('HideType')
+                    SelectorID.classList.add(ShowType)
+                    OnIconShow= SlideToHide.getAttribute('On-Icon-Show')
+                    IconOn=document.querySelector(OnIconShow).style.display='flex'
+                }
+            })
+        }
+        let ShowHidenSlide=document.querySelectorAll('[Show-Hiden-Slide]');
+        for(let ShowHide of ShowHidenSlide){
+            ShowHide.addEventListener('click',function(e){
+                SlideHideId= ShowHide.getAttribute('Show-Hiden-Slide')
+                if(SlideHideId!="OffMobile"){
+                    IconOn=document.querySelector(OnIconShow).style.display='none'
+                    SelectorID=document.querySelector(SlideHideId)
+                    ShowType=SelectorID.getAttribute('HideType')
+                    SelectorID.classList.remove(ShowType)
+                }
+            })
+        }
+        $(window).resize(function(){
+            if(!Mobile.IfMobile(1024)){
+                Reset('RightShow')
+                Reset('LeftShow')
+            }
+        })
+        function Reset(classItem){
+            let RightShow=document.querySelectorAll('.'+classItem);
+                for(let Right of RightShow){
+                    Right.classList.remove(classItem)
+                } 
+        }
     }
     function UnivaersalComponent(){
         InputsNormal();
@@ -169,6 +234,7 @@ Helpers.service( 'Componets' , [function() {
           }
     }
     function modal() {
+       /*
        let modalButons=document.querySelectorAll('[data-modal-id]')
         for(let modalButon of modalButons ){
             modalButon.addEventListener('click',function(e){
@@ -196,6 +262,7 @@ Helpers.service( 'Componets' , [function() {
                 })
             }
         }
+        */
     }
     function ModalMormal() {
               let modalButtons = document.querySelectorAll('[data-modal-id]');
@@ -396,10 +463,50 @@ Helpers.service('TimeConvert',['$filter',function($filter){
     }
 }])
 Helpers.service('Mobile',[function(){
-    this.IfMobile=CheckIfMobile();
-    function CheckIfMobile(){
-        if(innerWidth>480){
+    this.IfMobile=function(width){
+        if(innerWidth>width){
             return true;
         }
+    }
+    this.Reset=function(data){
+        let MobileResetElemnts=document.querySelectorAll('[MobileReset]');
+        for(let Reset of MobileResetElemnts){
+            if(Reset.getAttribute(data.DataItem)){
+                Reset.setAttribute(data.DataItem,"OffMobile");
+            }
+        }
+    }
+    
+}])
+Helpers.service('UserInJason',[function(){
+    this.FaindUserInJasonArray=function(id,Jason){
+        var Keys=[];
+        angular.forEach(Jason, function (array, key) {
+            if(Jason[key].UserID!=id){
+                Keys.push(key)
+            }
+        })
+        return Keys[0];
+    }
+}])
+Helpers.service('Url',['$http',function($http){
+    this.GetData=function(url){
+        $http.get(url).then( function( loging ){
+             ValueToReturn=loging.data
+        });
+        return ValueToReturn;
+    }
+    
+    this.GetDataNoReturn=function(url){
+        $http.get(url)
+    }
+    this.GetDataNoReturnPost=function(url,data){
+        $http.post(url,data)
+    }
+    this.Post=function(url,DataPost){
+        $http.post(url,DataPost).then( function(Post){
+             dataReturn=Post.data
+        });
+        return dataReturn;
     }
 }])

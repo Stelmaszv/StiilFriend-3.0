@@ -91,7 +91,7 @@
 
     modalButton.addEventListener('click', function(e) {
       e.preventDefault();
-
+      console.log('fwef')
       document.querySelector(modalId).style.display = 'flex';
       document.querySelector('body').style.overflow = 'hidden';
 

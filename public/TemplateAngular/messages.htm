@@ -1,6 +1,49 @@
 <sectin ng-controller="MessagesController" id="Main-Messages">
     <nav class="navbar Messages-Nabvar">
         <ul class="navbar-menu">
+            <li class="CreateNewChat"><a>Napisz  wiadmość</a></li>
+            <li><a>Skrzynka Odbiorcza</a></li>
+        </ul>
+        <span class="MessagesDiv Reeded" >
+            <img class="MessagesIcon Messages" src="{{messages | urlIcons:'SainAsReed'}}">
+            <span class="MessagesCount" ng-show="counts.NotreededMes>0">{{counts.NotreededMes | ToMuch:'normal'}}</span>
+        </span>
+        <img class="TrassDiv TrassClear" src="{{messages | urlIcons:'Delete'}}">
+    </nav>
+    <div class="messages-Loop">
+        <div  class="row messages-Loop-Element CreateNewChat" DataChat="{{message.UserData}}" ng-class="{'not-reeded':message.CountNotMessFomUser>0}" ng-repeat="message in messages | orderBy : '-Time'">
+            <div class="col-s-2">
+                <img class="avatar" src="{{message.AvatarShow | filtrPhoto:'user':message.sex}}">
+            </div>
+            <div class="col-s-10">
+                <div class="row">
+                    <div class="col-s-9 Login">
+                        {{message.ShowLogin}} <b ng-show="message.CountNotMessFomUser>0">({{message.CountNotMessFomUser}})</b>
+                    </div>
+                    <div class="col-s-3 Time">
+                        {{message.Time | timestampToDate:"chat"}}
+                    </div>
+                </div>
+                <div class="messages-Loop-Contnet">
+                   {{message.AddressRedded}}
+                    <span>
+                        <span ng-if="message.IdSend==user.UserID">
+                            <i class="material-icons" ng-show="message.countNotReeded>0">reply</i>  
+                            <i class="material-icons" ng-show="message.countNotReeded==0">done</i> 
+                        </span> {{message.Content | tektlengh:"35"}}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="Empty-Messages" ng-show="!messages.length">
+             Brak Wadomości
+        </div>
+    </div>
+</sectin>
+<!--
+<sectin ng-controller="MessagesController" id="Main-Messages">
+    <nav class="navbar Messages-Nabvar">
+        <ul class="navbar-menu">
             <li class="sent"><a>Napisz  wiadmość</a></li>
             <li><a>Skrzynka Odbiorcza</a></li>
         </ul>
@@ -39,6 +82,7 @@
         </div>
     </div>
 </sectin>
+-->
 
 
 
