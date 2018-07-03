@@ -254,10 +254,18 @@ var GetMessages = function GetMessages(io,Faind){
         });
     }
     function MesagessMigration(){
+        let conversation ='CREATE  TABLE IF NOT EXISTS conversation (IdConversation int NOT NULL AUTO_INCREMENT,PRIMARY KEY (`IdConversation`),LastMessId int,UsersInConversation text COLLATE utf8_polish_ci NOT NULL,UsersInConversationJason text COLLATE utf8_polish_ci NOT NULL)';
+        db.query(conversation);
+        let conversationmessages ='CREATE  TABLE IF NOT EXISTS conversationmessages (IdMes int NOT NULL AUTO_INCREMENT,PRIMARY KEY (`IdMes`),ConversationidMesages int,Content text COLLATE utf8_polish_ci NOT NULL,Time datetime,IdSend int)';
+        db.query(conversationmessages);
+        let messagedetails ='CREATE  TABLE IF NOT EXISTS messagedetails (MesDetId int NOT NULL AUTO_INCREMENT,PRIMARY KEY (`MesDetId`),ConversationId int,UserId int,Reed tinyint,Deleted tinyint,ReedTime datetime,DeletedTime datetime)';
+        db.query(messagedetails);
+        /*
         let Messages ='CREATE  TABLE IF NOT EXISTS messages (idMessageStan int NOT NULL AUTO_INCREMENT,PRIMARY KEY (`idMessageStan`),Contnet text,date datetime,sendID int,	MemberInCoversation text,MemberInCoversationnormal text   COLLATE utf8_polish_ci NOT NULL)';
         db.query(Messages);
         let sqlMessagesSend ='CREATE  TABLE IF NOT EXISTS messagesSend (idMessageSend int NOT NULL AUTO_INCREMENT,PRIMARY KEY (`idMessageSend`),MessagesId int NOT NULL,UserId int NOT NULL,Deleted int NOT NULL,reeded int NOT NULL COLLATE utf8_polish_ci NOT NULL)';
         db.query(sqlMessagesSend);
+        */
     }
     function GetIdFromJoson(array){
         array = JSON.parse(array)
