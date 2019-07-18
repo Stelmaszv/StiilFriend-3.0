@@ -1,0 +1,56 @@
+<div id="ChatContent">
+    <nav class="navbarChat">
+       <ul>
+           <li class="CreateNewChat">    
+                <img class="ChatMenuicon SendMessageChat" src="{{urlIcons | urlIcons:'MessagesSend'}}">
+           </li>
+
+           <li class="ChatIconNavbar">
+               <div class="ChatIcon"></div>
+           </li>
+           <li>
+               <div class="CountOnline">{{counts.UserOnline}}</div>
+            </li>
+           <li><input type="text" ng-model="UserSearch" class="ChatFiltr" placeholder="Szukaj..."></li>
+           <li class="MobileHide">
+               <img class="ChatMenuicon icon HideSlide" data-SlideHide-id="#Chat"  src="{{urlIcons | urlIcons:'ArrowRight'}}">
+           </li>
+           <li class="NormalHide">
+               <img class="ChatMenuicon HideChat" Hide-Slide-Elment="#ChatDiv" On-Icon-Show="#ChatON" src="{{urlIcons | urlIcons:'ArrowRight'}}">
+          </li>
+       </ul>
+    </nav>
+    <div  class="chatDivLoop CreateNewChat"  DataChat="{{Chat}}" ng-repeat="Chat in ChatList | orderBy : '-active'| filter : UserSearch">
+        <div class="row ChatRow" >
+          <div class="col-xs-1 ChatElemnt AvatarChat">
+              <img class="ChatAvatr" src="{{Chat.avatar | filtrPhoto:'user':Chat.sex }}">
+          </div>
+          <div ng-show="Chat.active==1" class="col-xs-1 ChatElemnt Login" ng-class="{'ShowCount':Chat.CountNotReeded>0}">
+               <div ng-show="Chat.CountNotReeded>0">
+                {{Chat.login | tektlengh:loginLenght.MoreThenZero}}
+               </div>
+               <div ng-show="Chat.CountNotReeded==0">
+                {{Chat.login | tektlengh:loginLenght.normal}}
+               </div>
+          </div>
+            <div ng-show="Chat.active==0" class="col-xs-1 ChatElemnt Login" ng-class="{'ShowCountNoActive':Chat.CountNotReeded>0,'HideCountNoActive':Chat.CountNotReeded==0}">
+               <div ng-show="Chat.CountNotReeded>0">
+
+                {{Chat.login | tektlengh:"8"}}
+               </div>
+               <div ng-show="Chat.CountNotReeded==0">
+                {{Chat.login | tektlengh:"11"}}
+               </div>
+          </div>
+          <div class="col-xs-1 ChatElemnt Count" ng-show="Chat.CountNotReeded>0">
+              <span class="CountStan">{{Chat.CountNotReeded | ToMuch:'small'}}</span>
+          </div>
+          <div class="col-xs-1 ChatElemnt Time" ng-show="Chat.active==0">
+                {{Chat.lostlogin | timestampToDate:"chat"}}
+          </div>
+          <div class="col-xs-1 ChatElemnt Active" ng-show="Chat.active!=0">
+                <img class="OnlineIcon" src="{{urlIcons | urlIcons:'OnlineIcon'}}">
+          </div>
+        </div>
+</div>
+</div>

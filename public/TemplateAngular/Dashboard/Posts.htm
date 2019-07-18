@@ -1,0 +1,60 @@
+<div class="DashboardMain">
+    <div class="DashboardMain-Item" ng-repeat="item in DashBord">
+        <div class="DashboardHeder">
+            <div class="row">
+                <div class="col-m-2 col-xs-4 col-s-2">
+                   <img class="Dashboard-Photo" src="{{item.avatar | filtrPhoto:'user':item.sex}}">
+                </div>
+                <div class="col-m-9 col-xs-6 col-s-9">
+                    <div class="Dashboard-Title"><a href="#!/profil/{{item.UserID}}">{{item.login}}</a></div>
+                    <div class="Dashboard-Time">{{item.CreateTime | timestampToDate:"short"}}</div>
+                </div>
+                <div class="col-m-1 col-xs-1">
+                    <img class="Dashboard-Menu OnDashboardMenu" src="{{urlIcons | urlIcons:'DashboardMenu'}}">
+                </div>
+            </div>
+        </div>
+        <div class="Dashboard-Content">
+            {{item.Contnet}}
+        </div>
+        <div class="Dashboard-Procent">
+            <div class="row"> 
+                <div class="col-m-12 col-xs-12 Dashboard-Procent-Div">
+                    <div class="ProcentGood" style="width: 80%;"></div>
+                    <div class="ProcentBad" style="width: 20%;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="Dashboard-Actions-menu">
+            <div class="row"> 
+                <div class="col-m-2 col-xs-4 Dashboard-Action Active">
+                    <div class="row">
+                        <div class="col-m-5 col-xs-5">
+                            <img class="Dashboard-Actions-menu-Icons  Active" src="{{urlIcons | urlIcons:'Like'}}">
+                        </div>
+                        <div class="col-m-5 col-xs-5">
+                            <img class="Dashboard-Actions-menu-Icons Not" src="{{urlIcons | urlIcons:'Dislike'}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-m-4 col-xs-4 Dashboard-Action">
+                    <spam class="col-m-3 col-xs-3 Count">1</spam>
+                </div>
+                <div class="col-m-3 col-xs-4 Dashboard-Action MobilleOff "></div>
+                <div class="col-m-3 col-xs-4 Dashboard-Action">
+                    <div class="row">
+                        <div class="col-m-6 col-xs-6">
+                                <img class="Dashboard-Actions-menu-Icons" src="{{urlIcons | urlIcons:'Coment'}}">
+                            </div>
+                            <div class="col-m-6 col-xs-6">
+                                <spam class="Count">1</spam>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-show="DashBordLoading">
+    wczytawanie...
+</div>

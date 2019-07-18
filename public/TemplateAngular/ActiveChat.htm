@@ -1,0 +1,155 @@
+<div class="ActiveChatRow">
+    <div class="ActiveChatDiv" chat-data-id="{{chat.IdConversation}}" ng-repeat="chat in ActiveChat" 
+        >
+         <div class="UserActiveChat" ng-show="chat.inChat.length>1" style="display: flex;">
+                <div class="col-xs-1 OnlineIconChat">
+                    <img class="OnlineIcon" ng-show="chat.inChat[1].active" src="{{urlIcons | urlIcons:'OnlineIcon'}}">
+                </div>
+                <div class="col-xs-9 ChatUserName">
+                   <div ng-show="chat.inChat.length<3">
+                       <span class="ChatUserName">{{chat.inChat[1].login | tektlengh:"25"}} 
+                            <span class="countNotReeded" ng-show="chat.NotReeded>0">({{chat.NotReeded}})</span>
+                        </span>
+                   </div >
+                   <div  ng-show="chat.inChat.length>2">
+                       <span class="ChatUserName">{{chat.inChat | UsersToString | tektlengh:"21"}}</span>
+                   </div>
+                </div>
+                <div class="col-xs-1">
+                   <!--
+                    <img class="AddOnlineIcon AddToChat" data-modal-id="#AddToChat"  chat-data-index="{{$index}}"src="{{urlIcons | urlIcons:'Add'}}">
+                   -->
+                </div>
+                <div class="col-xs-1">
+                    <img class="AddOnlineIcon CloseActiveChat" chat-data-close="{{$index}}"   src="{{urlIcons | urlIcons:'Close'}}">
+                </div>
+         </div>
+         <select ng-model="UserInChat" class="SelectUser SelectToChat" ng-show="!chat.Chused" ng-class="{'MarginOption':chat.inChat.length>1}">
+            <option ng-repeat="user in ChatList" value="{{user.UserID}}">
+                    {{user.login | tektlengh:"15"}}
+            </option>
+        </select>
+        <div class="Loading " ng-show="chat.loadingMessages">
+           <img class="LoadingIcon" src="{{urlIcons | urlIcons:'Loading'}}">
+        </div>
+        <div class="messages-section " ng-class="{'EmptySection':!chat.Chused,'MarginOption':chat.inChat.length>1}">
+            <div ng-show="!chat.Chused" class="ChatEmpty EmptySection MarginOption" >
+                <div ng-show="chat.inChat.length==1"> 
+                    Nie  dodano żadnego użykownika do czatu 
+                </div>
+                <div ng-show="chat.inChat.length>1">
+                    Wybiesz dodatkowego uzykownika czatu
+                </div>
+            </div>
+            <div  ng-show="chat.Chused">
+                <div ng-repeat="mess in chat.Messages | orderBy : 'Time'" class="ChatActivemessagesSection">
+                    <div class="MessDiv" ng-class="{'isend':mess.IdSend==user.UserID}">
+                        <div class="Avatar" ng-show="mess.IdSend!=user.UserID">
+                            <img src="{{mess.avatar | filtrPhoto:'user':mess.sex}}">
+                        </div>
+                        <div class="Content" style=" word-wrap: break-word;">
+                                {{mess.Content}}
+                         </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="!chat.Messages.length">
+                <i ng-show="chat.Chused"> Nie rospoczołeś jeszcze czatu z tym uzytkownikiem</i>
+            </div>
+            <div class="ReededAllChat" >
+                <i ng-show="chat.ShowAllReeded">
+                    <span ng-show="chat.SetAllMessReeded">Wszytkie wiadmosci zostały wyświtlone</span> 
+                </i>
+            </div>
+            <div class="someoneWritingSection" ng-show="chat.SomeoneWriting">
+                        <div class="ChatActivemessagesSection">
+                                <div class="MessDiv">
+                                    <div class="Avatar">
+                                        <img src="{{chat.TyppingPerson.avatar | filtrPhoto:'user':chat.TyppingPerson.sex}}">
+                                    </div>
+                                    <div class="Content">
+                                        {{chat.TyppingPerson.login}} pisze
+                                    </div>
+                                </div>
+                        </div>
+            </div> 
+            
+        </div>
+        <input type="text" ng-show="chat.Chused" class="SendMess EnterSend"  chat-data-id="{{chat.IdConversation}}" placeholder="Napisz wiadmośc ...">
+    </div>
+    <div class="ActiveChatDiv Loading" ng-show="loadingChat">
+            <img class="LoadingIcon" src="{{urlIcons | urlIcons:'Loading'}}">
+    </div>
+    {{loadingChat}}
+</div>
+    <!--
+       <div class="ActiveChatRow">
+        <div class="ActiveChatDiv SomeOneTippingMessages" ng-repeat="chat in ActiveChat" ng-click="MarkAssReed($index)">
+                <div class="UserActiveChat" ng-show="chat.inChat.length>1"
+                     ng-mouseleave="ShowHide($index)" 
+                     ng-mouseenter="ShowAdd($index)">
+                     <div ng-show="chat.inChat.length>2">
+                         <span class="ChatUserName">{{chat.inChat | LoopToString | tektlengh:"30"}}</span>
+                     </div>
+                     <div ng-show="chat.inChat.length==2">
+                        <img class="OnlineIcon" ng-show="chat.inChat[1].active" src="{{urlIcons | urlIcons:'OnlineIcon'}}">
+                        <span class="ChatUserName">{{chat.inChat[1].login}}</span>
+                     </div>
+                     <img class="AddOnlineIcon" ng-show="chat.AddIconShow" src="{{urlIcons | urlIcons:'Add'}}" ng-click="chat.Chused=false">
+                </div>
+                <select ng-model="UserInChat" 
+                        class="SelectUser" 
+                        ng-show="!chat.Chused" 
+                        ng-change=SetUserChat($index,UserInChat) ng-class="{'MarginOption':chat.inChat.length>1}">
+                       <option ng-repeat="user in ChatList" 
+                               value="{{user.UserID}}" ng-selected="heth">
+                                {{user.login | tektlengh:"15"}}
+                        </option>
+                </select>
+                <div class="messages-section" ng-class="{'EmptySection':!chat.Chused,'MarginOption':chat.inChat.length>1}">
+                    <div ng-show="!chat.Chused" class="ChatEmpty">
+                          <div ng-show="chat.inChat.length==1"> 
+                                Nie  dodano żadnego użykownika do czatu 
+                          </div>
+                          <div ng-show="chat.inChat.length>1">
+                                wybiesz dodatkowego uzykownika czatu
+                          </div>
+                    </div>
+                    <div  ng-show="chat.Chused">
+                        <div ng-repeat="mess in chat.Messages | orderBy : 'date'" class="ChatActivemessagesSection">
+                            <div class="MessDiv" ng-class="{'isend':mess.sendID==user.UserID}">
+                                <div class="Avatar" ng-show="mess.sendID!=user.UserID">
+                                    <img src="{{mess.avatar | filtrPhoto:'user':mess.sex}}">
+                                </div>
+                                <div class="Content" style=" word-wrap: break-word;">
+                                    {{mess.Contnet}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ReededAllChat" ng-show="chat.LastMess.sendID==user.UserID">
+                                    <i ng-show="chat.inChat[1].AddressShow==0">
+                                          Wszytkie wiadmosci zostały wyświtlone 
+                                    </i>
+                    </div>
+                    <div class="someoneWritingSection" ng-show="chat.SomeoneWriting">
+                        <div class="ChatActivemessagesSection">
+                                <div class="MessDiv">
+                                    <div class="Avatar">
+                                        <img src="{{chat.TyppingPerson.avatar | filtrPhoto:'user':chat.sex}}">
+                                    </div>
+                                    <div class="Content">
+                                        {{chat.TyppingPerson.login}} pisze
+                                    </div>
+                                </div>
+                        </div>
+                    </div>  
+ 
+                </div>
+                <input type="text" ng-show="chat.Chused"  ng-keydown="someoneTypping($index)" ng-keyup="StopTypping($index)" class="SendMess EnterSend" ng-class="{'EmptySection':!chat.Chused}"  placeholder="Napisz wiadmośc ...">
+            </div>
+        </div>
+-->
+
+
+

@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "",
-"sources": [],
+"mappings": "AACA,IAAI;EACA,UAAU,EAFK,OAAO",
+"sources": ["MainSetings.scss"],
 "names": [],
 "file": "MainSetings.css"
 }

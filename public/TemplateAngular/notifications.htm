@@ -1,0 +1,33 @@
+<sectin ng-controller="NotificationController" id="Main-Messages">
+    <nav class="navbar Messages-Nabvar" >
+        <ul class="navbar-menu">
+            <li class="DebugSent"><a>Nowe</a></li>
+            <li><a>Powiadomienia</a></li>
+        </ul>
+        <span class="MessagesDiv ReededNotfocation" >
+            <img class="MessagesIcon Messages" src="{{notifications | urlIcons:'notification'}}">
+            <span class="MessagesCount" ng-show="counts.NotreededNot>0">{{counts.NotreededNot | ToMuch:'normal'}}</span>
+        </span>
+        <img class="TrassDiv DeleteAllNotification" src="{{notifications | urlIcons:'Delete'}}">
+    </nav>
+    <div class="messages-Loop">
+        <div ng-repeat="notification in notifications | orderBy : '-date'">
+            <div class="row messages-Loop-Element" ng-class="{'not-reeded':!notification.reeded}">
+                <div class="col-s-2">
+                    <img class="avatar" src="{{notification.photo}}">
+                </div>
+                <div class="col-s-10">
+                    <div class="messages-Loop-Contnet">
+                        <div ng-bind-html="notification.notificationText">
+                            {{notification.notificationText}}
+                        </div>
+                        <i class="pull-right">{{notification.date |timestampToDate}}</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="Empty-Messages" ng-show="!notifications.length">
+             Brak Powiadomien
+        </div>
+    </div>
+</sectin>

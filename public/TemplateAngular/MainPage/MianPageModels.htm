@@ -1,0 +1,42 @@
+<div class="modalNormal NotReededMobile" id="NotReededMobile">
+      <div class="modal-body NotReededMobileJS">
+        <img  class="close close-button" src="{{urlIcons | urlIcons:'Close'}}">
+        <div class="NotReededDiv">
+            <div class="UserNotReedLoop CreateNewChat" DataChat="{{Chat}}" ng-repeat="user in NotReededList">
+                <div class="UserLoopItem">
+                    <img class="Avatar" src="{{user.avatar | filtrPhoto:'user':user.sex}}">
+                    <div class="Count">{{user.CountNotReeded}}</div>
+                </div>
+            </div>
+            <div class="Reeded Section">Zaznacz Wszytkie jako pszeczytane</div>
+        </div>
+      </div>
+</div>
+<div class="modalNormal AddToChat" id="AddToChat">
+      <div class="modal-body">
+        <div class="ListContnet">
+            <div class="Heder">Wybierz użytkowników których chcesz dodac do czatu: </div>
+            <div  class="ChatAddLoop" ng-repeat="Chat in ChatList | orderBy : '-active'| filter : UserSearch">
+                     <div class="row section"> 
+                        <div class="col-m-1 InputSection">
+                            <input type="checkbox" class="InputAddUserToChat" name="User" value="{{Chat}}">    
+                        </div>
+                        <div class="col-m-1 AvatarSection">
+                            <img class="avatar" src="{{Chat.avatar | filtrPhoto:'user':Chat.sex}}"> 
+                        </div>
+                        <div class="col-m-7 LoginToAdd">
+                            {{Chat.login}}
+                        </div>
+                        <div class="col-m-2 ActivToAadd">
+                            <img ng-show="Chat.active" class="OnlineIcon" src="{{urlIcons | urlIcons:'OnlineIcon'}}">
+                            <div ng-show="!Chat.active">{{Chat.lostlogin | timestampToDate:"chat"}}</div>
+                        </div>
+                    </div>
+            </div>
+            <div class="Actions">
+                <button class="Accept close btn btn-success btn-radius-left">Akceptuj</button>
+                <button class="Cancel btn btn-danger close btn-radius-right">Anuluj</button>
+            </div>
+        </div>
+      </div>
+</div>

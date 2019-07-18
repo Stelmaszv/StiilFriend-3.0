@@ -1,0 +1,77 @@
+<div class="container" ng-controller="MainPageController">
+    <div class="row" id="MainPaageDiv">
+            <div id="ProfilInfo">
+                <div class="ProfilInfoPosition">
+                    <div ng-include src="'TemplateAngular/MainPage/ProfilRightSlite.htm'" ></div>
+                </div>
+            </div>
+            <div id="MainPageContent" >
+                    <div class="row MainContentDiv">
+                         <div class="col-m-9 mobileOn MainPage">
+                             <div class="MainContent" ng-controller="Dashboard">
+                                 <div ng-include src="'TemplateAngular/Dashboard/AddPost.htm'" ></div>
+                                 <div ng-include src="'TemplateAngular/Dashboard/Posts.htm'" ></div>
+                             </div>
+                         </div>  
+                         <div class="col-m-3 mobileOff MainPageAdds" >
+                             <div ng-include src="'TemplateAngular/MainPage/Addons.htm'" ></div>
+                         </div>
+                     </div>
+                    <div class="Slide Right ChatStyle" id="Chat"  ShowType="RightShow">
+                        <div class="SlideContent">
+                            <div ng-include src="'TemplateAngular/Chat/Chat.htm'" ></div>
+                        </div>
+                    </div>
+                    <div class="Slide Left" id="Profil" ShowType="LeftShow">
+                        <div class="SlideContent">
+                            <div ng-include src="'TemplateAngular/MainPage/ProfilRightSlite.htm'" ></div>
+                        </div>
+                    </div>
+                    <div ng-show="show.MessMobileVersion" ng-include src="'TemplateAngular/Chat/ActiveChat.htm'"></div>
+                    <div ng-show="!show.MessMobileVersion" ng-include src="'TemplateAngular/Chat/ActiveChatMobile.htm'"></div>
+                    <div  class="NewMesPreviev-JS "  ng-show="NevMes.length">
+                        <div class="heders">
+                            <img class="NewMesPreviev-Avatar" src="{{NevMes[0].avatar | filtrPhoto:'user':NevMes[0].Session.sex }}">
+                            <span class="NewMesPreviev-Login">{{NevMes[0].login}}</span><br>
+                        </div>
+                        <div class="NewMesPrevievDiv">
+                            <div class="NewMesPreviev-Content" >
+                                {{NevMes[0].Content}}
+                            </div>
+                        </div>
+                    </div>
+        </div>
+    </div>
+    <div id="ChatDiv" class="ChatStyle" HideType="HideSlideRight">
+        <div ng-include src="'TemplateAngular/Chat/Chat.htm'" ></div>
+    </div>
+        <div  class="showProfilIcon SlideLeft"  data-Slide-id="#Profil">
+        <img class="icon" src="{{urlIcons | urlIcons:'Profil'}}">
+    </div>
+    <div  class="MessStanMobile ShowNotReeded ActiveChat ActiveChatOn" ng-show="ActiveChat.length">
+        <div class="MobileMessCountSection">
+            <img class="icon" src="{{urlIcons | urlIcons:'Conversation'}}">
+            <div class="CountMessagesNotReeded row">
+                <span class="Item Count">{{ActiveChat.length}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="MessStanMobile ShowNotReeded"  ng-show="counts.NotreededMes" data-modal-id="#NotReededMobile">
+        <div class="MobileMessCountSection">
+            <img class="icon" src="{{urlIcons | urlIcons:'MessagesNotReeded'}}">
+            <div class="CountMessagesNotReeded row">
+                <span class="Item Count">{{counts.NotreededMes}}</span>
+            </div>
+        </div>
+    </div>
+    <div  class="showChatIcon" id="ChatON" MobileReset="true" Show-Hiden-Slide="#ChatDiv" data-Slide-id="#Chat">
+        <div class="showChatSection">
+            <img class="icon" src="{{urlIcons | urlIcons:'Chat'}}">
+            <div class="CountOnline row">
+                <span class="Item ChatIcon"></span>
+                <span class="Item Count">{{counts.UserOnline}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-include src="'TemplateAngular/MianPage/MianPageModels.htm'" ></div>

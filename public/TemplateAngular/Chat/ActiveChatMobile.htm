@@ -1,0 +1,49 @@
+<div id="ActiveChatMobile" chat-data-id="{{chat.IdConversation}}" ng-show="show.ActiveChatOn">
+    <div class="ActiveChatSection">
+        <img class="CloseIcon CloseActiveChatMobile" src="{{urlIcons | urlIcons:'Close'}}">
+        <div class="ActiveChatItem" ng-repeat="chat in ActiveChat">
+            <div class  ng-show="chat.inChat.length==2">
+                <img class="ActiveChatAvatar" src="{{chat.SendData.avatar | filtrPhoto:'user':SendData.sex}}">
+                <span ng-show="chat.NotReeded>0" class="contSection">
+                    <span class="CountNotReeded">{{chat.NotReeded}}</span>
+                </span>
+            </div>
+        </div>
+        <div class="MessagesSection">
+            <div class="messages-section">
+                <div ng-repeat="mess in ActiveChatItem.Messages | orderBy : 'Time'" class="ChatActivemessagesSection">
+                    <div class="MessDiv" ng-class="{'isend':mess.IdSend==user.UserID}">
+                        <div class="Avatar" ng-show="mess.IdSend!=user.UserID">
+                            <img src="{{mess.avatar | filtrPhoto:'user':mess.sex}}">
+                        </div>
+                        <div class="Content" style=" word-wrap: break-word;">
+                                {{mess.Content}}
+                         </div>
+                    </div>
+                </div>
+                <div class="someoneWritingSection" ng-show="ActiveChatItem.SomeoneWriting" >
+                        <div class="ChatActivemessagesSection">
+                                <div class="MessDiv">
+                                    <div class="Avatar">
+                                        <img src="{{ActiveChatItem.TyppingPerson.avatar | filtrPhoto:'user':chat.sex}}">
+                                    </div>
+                                    <div class="Content">
+                                        {{ActiveChatItem.TyppingPerson.login}} pisze
+                                    </div>
+                                </div>
+                        </div>
+                </div> 
+                <div class="ChatEmpty" ng-show="!ActiveChatItem.Messages.length">
+                    <i>Nie rospoczołeś jeszcze czatu z tym uzytkownikiem</i>
+                </div>
+            </div>
+            
+        </div>
+        <div class="SentSection">
+            <input type="text" class="SendMessMobile EnterSend"  chat-data-id="{{ActiveChatItem.IdConversation}}" placeholder="Napisz wiadmośc ...">
+            <button class="SendMessButton">
+                Wyślij
+            </button>
+        </div>
+    </div>
+</div>

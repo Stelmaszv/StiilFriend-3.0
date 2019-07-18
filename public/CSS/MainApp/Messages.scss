@@ -1,0 +1,167 @@
+$MessagesNavbarBacground:#5a5aff;
+$massagesFontColorInNavbar:white;
+
+$mesagestransition:.8s all;
+$MessagesNavbarBorder:2px solid black;
+$MessagesNavbarMenuFontSize:15px;
+$MessagesNavbarMenuFontWeight:500;
+$MessagesNavbarMenuFontStyle:italic;
+$MessagesNavbarTransition:$mesagestransition;
+$mesagestransitionColorHover:red;
+$mesagestransitionScale:scale(1.0);
+$MessagesIconOpacity:0.5;
+$MessagesIconOpacityHover:1;
+$MessagesIconMargin:10px;
+$MessagesIconWidth:25px;
+$MessagesIconHeight:25px;
+
+$MessagesCountColor:white;
+$MessagesCountWidth:20px;
+$MessagesCountheight:20px;
+$MessagesCountLeft:20px;
+$MessagesCountTop:5px;
+$MessagesCountBackground:#F34A53;
+$MessagesCountBorderRadius:100%;
+$MessagesCountFontWeight:800;
+
+$MessagesLoopWidth:100%;
+$MessagesLoopHeight:220px;
+
+$messagesLoopElementOpacityHover:1;
+$messagesLoopElementOpacity:0.7;
+$messagesLoopElementColor:black;
+$messagesLoopElementbackground:white;
+
+$messagesLoopElementAvatarWidth:50px;
+$messagesLoopElementAvatarHeight:50px;
+$messagesLoopElementAvatarOpacityHover:1;
+$TimeloginFontWeight:600;
+
+$MessagesLoopContnetPadding:2px;
+$MessagesLoopContnetPadding:2px;
+$EmptyMessagesBacground:white;
+$EmptyMessagesColor:black;
+$EmptyMessagesPadding:10px;
+
+$iconWeight:20px;
+$iconHeight:20px;
+$iconMarginRight:10px;
+.Messages-Nabvar{
+    background: $MessagesNavbarBacground;
+    border-bottom: $MessagesNavbarBorder;
+    text-align: center;
+    .navbar-menu{
+        transition: $mesagestransition;
+        li{
+            a{
+                font-size: $MessagesNavbarMenuFontSize;
+                font-weight: $MessagesNavbarMenuFontWeight;
+                font-style: $MessagesNavbarMenuFontStyle;
+                color: $massagesFontColorInNavbar;
+                &:hover{
+                    transition: $mesagestransition;
+                    color: $mesagestransitionColorHover;
+                    transform: $MessagesNavbarTransition;
+                    
+                }
+            }
+        }
+    }
+    .MessagesDiv{
+        position: relative;
+       .MessagesIcon{
+        opacity: $MessagesIconOpacity;
+        margin: $MessagesIconMargin;
+        width:  $MessagesIconWidth;
+        height: $MessagesIconHeight;
+        &:hover{
+            transition: $mesagestransition;
+            opacity:$MessagesIconOpacityHover;
+        }
+      }
+       .MessagesCount{
+           position: absolute;
+           color: $MessagesCountColor;
+           width: $MessagesCountWidth;
+           height: $MessagesCountheight;
+           left: $MessagesCountLeft;
+           top: $MessagesCountTop;
+           background-color:$MessagesCountBackground;
+           border-radius: $MessagesCountBorderRadius;
+           font-weight: $MessagesCountFontWeight;
+       }
+    }
+    .TrassDiv{
+        opacity: $MessagesIconOpacity;
+        margin: $MessagesIconMargin;
+        width:  $MessagesIconWidth;
+        height: $MessagesIconHeight;
+        &:hover{
+            transition: $mesagestransition;
+            opacity: $MessagesIconOpacityHover;
+        }
+    }
+}
+.messages-Loop{
+    width: $MessagesLoopWidth;
+    height: $MessagesLoopHeight;
+    overflow: auto;
+    overflow-x: hidden;
+    
+    .messages-Loop-Element{
+        transition: $mesagestransition;
+        &.not-reeded{
+            opacity: $messagesLoopElementOpacityHover;
+        }
+        background: $messagesLoopElementbackground;
+        color: $messagesLoopElementColor;
+        opacity: $messagesLoopElementOpacity;
+        .avatar{
+            width: $messagesLoopElementAvatarWidth;
+            height: $messagesLoopElementAvatarHeight;
+        }
+        &:hover{
+           opacity: $messagesLoopElementAvatarOpacityHover;
+        }
+         .Time,.Login{
+            text-align: left;
+            font-weight: $TimeloginFontWeight;
+        }
+        .Time{
+            text-align: right;
+        }
+        .messages-Loop-Contnet{
+            padding: $MessagesLoopContnetPadding;
+            text-align: left;
+            .iconNotificatiopn{
+                margin-right: $iconMarginRight;
+                width: $iconWeight;
+                height: $iconHeight;
+            }
+        }
+    }
+    .Empty-Messages{
+        background: white;
+        color: black;
+        padding: $EmptyMessagesPadding;
+    }
+   
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+    

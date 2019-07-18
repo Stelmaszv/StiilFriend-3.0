@@ -1,0 +1,355 @@
+$MainNaberBacground:#4e4ab1; //#4e4ab1
+$MainNaberBorder:5px solid #ffda0e;
+$logoWidth:100px;
+$logoHeight:50px;
+
+$SearchMenuElemntMarginLeft:15px;
+$SearchMenuElemntMarginBottom:-20px;
+
+$transitionNavbar:.8s all;
+$MainSearchWidth:400px;
+$MainSearchMarginTop:15px;
+$MainSearchOpacity:0.7;
+$MainSearchOpacityHover:1;
+$MainSearchPadding:10px;
+$MainSearchMarginTop:5px;
+$MainSearchTransition:$transitionNavbar;
+
+$searchDivWidth:350px;
+$searchDivTop:45;
+$searchDivShadow:11px 47px 60px 9px rgba(0,0,0,0.48);
+$searchDivColor:rebeccapurple;
+
+$SearchDivWidth:500px;
+$SearchDivHeight:25px;
+
+$resultBoxBackground:white;
+$resultBoxBackgroundPadding:5px;
+
+
+$loadTransition:$transitionNavbar;
+$loadOpacity:0.7;
+$loadOpacityHover:1;
+$loadColorHover:#f0f023;
+$loadMainMenuNameMarginLeft:20px;
+$loadMainMenuNameMarginTop:5px;
+
+$loadActivSectionBacground:lighten($MainNaberBacground, 10%);
+$loadActivSectionBorderLeft:2px solid #ffda0e;
+$loadActivSectionBorderRight:2px solid #ffda0e;
+$loadActivSectionBorderTop:2px solid #ffda0e;
+
+$loadClickedButtonScale:scale(1.2);
+$loadClickedButtonOpacity:1;
+$loadClickedButtonColor:#f8e716;
+$loadClickedButtonFontWeight:800;
+
+$loadNotreededColor:white;
+$loadNotreededWidth:20px;
+$loadNotreededHeight:20px;
+$loadNotreededLeft:5px;
+$loadNotreededTop:5px;
+$loadNotreededBackgrounColor:#F34A53;
+$loadNotreededBackgrounBoderRadius:100%;
+$loadNotreededBackgroundFontWeight:800;
+$loadNotreededColor:#f8e716;
+$loadNotreededScale: scale(1.2);
+
+$DropdownMenuDivLetterSpacing:5px;
+$Loaddivbackground:lighten($MainNaberBacground, 10%);
+$LoadDivTop:65;//65
+$LoadDivright:0;
+$LoadDivWidth:400px;
+$LoadDivBoderBottom:2px solid #ffda0e;
+$LoadDivBoderLeft:2px solid #ffda0e;
+$LoadDivBoderLeft:2px solid #ffda0e;
+$LoadDivBoder:2px solid #ffda0e;
+
+
+
+//$LoadDivBoderLeft:
+.Main-Navbar{
+    position: fixed;
+    width: 100%;
+    z-index: 2;
+    background: $MainNaberBacground;
+    border-bottom: $borderMenulogin;
+    .logoNav{
+        width: $logoWidth;
+        height: $logoHeight;
+    }
+    .navbar-menu-Left{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+        .SearchMenuElemnt{
+            margin-left: $SearchMenuElemntMarginLeft;
+            margin-bottom: $SearchMenuElemntMarginBottom;
+            .Main-Search{
+                margin-top: $MainSearchMarginTop;
+                transition: $MainSearchTransition;
+                padding: $MainSearchPadding;
+                width: $MainSearchWidth;
+                opacity: $MainSearchOpacity;
+                display: flex;
+                &:hover{
+                    opacity: $MainSearchOpacityHover;
+
+                }
+            }
+            .searchDiv{
+                display: none;
+                position: absolute;
+                width: $searchDivWidth;
+                top:$searchDivTop;
+                background: $MainNaberBacground;
+                -webkit-box-shadow: $searchDivShadow;
+                -moz-box-shadow: $searchDivShadow;
+                box-shadow: $searchDivShadow;
+                color: $searchDivColor;
+            }
+            .SearchDivPadding{
+                display: none;
+                position: absolute;
+                background: $MainNaberBacground;
+                width: $SearchDivWidth;
+                height: $SearchDivHeight;
+            }
+            .Resultbox{
+                background: $resultBoxBackground;
+                padding:$resultBoxBackgroundPadding; 
+            }
+        }
+    }
+    .navbar-menu {
+        position: relative;
+        .ProfilInfo,.Load-Messages,.Load-Notification,.Load-Drapdown{
+            a{
+                transition: .8s all;
+                opacity: $loadOpacity;
+                &:hover{
+                    opacity: $loadOpacityHover;
+                    color: $loadColorHover;
+                } 
+                .MainMenuName{
+                    margin-left: $loadMainMenuNameMarginLeft;
+                    margin-top: $loadMainMenuNameMarginTop;
+                }
+                
+            }
+            
+        }
+        .Load-Messages,.Load-Notification,.Load-Drapdown{
+            &.ActivSection{
+                background: $loadActivSectionBacground;
+                border-left:$loadActivSectionBorderLeft;
+                border-right: $loadActivSectionBorderRight;
+                border-top:$loadActivSectionBorderTop;
+            }
+            a{
+                &.clicked-button{
+                    transform: $loadClickedButtonScale;
+                    opacity: loadClickedButtonOpacity; 
+                    color: $loadClickedButtonColor; 
+                    font-weight: loadClickedButtonFontWeight;
+                }
+                 &.notreeded{
+                    position: relative;
+                     color: $loadNotreededColor;
+                     transform: $loadNotreededScale;
+                    .CountItem{  
+                        position: absolute;
+                        color: $loadNotreededColor;
+                        width: $loadNotreededWidth;
+                        height: $loadNotreededHeight;
+                        left: $loadNotreededLeft;
+                        top: $loadNotreededTop;
+                        background-color: $loadNotreededBackgrounColor;
+                        border-radius: $loadNotreededBackgrounBoderRadius;
+                        font-weight: $loadNotreededBackgroundFontWeight;
+                    }
+                }
+            }
+        }
+        .Load-Section-messages,.Load-Section-notifications,.Load-Section-Drapdown{
+            display: none;
+            .Dropdown-Menu-Div{
+                letter-spacing: $DropdownMenuDivLetterSpacing;
+                text-align: left;
+                list-style: none;
+                flex-direction: column;
+            }
+        }
+        .Load-div{
+                display: none;
+                background: $Loaddivbackground;
+                position: absolute;
+                top: $LoadDivTop;
+                right: $LoadDivright;
+                width: $LoadDivWidth;
+                border-bottom: $LoadDivBoderBottom;
+                border-left: $LoadDivBoderLeft;
+                border-right: $LoadDivBoderLeft;
+        }        
+    }
+}
+.DestopOnly{
+    display: none;
+}
+/*
+@media(min-width: 320px) {
+   .Main-Navbar{
+        .navbar-menu-Left{
+            .SearchMenuElemnt{
+                .Main-Search{
+                    width: 180px;
+                }
+            }
+        }
+    }
+    .MobileOnly{
+        display: block;
+    }
+}
+@media(min-width: 480px) {
+   .Main-Navbar{
+        .navbar-menu-Left{
+            .SearchMenuElemnt{
+                .Main-Search{
+                    width: 300px;
+                }
+            }
+        }
+    }
+    .MobileOnly{
+        display: flex;
+    }
+}
+@media(max-width: 480px){
+    .Main-Navbar{
+        .navbar-menu-Left{
+           .Main-Search{
+                &.DestopOnly{
+                    display: none;
+                }
+            }
+       }
+    }
+}
+@media (max-width: 768px) {
+    .Main-Navbar{
+        .navbar-menu {
+           .Load-Messages,.Load-Notification,.Load-Drapdown{
+               a{
+                   &.notreeded{
+                        position: static;
+                         transform: scale(1.0);
+                        .CountItem{  
+                            position: static;
+                        }
+                    }
+               }
+           }
+       }
+    }
+
+}
+*/
+@media (max-width: 350px) {
+    .Main-Navbar{
+        position: relative;
+        height: 50px;
+        .mobile{
+             display: flex;
+        }
+        .MenuMobile{
+            .IconSearch{
+                display: none;
+            }
+        }
+    }
+}
+@media (max-width: 768px) {
+    .Main-Navbar{
+        .CountObject{
+            position: relative;
+            .CountIcon{
+                position: absolute;
+                background: red;
+                right:12px;
+                height: 10px;
+                width: 5px;
+                padding: 9px;
+                border-radius: 100%;
+                .CountStan{
+                     left: 10px;
+                     color: gold;
+                     font-weight: bold;
+                     font-size: 14px;
+                     position:absolute;
+                     top:0px;
+                }
+            }
+            &.notreededItem{
+                a{
+                    color: gold;
+                }
+            }
+        }
+        .notreededItem{
+                color: gold;
+        }
+        margin-top: -15px;
+        position: fixed;
+        height: 55px;
+        .normal{
+            display: none;
+        }
+        .mobile{
+             display: flex;
+             flex-direction: row;
+             flex-wrap: none;
+            justify-content: center;
+
+            .MenuMobile{
+                 list-style: none;
+                 display: flex; 
+                 margin-bottom: 5px;
+                  a{
+                       padding: 0px;
+                       margin-right: 20px;
+                       display: inline-flex;
+                       &:hover, &:focus {
+                          outline: none;
+                          color: gold;
+                       }
+                  }
+                
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) {
+   .Main-Navbar{
+        .mobile{
+            display: none;
+        }
+        .navbar-menu-Left{
+            .SearchMenuElemnt{
+                .Main-Search{
+                    width: 300px;
+                }
+            }
+        }
+    }
+    .MobileOnly{
+        display: none;
+    }
+    .DestopOnly{
+        display: flex;
+    }
+}
+

@@ -1,0 +1,205 @@
+$background:#fff9f9;
+$DashboardActionColor:#e6ebf0;
+$DashboardProcentDiv:#c4c0c0;
+.mobileOff{
+    display: none;
+ }
+.mobileOn{
+    width: 100%;
+}
+.AddPostSection{
+    position: relative;
+    .AddPostIcon,.ArrowUp{
+        width: 30px;
+        height: 30px;
+        margin: 5px;
+        opacity: .5;
+        transition: all 1s ;
+        &:hover{
+            opacity: 1;
+            transition: all 1s ;
+            transform: scale(1.2);
+        }
+    }
+    .ArrowUp{
+      position: absolute;
+      right: 0px;
+      top: 0px;
+      width: 15px;
+      height: 25px;
+      margin: 5px;
+        
+    }
+    border-bottom: 1px solid black;
+    background: #bcc0de;
+    .HeadSection,.TextareaSection,.ActionSection{
+        min-height: 20px;
+    }
+    .HeadSection{
+        background: #6a66c9;
+        border:1px solid black;
+        border-bottom: 3px solid gold;
+        .HideIcon{
+            display: none;
+        }
+    }
+    .TextareaSection{
+        &.AddPostSystemStart{
+            height: 50px;
+        }
+        border-left:1px solid black;
+        border-right:1px solid black;
+        padding: 5px;
+        transition: all 1s ;
+        opacity: .5;
+        &:hover{
+            opacity: 1;
+            transition: all 1s ;
+        }
+        .TextareaItem{
+            width: 100%;
+            background: white;
+        }
+    }
+    .ActionSection{
+        text-align: center;
+        display: none;
+        border-left:1px solid black;
+        border-right:1px solid black;
+        border-bottom: 1px solid black;
+        padding-bottom: 10px;
+        .ActionButton{
+            margin-top: 10px;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+    }
+}
+.DashboardMain{
+    .DashboardMain-Item{
+        padding: 10px;
+        margin-top:25px;
+        background: $background;
+        border: 1px solid black; 
+        .DashboardHeder{
+            .Dashboard-Photo{
+                width: 70px;
+                height: 70px;
+                margin: 5px;
+                border-radius: 100%;
+            }
+            .Dashboard-Title{
+                font-weight: 800;
+                a{
+                    text-decoration: none;
+                    color: black;
+                }
+            }
+            .Dashboard-Time{
+                font-style: italic;
+            }
+            .Dashboard-Menu{
+                text-align: right;
+                width: 20px;
+                height: 20px;
+                transition: all 1s ;
+                opacity: 0.5;
+                &.Dashboard-Menu:hover{
+                    transition: all 1s ;
+                    opacity: 1;
+                    transform: scale(1.2)
+                }
+            }
+        }
+        .Dashboard-Content{
+            padding: 5px;
+            font-size: 20px;
+            text-align: justify;
+        }
+        .Dashboard-Actions-menu,Dashboard-Procent{
+            margin-top: 0px;
+            .Dashboard-Action{
+                &.MobilleOff{
+                    display: none;
+                }
+                margin-top:0px;
+                background: $DashboardActionColor;
+                .Dashboard-Actions-menu-Icons{
+                    opacity: 0.7;
+                    width: 25px;
+                    height: 25px;
+                    transition: all 1s ;
+                    &.Dashboard-Actions-menu-Icons:hover{
+                        opacity: 1;
+                        transition: all 1s ;
+                        transform: scale(1.2)
+                    }
+                     &.Active{
+                        opacity: 1;
+                        transition: all 1s ;
+                        transform: scale(1.2)
+                    }
+                    &.NotActive{
+                        opacity: 0.2;
+                    }
+                }
+                .Count{
+                    font-weight: 1000;
+                }
+   
+            }    
+        }
+        .Dashboard-Procent{
+            margin-top: 25px;
+            .Dashboard-Procent-Div{
+                background: $DashboardProcentDiv;
+                padding: 0px;
+                .ProcentGood,.ProcentBad{
+                    float: left;
+                    min-height: 15px;
+                }
+                .ProcentGood{
+                    background: green;
+                }
+                .ProcentBad{
+                    background: red;
+                }
+            }
+        }
+    }
+}
+@media (min-width: 768px) {
+    .DashboardMain{
+        .DashboardMain-Item{
+            .Dashboard-Actions-menu{
+                .Dashboard-Action{
+                    &.MobilleOff{
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 768px) {
+    .AddPostSection{
+        .ActionSection{
+            width: 100%;
+            padding:10px;
+            margin-top: -20px;
+             .ActionButton{
+                padding: 10px;
+                width: 50%;
+            }
+        }
+    }
+}
+@media (min-width: 1250px) {
+    .mobileOff{
+         display: block;
+    }
+    .mobileOn{
+        width: 66.666666%;
+    }
+    
+}

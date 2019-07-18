@@ -1,0 +1,53 @@
+$ProfilBackGround:#bababa;
+$menuBackgoundColor:#e3e3e3;
+#RightProfil{
+    border:3px solid gold;
+    background: $ProfilBackGround;
+    min-height: 360px;
+    .photo{
+        background: $ProfilBackGround;
+        .avatar{
+            width: 150px;
+            height: 150px;
+            border-radius: 100%;
+            margin-bottom: 5px;
+        }
+    }
+    .Menu{
+        background: $menuBackgoundColor;
+        .icon{
+            margin-left: 5;
+            width:  25px;
+            height: 25px;
+        }
+        .Count-ProfilRight{
+            font-weight: bold;
+            padding-left: 25px;
+            color: red;
+        }
+    }
+    .Mobile{
+        padding: 5px;
+        display: none;
+    }
+    .login{
+        display: flex;
+    }
+    .Center{
+        text-align: center;
+    }
+}
+@media (max-width: 768px){
+    
+    #RightProfil{
+        width: 250px;
+        min-height: 1000px;
+        border:0px solid black;
+        .Mobile{
+            display: flex;
+        }
+        .login{
+            display: none;
+        }
+    }
+}

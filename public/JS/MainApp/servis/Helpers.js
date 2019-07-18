@@ -1,13 +1,85 @@
 var Helpers = angular.module("Helpers", ["Notification","url"]);
-Helpers.service( 'Componets' , [function() {
-    this.load = function () {
-        InputsNormal();
+Helpers.service( 'Componets' , ['Mobile',function(Mobile) {
+    this.loadMainCompnent = function () {
+        UnivaersalComponent();
+    }
+    this.loadSessinCompnent = function () {
         loginMenu();
-        navbar();
+        UnivaersalComponent();
+    }
+    this.Model=function(){
+        ModalMormal()
+        modal()
+    }
+    this.Slids=function(){
+        let SlideButons=document.querySelectorAll('[data-Slide-id]');
+        for(let Button of SlideButons){
+            Button.addEventListener('click',function(e){
+                SlideId= Button.getAttribute('data-Slide-id')
+                if(SlideId!="OffMobile"){
+                    SelectorID=document.querySelector(SlideId)
+                    ShowType=SelectorID.getAttribute('showtype')
+                    SelectorID.classList.add(ShowType)    
+                }
+            })
+        }
+        let SlideHideButons=document.querySelectorAll('[data-SlideHide-id]');
+        for(let Hide of SlideHideButons){
+            Hide.addEventListener('click',function(e){
+                SlideId= Hide.getAttribute('data-SlideHide-id')
+                if(SlideId!="OffMobile"){
+                    SelectorID=document.querySelector(SlideId)
+                    ShowType=SelectorID.getAttribute('showtype')
+                    SelectorID.classList.remove(ShowType)
+                }
+            })
+        }
+        let SlideHideElment=document.querySelectorAll('[Hide-Slide-Elment]');
+        for(let SlideToHide of SlideHideElment){
+            SlideToHide.addEventListener('click',function(e){
+                SlideHideId= SlideToHide.getAttribute('Hide-Slide-Elment')
+                if(SlideHideId!="OffMobile"){
+                    SelectorID=document.querySelector(SlideHideId)
+                    ShowType=SelectorID.getAttribute('HideType')
+                    SelectorID.classList.add(ShowType)
+                    OnIconShow= SlideToHide.getAttribute('On-Icon-Show')
+                    IconOn=document.querySelector(OnIconShow).style.display='flex'
+                }
+            })
+        }
+        let ShowHidenSlide=document.querySelectorAll('[Show-Hiden-Slide]');
+        for(let ShowHide of ShowHidenSlide){
+            ShowHide.addEventListener('click',function(e){
+                SlideHideId= ShowHide.getAttribute('Show-Hiden-Slide')
+                if(SlideHideId!="OffMobile"){
+                    IconOn=document.querySelector(OnIconShow).style.display='none'
+                    SelectorID=document.querySelector(SlideHideId)
+                    ShowType=SelectorID.getAttribute('HideType')
+                    SelectorID.classList.remove(ShowType)
+                }
+            })
+        }
+        $(window).resize(function(){
+            if(!Mobile.IfMobile(1024)){
+                Reset('RightShow')
+                Reset('LeftShow')
+            }
+        })
+        function Reset(classItem){
+            let RightShow=document.querySelectorAll('.'+classItem);
+                for(let Right of RightShow){
+                    Right.classList.remove(classItem)
+                } 
+        }
+    }
+    function UnivaersalComponent(){
+        InputsNormal();
         formInputs();
         alertsDismissable();
-        dropdown();
+        tabs();
         modal();
+        ModalMormal()
+        navbar()
     }
     function InputsNormal(){
         let Form = document.querySelectorAll('.form-input-normal');
@@ -57,16 +129,13 @@ Helpers.service( 'Componets' , [function() {
             navbarMobileMenuButton.addEventListener('click', function(e) {
               e.preventDefault();
               let menu = document.querySelector(navbarMobileMenuButton.getAttribute('data-menu-id'));
-              navbarMobileMenuButton.classList.add('clicked-button');
-              $( menu ).slideDown( "slow");
-              let clickedbuttons = document.querySelectorAll('.clicked-button');
-              for (let clickedbutton of clickedbuttons) {
-                    clickedbutton.addEventListener('click', function(e) {
-                        $( menu ).slideUp( "slow");
-                        navbarMobileMenuButton.classList.remove('clicked-button');
-                    });
-              }
-              
+                if(menu.style.display==''|| menu.style.display=='none' ){
+                    navbarMobileMenuButton.classList.add('clicked-button');
+                    $( menu ).slideDown( "slow");
+                }else{
+                    navbarMobileMenuButton.classList.remove('clicked-button');
+                    $( menu ).slideUp( "slow");
+                }
             });
           }
           let setBodyMargin = (function self() {
@@ -78,7 +147,13 @@ Helpers.service( 'Componets' , [function() {
           })();
 
           window.addEventListener('resize', function() {
-            setBodyMargin();
+              let navbarMobileMenuButtons = document.querySelectorAll('.navbar-mobile-menu-button');
+              for (let navbarMobileMenuButton of navbarMobileMenuButtons) {
+                  let menu = document.querySelector(navbarMobileMenuButton.getAttribute('data-menu-id'));
+                  if(menu.style.display!=''|| menu.style.display!='none' ){
+                        $( menu ).slideUp( "slow");
+                  }
+              }
           });
 
           window.addEventListener('scroll', function() {
@@ -159,46 +234,96 @@ Helpers.service( 'Componets' , [function() {
           }
     }
     function modal() {
-        let modalButtons = document.querySelectorAll('[data-modal-id]');
-        for (let modalButton of modalButtons) {
-            let modalId = modalButton.getAttribute('data-modal-id');
-            modalButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector(modalId).style.display = 'flex';
-                document.querySelector('body').style.overflow = 'hidden';
-                setTimeout(function() {
-                    document.querySelector(modalId).classList.add('show');
+       /*
+       let modalButons=document.querySelectorAll('[data-modal-id]')
+        for(let modalButon of modalButons ){
+            modalButon.addEventListener('click',function(e){
+                modalId= modalButon.getAttribute('data-modal-id')
+                SlideItem=document.querySelector(modalId).getAttribute('data-Modal-type');
+                document.querySelector(modalId).style.display='flex';
+                document.querySelector('.'+SlideItem).style.display='flex';
+                document.querySelector('body').style.overflow='hidden'
+                 setTimeout(function(){
+                     document.querySelector(modalId).classList.add(SlideItem);
                 }, 1);
-            });
+            })
         }
-        let modals = document.querySelectorAll('.modal');
-        for (let modal of modals) {
+        let modals=document.querySelectorAll('.Model');
+        for(let modal of modals ){
+            CloseModals=document.querySelectorAll('.CloseModal')
+            for(let CloseModal of CloseModals ){
+                CloseModal.addEventListener('click',function(e){
+                    SlideItem=document.querySelector(modalId).getAttribute('data-Modal-type');
+                    modal.classList.remove(SlideItem);
+                    document.querySelector('body').style.overflow = 'auto';
+                    setTimeout(function() {
+                         modal.style.display='none';
+                    }, 1);
+                })
+            }
+        }
+        */
+    }
+    function ModalMormal() {
+              let modalButtons = document.querySelectorAll('[data-modal-id]');
+          for (let modalButton of modalButtons) {
+            let modalId = modalButton.getAttribute('data-modal-id');
+
+            modalButton.addEventListener('click', function(e) {
+              e.preventDefault();
+
+              document.querySelector(modalId).style.display = 'flex';
+              document.querySelector('body').style.overflow = 'hidden';
+
+              setTimeout(function() {
+                document.querySelector(modalId).classList.add('show');
+              }, 1);
+
+            });
+          }
+
+          let modals = document.querySelectorAll('.modalNormal');
+          for (let modal of modals) {
             let closeButtons = modal.querySelectorAll('.close');
             for (let closeButton of closeButtons) {
               closeButton.addEventListener('click', function(e) {
                 e.preventDefault();
+
                 modal.classList.remove('show');
                 document.querySelector('body').style.overflow = 'auto';
+
                 setTimeout(function() {
                   modal.style.display = 'none';
                 }, 300);
               });
             }
-        }
+          }
     }
     function dropdown() {
-          let dropdownMenus = document.querySelectorAll('.dropdown');
-          for (let dropdownMenu of dropdownMenus) {
-            let dropdownMenuButton = dropdownMenu.querySelector('.dropdown-menu-button');
+        /*
+        let dropdownMenus = document.querySelectorAll('.MainNavNavbarDrobdown');
+        for (let dropdownMenu of dropdownMenus) {
+            let dropdownMenuButton = dropdownMenu.querySelector('.MainNavNavbar-dropdown-menu-button');
             dropdownMenuButton.addEventListener('click', function(e) {
-              e.preventDefault();
-              let menu = dropdownMenu.querySelector('.dropdown-menu');
-              toggleFlex(menu);
-            });
-          }
+                e.preventDefault();
+                console.log()
+                dropdownMenu.classList.add('clicked-button','ActivSection','btn-radius-top');
+                let switchItem = dropdownMenu.querySelector('.DropdownStan');
+                //Dropdown-Menu-Div
+                let DropDownMenu = dropdownMenu.querySelector('.Dropdown-Menu-Div');
+                $(DropDownMenu).slideDown( "slow");
+                let DopDownUp = dropdownMenu.querySelector('.DopDownUp');
+                DopDownUp.addEventListener('click', function(e) {
+                    $(DropDownMenu).slideUp( "slow");
+                    dropdownMenuButton.classList.remove('clicked-button');
+                    dropdownMenu.classList.remove('clicked-button','ActivSection','btn-radius-top');
+                })
+            })
+        }
+        */
      }
 }]);
-Helpers.service( 'Rerister' , ['Forms','Array','Errors','GetUrl',function(Forms,Array,Errors,GetUrl) {
+Helpers.service( 'Register' , ['Forms','Array','Errors',function(Forms,Array,Errors) {
     this.Run = function (FormArray,ErrorArray){
         EmptyForms=Forms.Empty(FormArray,ErrorArray);
         if(!EmptyForms){
@@ -217,7 +342,7 @@ Helpers.service( 'Rerister' , ['Forms','Array','Errors','GetUrl',function(Forms,
                        pass=Forms.PasswordStrength(FormArray[key].value)
                        if(pass!='bad'){
                             Error=Errors.GetError(ErrorArray,'passmath')
-                            Find=Array.Find(FormArray,'passwordMatch','Type');
+                            Find=Array.FaindField(FormArray,'passwordMatch','Type');
                             if(Forms.PasswordMatch(FormArray[key].value,FormArray[Find].value)){
                                 ErrorArray[Error].value=false;
                             }else{
@@ -235,7 +360,7 @@ Helpers.service( 'Rerister' , ['Forms','Array','Errors','GetUrl',function(Forms,
     }
 }]);
 Helpers.service( 'Array' , [function() {
-    this.Find = function (array,field,place){
+    this.FaindField = function (array,field,place){
         var FindField=''
         angular.forEach(array,function( item , key ){
             switch(place){
@@ -249,32 +374,43 @@ Helpers.service( 'Array' , [function() {
                         FindField=key;
                     }
                 break;
-            }
-            
+            }    
         });
         return FindField;
+    }
+    this.repeat=function(id,loop){
+        var VarToReturn=false;
+            angular.forEach(loop, function (array, key) {
+                if(loop[key]==id){
+                    VarToReturn=true;
+                }
+            })
+        return VarToReturn
     }
     
     
 }]);
 Helpers.service( 'Sesion',['store', 'jwtHelper',function(store,jwtHelper){
-    this.SesionssStan=CheckToken();
     this.Tokken=ReturnTokken();
     this.CreateSession= function(Tokken){
-        Tokken=jwtHelper.decodeToken(Tokken);
-        Tokken=Tokken.result;
-        if(!this.SesionssStan){
-            angular.forEach(Tokken,function( item , key ){
-                 store.set( 'Token' , Tokken[key] );
-             });
-        }
-        
+        console.log(Tokken)
+        store.set( 'Token' , Tokken );
+    }
+    this.Test=function(){
+        store.get('user')
     }
     this.Logout= function(Tokken){
         store.remove( 'Token' );
     }
     function ReturnTokken(){
-        return store.get('Token');
+        if(store.get('Token')){
+            Tokken=jwtHelper.decodeToken(store.get('Token'));
+           return  Tokken.result[0]
+        }else{
+            return [];
+        }
+   
+
     }
     function CheckToken(){
         tokken = store.get( 'Token' )
@@ -283,5 +419,94 @@ Helpers.service( 'Sesion',['store', 'jwtHelper',function(store,jwtHelper){
         }else{
             return false;
         }
+    }
+}])
+Helpers.factory('Socket',['socketFactory',function(socketFactory){
+    return socketFactory();
+}])
+Helpers.service('TimeConvert',['$filter',function($filter){
+    this.time=CreateTime();
+    this.CreateTime=function(){
+        return CreateTime();
+    }
+    function CreateTime(){
+        var time= new Date();
+        var year= time.getFullYear();
+        var mount=time.getMonth();
+        mount=mount+1;
+        var day=time.getDate();
+        var haur=time.getHours();
+        var minuts=time.getMinutes();
+        var secunds=time.getSeconds();
+        ValuetoReturn=year+':'+convert(mount)+':'+convert(day)+':'+convert(haur)+':'+convert(minuts)+':'+convert(secunds)
+        return ValuetoReturn;
+    }
+    function convert(value){
+        if(value<10){
+            return '0'+value;
+        }else{
+            return value;
+        }
+    }
+    function ResrashTime (key,type){
+        key=$filter('timestampToDate')(key,type);
+        return key;
+    }
+    this.UpdateTime=function(array){
+          angular.forEach(array, function (value, key) {
+             // array[key].date=ResrashTime(array[key].date)
+              array[key].Time=ResrashTime(array[key].date,'short')
+              
+          })
+        return array
+
+    }
+}])
+Helpers.service('Mobile',[function(){
+    this.IfMobile=function(width){
+        if(innerWidth>width){
+            return true;
+        }
+    }
+    this.Reset=function(data){
+        let MobileResetElemnts=document.querySelectorAll('[MobileReset]');
+        for(let Reset of MobileResetElemnts){
+            if(Reset.getAttribute(data.DataItem)){
+                Reset.setAttribute(data.DataItem,"OffMobile");
+            }
+        }
+    }
+    
+}])
+Helpers.service('UserInJason',[function(){
+    this.FaindUserInJasonArray=function(id,Jason){
+        var Keys=[];
+        angular.forEach(Jason, function (array, key) {
+            if(Jason[key].UserID!=id){
+                Keys.push(key)
+            }
+        })
+        return Keys[0];
+    }
+}])
+Helpers.service('Url',['$http',function($http){
+    this.GetData=function(url){
+        $http.get(url).then( function( loging ){
+             ValueToReturn=loging.data
+        });
+        return ValueToReturn;
+    }
+    
+    this.GetDataNoReturn=function(url){
+        $http.get(url)
+    }
+    this.GetDataNoReturnPost=function(url,data){
+        $http.post(url,data)
+    }
+    this.Post=function(url,DataPost){
+        $http.post(url,DataPost).then( function(Post){
+             dataReturn=Post.data
+        });
+        return dataReturn;
     }
 }])

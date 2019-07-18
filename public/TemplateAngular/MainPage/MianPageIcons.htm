@@ -1,0 +1,28 @@
+    <div  class="showProfilIcon SlideLeft"  data-Slide-id="#Profil">
+        <img class="icon" src="{{urlIcons | urlIcons:'Profil'}}">
+    </div>
+    <div  class="MessStanMobile ShowNotReeded ActiveChat ActiveChatOn" ng-show="ActiveChat.length">
+        <div class="MobileMessCountSection">
+            <img class="icon" src="{{urlIcons | urlIcons:'Conversation'}}">
+            <div class="CountMessagesNotReeded row">
+                <span class="Item Count">{{ActiveChat.length}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="MessStanMobile ShowNotReeded"  ng-show="counts.NotreededMes" data-modal-id="#NotReededMobile">
+        <div class="MobileMessCountSection">
+            <img class="icon" src="{{urlIcons | urlIcons:'MessagesNotReeded'}}">
+            <div class="CountMessagesNotReeded row">
+                <span class="Item Count">{{counts.NotreededMes}}</span>
+            </div>
+        </div>
+    </div>
+    <div  class="showChatIcon" id="ChatON" MobileReset="true" Show-Hiden-Slide="#ChatDiv" data-Slide-id="#Chat">
+        <div class="showChatSection">
+            <img class="icon" src="{{urlIcons | urlIcons:'Chat'}}">
+            <div class="CountOnline row">
+                <span class="Item ChatIcon"></span>
+                <span class="Item Count">{{counts.UserOnline}}</span>
+            </div>
+        </div>
+    </div>
