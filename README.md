@@ -7,4 +7,4 @@ Stillfriend is a SPA social network app. One of the main features is chat workin
   <li>Dashbord works silimar to facebook you can see post form each grup or evant </li>
   <li>Authorization with JWT tokeen </li>
 </ul>
-hfh
+
