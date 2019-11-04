@@ -8,4 +8,4 @@ Stillfriend is a SPA social network app. One of the main features is chat workin
   <li>Authorization with JWT tokeen </li>
 </ul>
 
-<img src="imgsrc.jpeg">
+<img src="Stillfriend.png">
