@@ -9,4 +9,7 @@ Stillfriend is a SPA social network app. One of the main features is chat workin
   <li>Aplicatioan is totally adapted for mobile devices</li>
 </ul>
 
-<img src="Stillfriend.png">
+<div style="display:flex; ">
+  <img src="Stillfriend.png">
+  <img src="2.png">
+</div>
