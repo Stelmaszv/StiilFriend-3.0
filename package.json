@@ -16,7 +16,7 @@
     "localStorage": "^1.0.3",
     "mysql": "^2.15.0",
     "package": "^1.0.1",
-    "socket.io": "^1.7.3",
+    "socket.io": "^4.5.3",
     "store": "^2.0.12"
   },
   "author": "",
