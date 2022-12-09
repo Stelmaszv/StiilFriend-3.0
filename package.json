@@ -11,7 +11,7 @@
     "bootbox": "^4.4.0",
     "bootstrap": "^4.0.0",
     "cookies": "^0.7.1",
-    "express": "^4.15.2",
+    "express": "^4.17.3",
     "jsonwebtoken": "^8.3.0",
     "localStorage": "^1.0.3",
     "mysql": "^2.15.0",
